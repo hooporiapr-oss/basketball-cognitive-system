@@ -1,622 +1,328 @@
+<!-- Replace your current index.html with this version.
+Make sure your video file is named hero.mp4 or change the src line. -->
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Cognitivo.Digital | Basketball Cognitive Training</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html,
-body{
-background:#000;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
-overflow-x:hidden;
-}
-
-body{
-line-height:1.5;
-}
-
-/* LANGUAGE TOGGLE */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+body{line-height:1.5}
 
 .lang-bar{
-
 position:fixed;
-
 top:20px;
-
 left:50%;
-
 transform:translateX(-50%);
-
 z-index:9999;
-
 display:flex;
-
 gap:8px;
-
 background:rgba(0,0,0,.65);
-
 backdrop-filter:blur(12px);
-
 padding:8px;
-
 border-radius:999px;
-
-border:1px solid rgba(255,255,255,.15);
-
+border:1px solid rgba(255,255,255,.15)
 }
 
 .lang-btn{
-
 padding:10px 18px;
-
 border:none;
-
 cursor:pointer;
-
 border-radius:999px;
-
 font-weight:700;
-
 background:transparent;
-
-color:#fff;
-
+color:#fff
 }
 
-.lang-btn.active{
+.lang-btn.active{background:#16d8ff;color:#000}
 
-background:#16d8ff;
-
-color:#000;
-
-}
-
-/* HERO */
+.lang{display:none}
+.lang.active{display:block}
 
 .hero{
-
 position:relative;
-
 height:100vh;
-
 overflow:hidden;
-
-background:#000;
-
+background:#000
 }
 
 .hero video{
-
 position:absolute;
-
 top:50%;
-
 left:50%;
-
 transform:translate(-50%,-50%);
-
 width:100%;
-
 height:100%;
-
-object-fit:cover;
-
+object-fit:cover
 }
 
 .overlay{
-
 position:absolute;
-
 inset:0;
-
-background:
-linear-gradient(
-180deg,
-rgba(0,0,0,.10),
-rgba(0,0,0,.55),
-rgba(0,0,0,.88)
-);
-
+background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.55),rgba(0,0,0,.88))
 }
 
 .hero-content{
-
 position:relative;
-
 z-index:10;
-
 height:100%;
-
 display:flex;
-
 flex-direction:column;
-
 justify-content:center;
-
 align-items:center;
-
 text-align:center;
-
-padding:30px;
-
+padding:30px
 }
 
 .brand{
-
 font-size:14px;
-
 letter-spacing:8px;
-
 font-weight:800;
-
 text-transform:uppercase;
-
 color:#80eeff;
-
-margin-bottom:20px;
-
+margin-bottom:20px
 }
 
 .hero h1{
-
-font-size:
-clamp(
-60px,
-10vw,
-120px
-);
-
+font-size:clamp(60px,10vw,120px);
 line-height:.92;
-
 font-weight:900;
-
-margin-bottom:20px;
-
+margin-bottom:20px
 }
 
 .hero p{
-
 max-width:900px;
-
-font-size:
-clamp(
-18px,
-2vw,
-28px
-);
-
+font-size:clamp(18px,2vw,28px);
 color:#d7d7d7;
-
-margin-bottom:40px;
-
+margin-bottom:40px
 }
 
 .buttons{
-
 display:flex;
-
 gap:16px;
-
 flex-wrap:wrap;
-
-justify-content:center;
-
+justify-content:center
 }
 
 .btn{
-
 padding:18px 36px;
-
 border-radius:999px;
-
 font-weight:700;
-
 text-decoration:none;
-
-transition:.2s;
-
+transition:.2s
 }
 
-.primary{
-
-background:#16d8ff;
-
-color:#000;
-
-}
-
-.secondary{
-
-border:1px solid rgba(255,255,255,.25);
-
-color:#fff;
-
-}
-
-.secondary:hover{
-
-background:rgba(255,255,255,.08);
-
-}
-
-/* CONTENT */
+.primary{background:#16d8ff;color:#000}
+.secondary{border:1px solid rgba(255,255,255,.25);color:#fff}
+.secondary:hover{background:rgba(255,255,255,.08)}
 
 .section{
-
 max-width:1200px;
-
 margin:auto;
-
-padding:120px 30px;
-
+padding:120px 30px
 }
 
 .statement{
-
-font-size:
-clamp(
-36px,
-6vw,
-70px
-);
-
+font-size:clamp(36px,6vw,70px);
 font-weight:900;
-
 line-height:1.15;
-
 text-align:center;
-
-margin-bottom:90px;
-
+margin-bottom:90px
 }
 
 .cards{
-
 display:grid;
-
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(
-260px,
-1fr
-)
-);
-
-gap:24px;
-
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:24px
 }
 
 .card{
-
-background:
-linear-gradient(
-180deg,
-#131313,
-#090909
-);
-
+background:linear-gradient(180deg,#131313,#090909);
 padding:36px;
-
 border-radius:28px;
-
-border:1px solid rgba(255,255,255,.08);
-
+border:1px solid rgba(255,255,255,.08)
 }
 
 .card h3{
-
 font-size:24px;
-
-margin-bottom:18px;
-
+margin-bottom:18px
 }
 
 .card p{
-
 color:#bcbcbc;
-
-line-height:1.7;
-
+line-height:1.7
 }
 
 footer{
-
 padding:60px;
-
 text-align:center;
-
-color:#666;
-
+color:#666
 }
-
-/* LANGUAGE PANELS */
-
-.lang{
-display:none;
-}
-
-.lang.active{
-display:block;
-}
-
 </style>
-
 </head>
 
 <body>
 
-<!-- LANGUAGE TOGGLE -->
-
 <div class="lang-bar">
-
-<button
-class="lang-btn active"
-onclick="showLang('en',this)">
-English
-</button>
-
-<button
-class="lang-btn"
-onclick="showLang('es',this)">
-Español
-</button>
-
+<button class="lang-btn active" onclick="showLang('en',this)">English</button>
+<button class="lang-btn" onclick="showLang('es',this)">Español</button>
 </div>
-
-<!-- HERO -->
 
 <header class="hero">
 
-<video
-autoplay
-muted
-loop
-playsinline>
-
-<source
-src="VIDU-05-ls-ls01.mp4"
-type="video/mp4">
-
+<video autoplay muted loop playsinline>
+<source src="hero.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
 <div class="hero-content">
 
-<div class="brand">
+<div class="brand">COGNITIVO.DIGITAL</div>
 
-COGNITIVO.DIGITAL
+<div id="en" class="lang active">
 
-</div>
-
-<!-- ENGLISH -->
-
-<div
-id="en"
-class="lang active">
-
-<h1>
-
-Recognize.<br>
-React.
-
-</h1>
+<h1>Recognize.<br>React.</h1>
 
 <p>
-
-Basketball Cognitive Training™
-
-A new way to look at the court.
-
-Train recognition.
-
-Train reaction.
-
-Train decision speed.
-
+Basketball Cognitive Training™<br><br>
+A new way to look at the court.<br>
+Train recognition.<br>
+Train reaction.<br>
+Train decision speed.<br><br>
 Powered by the 5 × 5 Grid Court™.
-
 </p>
 
 <div class="buttons">
-
-<a
-href="#system"
-class="btn primary">
-
-Start Training
-
-</a>
-
-<a
-href="#learn"
-class="btn secondary">
-
-Watch The System
-
-</a>
-
+<a href="#system" class="btn primary">Start Training</a>
+<a href="#learn" class="btn secondary">Watch The System</a>
 </div>
 
 </div>
 
-<!-- SPANISH -->
+<div id="es" class="lang">
 
-<div
-id="es"
-class="lang">
-
-<h1>
-
-Reconoce.<br>
-Reacciona.
-
-</h1>
+<h1>Reconoce.<br>Reacciona.</h1>
 
 <p>
-
-Entrenamiento Cognitivo para Baloncesto™
-
-Una nueva forma de observar la cancha.
-
-Entrena reconocimiento.
-
-Entrena reacción.
-
-Entrena velocidad de decisión.
-
-Impulsado por el Sistema 5 × 5 Grid Court™.
-
+Entrenamiento Cognitivo para Baloncesto™<br><br>
+Una nueva forma de mirar la cancha.<br>
+Entrena reconocimiento.<br>
+Entrena reacción.<br>
+Entrena velocidad de decisión.<br><br>
+Impulsado por el 5 × 5 Grid Court™.
 </p>
 
 <div class="buttons">
-
-<a
-href="#system"
-class="btn primary">
-
-Comenzar
-
-</a>
-
-<a
-href="#learn"
-class="btn secondary">
-
-Ver El Sistema
-
-</a>
-
+<a href="#system-es" class="btn primary">Comenzar</a>
+<a href="#learn-es" class="btn secondary">Ver El Sistema</a>
 </div>
 
 </div>
 
 </div>
-
 </header>
 
-<!-- STATEMENT -->
+<div id="learn" class="lang active">
 
-<section
-class="section"
-id="learn">
-
-<div
-class="statement">
-
+<section class="section">
+<div class="statement">
 The Court Is No Longer Background.<br>
 The Court Becomes The Training.
-
 </div>
-
 </section>
 
-<!-- CARDS -->
-
-<section
-class="section"
-id="system">
-
+<section class="section" id="system">
 <div class="cards">
 
 <div class="card">
-
-<h3>
-
-5 × 5 Grid
-
-</h3>
-
-<p>
-
-Transform the court into organized space and train spatial awareness.
-
-</p>
-
+<h3>5 × 5 Grid</h3>
+<p>Transform the court into organized space and train spatial awareness.</p>
 </div>
 
 <div class="card">
-
-<h3>
-
-Recognize
-
-</h3>
-
-<p>
-
-Train players to recognize patterns and opportunities before movement.
-
-</p>
-
+<h3>Recognize</h3>
+<p>Train players to recognize patterns and opportunities before movement.</p>
 </div>
 
 <div class="card">
-
-<h3>
-
-React
-
-</h3>
-
-<p>
-
-Convert recognition into explosive intentional action.
-
-</p>
-
+<h3>React</h3>
+<p>Convert recognition into explosive intentional action.</p>
 </div>
 
 </div>
-
 </section>
 
+</div>
+
+<div id="learn-es" class="lang">
+
+<section class="section">
+<div class="statement">
+La Cancha Ya No Es El Fondo.<br>
+La Cancha Se Convierte En El Entrenamiento.
+</div>
+</section>
+
+<section class="section" id="system-es">
+<div class="cards">
+
+<div class="card">
+<h3>5 × 5 Grid</h3>
+<p>Transforma la cancha en espacio organizado y entrena conciencia espacial.</p>
+</div>
+
+<div class="card">
+<h3>Reconoce</h3>
+<p>Entrena a los jugadores a reconocer patrones y oportunidades antes de moverse.</p>
+</div>
+
+<div class="card">
+<h3>Reacciona</h3>
+<p>Convierte el reconocimiento en acción explosiva e intencional.</p>
+</div>
+
+</div>
+</section>
+
+</div>
+
 <footer>
-
 © Cognitivo.Digital
-
 </footer>
 
 <script>
-
 function showLang(lang,btn){
 
-document
-.querySelectorAll('.lang')
-.forEach(el=>{
+document.querySelectorAll('.lang').forEach(el=>{
 el.classList.remove('active');
 });
 
-document
-.getElementById(lang)
-.classList.add('active');
+if(lang === 'en'){
+document.getElementById('en').classList.add('active');
+document.getElementById('learn').classList.add('active');
+document.documentElement.lang = 'en';
+}
 
-document
-.querySelectorAll('.lang-btn')
-.forEach(el=>{
+if(lang === 'es'){
+document.getElementById('es').classList.add('active');
+document.getElementById('learn-es').classList.add('active');
+document.documentElement.lang = 'es';
+}
+
+document.querySelectorAll('.lang-btn').forEach(el=>{
 el.classList.remove('active');
 });
 
 btn.classList.add('active');
 
 }
-
 </script>
 
 </body>
-
 </html>
