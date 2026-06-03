@@ -6,9 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-GoStar.Digital | Basketball Cognitive Training
-</title>
+<title>Cognitivo.Digital | Basketball Cognitive Training</title>
 
 <style>
 
@@ -30,27 +28,98 @@ body{
 line-height:1.5;
 }
 
+/* LANGUAGE TOGGLE */
+
+.lang-bar{
+
+position:fixed;
+
+top:20px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+z-index:9999;
+
+display:flex;
+
+gap:8px;
+
+background:rgba(0,0,0,.65);
+
+backdrop-filter:blur(12px);
+
+padding:8px;
+
+border-radius:999px;
+
+border:1px solid rgba(255,255,255,.15);
+
+}
+
+.lang-btn{
+
+padding:10px 18px;
+
+border:none;
+
+cursor:pointer;
+
+border-radius:999px;
+
+font-weight:700;
+
+background:transparent;
+
+color:#fff;
+
+}
+
+.lang-btn.active{
+
+background:#16d8ff;
+
+color:#000;
+
+}
+
 /* HERO */
 
 .hero{
+
 position:relative;
+
 height:100vh;
+
 overflow:hidden;
+
 background:#000;
+
 }
 
 .hero video{
+
 position:absolute;
+
 top:50%;
+
 left:50%;
+
 transform:translate(-50%,-50%);
+
 width:100%;
+
 height:100%;
+
 object-fit:cover;
+
 }
 
 .overlay{
+
 position:absolute;
+
 inset:0;
 
 background:
@@ -149,9 +218,7 @@ justify-content:center;
 
 .btn{
 
-padding:
-18px
-36px;
+padding:18px 36px;
 
 border-radius:999px;
 
@@ -171,17 +238,9 @@ color:#000;
 
 }
 
-.primary:hover{
-
-transform:
-translateY(-2px);
-
-}
-
 .secondary{
 
-border:
-1px solid rgba(255,255,255,.25);
+border:1px solid rgba(255,255,255,.25);
 
 color:#fff;
 
@@ -189,8 +248,7 @@ color:#fff;
 
 .secondary:hover{
 
-background:
-rgba(255,255,255,.08);
+background:rgba(255,255,255,.08);
 
 }
 
@@ -202,9 +260,7 @@ max-width:1200px;
 
 margin:auto;
 
-padding:
-120px
-30px;
+padding:120px 30px;
 
 }
 
@@ -247,7 +303,6 @@ gap:24px;
 .card{
 
 background:
-
 linear-gradient(
 180deg,
 #131313,
@@ -258,8 +313,7 @@ padding:36px;
 
 border-radius:28px;
 
-border:
-1px solid rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
 
 }
 
@@ -279,8 +333,6 @@ line-height:1.7;
 
 }
 
-/* FOOTER */
-
 footer{
 
 padding:60px;
@@ -291,11 +343,41 @@ color:#666;
 
 }
 
+/* LANGUAGE PANELS */
+
+.lang{
+display:none;
+}
+
+.lang.active{
+display:block;
+}
+
 </style>
 
 </head>
 
 <body>
+
+<!-- LANGUAGE TOGGLE -->
+
+<div class="lang-bar">
+
+<button
+class="lang-btn active"
+onclick="showLang('en',this)">
+English
+</button>
+
+<button
+class="lang-btn"
+onclick="showLang('es',this)">
+Español
+</button>
+
+</div>
+
+<!-- HERO -->
 
 <header class="hero">
 
@@ -317,9 +399,15 @@ type="video/mp4">
 
 <div class="brand">
 
-GoStar.Digital
+COGNITIVO.DIGITAL
 
 </div>
+
+<!-- ENGLISH -->
+
+<div
+id="en"
+class="lang active">
 
 <h1>
 
@@ -366,21 +454,78 @@ Watch The System
 
 </div>
 
+<!-- SPANISH -->
+
+<div
+id="es"
+class="lang">
+
+<h1>
+
+Reconoce.<br>
+Reacciona.
+
+</h1>
+
+<p>
+
+Entrenamiento Cognitivo para Baloncesto™
+
+Una nueva forma de observar la cancha.
+
+Entrena reconocimiento.
+
+Entrena reacción.
+
+Entrena velocidad de decisión.
+
+Impulsado por el Sistema 5 × 5 Grid Court™.
+
+</p>
+
+<div class="buttons">
+
+<a
+href="#system"
+class="btn primary">
+
+Comenzar
+
+</a>
+
+<a
+href="#learn"
+class="btn secondary">
+
+Ver El Sistema
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </header>
+
+<!-- STATEMENT -->
 
 <section
 class="section"
 id="learn">
 
-<div class="statement">
+<div
+class="statement">
 
 The Court Is No Longer Background.<br>
-
 The Court Becomes The Training.
 
 </div>
 
 </section>
+
+<!-- CARDS -->
 
 <section
 class="section"
@@ -442,9 +587,35 @@ Convert recognition into explosive intentional action.
 
 <footer>
 
-© GoStar.Digital
+© Cognitivo.Digital
 
 </footer>
+
+<script>
+
+function showLang(lang,btn){
+
+document
+.querySelectorAll('.lang')
+.forEach(el=>{
+el.classList.remove('active');
+});
+
+document
+.getElementById(lang)
+.classList.add('active');
+
+document
+.querySelectorAll('.lang-btn')
+.forEach(el=>{
+el.classList.remove('active');
+});
+
+btn.classList.add('active');
+
+}
+
+</script>
 
 </body>
 
