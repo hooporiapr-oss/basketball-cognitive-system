@@ -18,7 +18,8 @@
   --line:rgba(255,255,255,.06);
   --line-hover:rgba(255,255,255,.14);
   --gold:#bfa02e;
-  --gold-soft:rgba(191,160,46,.15);
+  --gold-soft:rgba(191,160,46,.12);
+  --gold-border:rgba(191,160,46,.2);
   --accent:#7ecf5a;
   --accent-soft:rgba(126,207,90,.08);
   --accent-border:rgba(126,207,90,.18);
@@ -61,18 +62,12 @@ header{
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid var(--line);
 }
-
 .header-inner{
   width:min(1080px,90%);margin:auto;
   display:flex;justify-content:space-between;align-items:center;height:52px;
 }
-
-.logo{
-  font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;
-  letter-spacing:.15em;text-transform:uppercase;
-}
+.logo{font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
 .logo span{color:var(--accent)}
-
 .lang{display:flex;gap:4px}
 .lang button{
   border:1px solid var(--line);background:transparent;color:var(--muted);
@@ -139,6 +134,11 @@ h1{
 .btn-primary:hover{box-shadow:0 0 36px rgba(126,207,90,.2);transform:translateY(-1px)}
 .btn-secondary{background:transparent;color:var(--muted-light)}
 .btn-secondary:hover{border-color:var(--accent-border);color:var(--accent)}
+.btn-gold{
+  background:var(--gold);border-color:var(--gold);color:#050505;
+  box-shadow:0 0 20px var(--gold-soft);
+}
+.btn-gold:hover{box-shadow:0 0 36px rgba(191,160,46,.25);transform:translateY(-1px)}
 
 /* DEMO CARD */
 .demo-card{
@@ -171,47 +171,75 @@ h1{
 }
 
 .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-
 .cell{
   aspect-ratio:1;border:1px solid rgba(255,255,255,.08);border-radius:6px;
   display:flex;align-items:center;justify-content:center;
   color:rgba(255,255,255,.3);font-family:'Red Hat Display',sans-serif;font-weight:700;
   font-size:clamp(.6rem,1.6vw,.82rem);background:rgba(255,255,255,.02);
 }
-.cell.target{
-  background:var(--accent);color:#081a02;border-color:var(--accent);
-  box-shadow:0 0 12px var(--accent-glow);
-}
-.cell.hit{
-  background:var(--teal);color:#041a14;border-color:var(--teal);
-  box-shadow:0 0 8px rgba(77,189,165,.25);
-}
+.cell.target{background:var(--accent);color:#081a02;border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
+.cell.hit{background:var(--teal);color:#041a14;border-color:var(--teal);box-shadow:0 0 8px rgba(77,189,165,.25)}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:10px}
-.stat{
-  border:1px solid var(--line);border-radius:8px;padding:9px 6px;
-  background:rgba(0,0,0,.3);text-align:center;
-}
+.stat{border:1px solid var(--line);border-radius:8px;padding:9px 6px;background:rgba(0,0,0,.3);text-align:center}
 .stat b{display:block;color:var(--accent);font-family:'Red Hat Display',sans-serif;font-size:.95rem;font-weight:900}
 .stat span{color:var(--muted);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
 
 /* SECTIONS */
 section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-index:1}
-
 .section-label{color:var(--gold);font-size:.55rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
-
 .section-title{
   font-family:'Red Hat Display',sans-serif;
   font-size:clamp(1.4rem,4vw,2.8rem);
   font-weight:900;line-height:1;letter-spacing:-.02em;
   text-transform:uppercase;margin-bottom:14px;
 }
-
 .section-copy{color:var(--muted-light);font-size:.92rem;max-width:540px;margin-bottom:24px;line-height:1.6}
+
+/* COMPARE */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.compare-card{
+  border:1px solid var(--line);border-radius:18px;padding:24px 20px;
+  background:var(--card);position:relative;overflow:hidden;
+}
+.compare-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent);opacity:.5;
+}
+.compare-card.flagship::before{background:var(--gold);opacity:1}
+.compare-card.flagship{border-color:var(--gold-border);background:linear-gradient(165deg,rgba(191,160,46,.06),var(--card))}
+
+.compare-tag{
+  display:inline-block;font-size:.5rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px;
+}
+.compare-tag.free{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border)}
+.compare-tag.pro{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold-border)}
+
+.compare-card h3{
+  font-family:'Red Hat Display',sans-serif;font-weight:900;
+  font-size:1.05rem;letter-spacing:.03em;text-transform:uppercase;margin-bottom:4px;
+}
+.compare-card .compare-grid{
+  font-family:'Red Hat Display',sans-serif;font-weight:900;
+  font-size:1.6rem;margin-bottom:10px;
+}
+.compare-card.flagship h3{color:var(--gold)}
+.compare-card.flagship .compare-grid{color:var(--gold)}
+
+.compare-list{list-style:none;padding:0}
+.compare-list li{
+  font-size:.78rem;color:var(--muted-light);padding:5px 0;
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px;
+}
+.compare-list li:last-child{border-bottom:none}
+.compare-list .check{color:var(--accent);font-size:.7rem}
+.compare-list .gold-check{color:var(--gold);font-size:.7rem}
+.compare-list .x{color:var(--muted);font-size:.7rem}
 
 /* CARDS */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-
 .card{
   border:1px solid var(--line);border-radius:16px;padding:22px 18px;
   background:var(--card);transition:all .2s;position:relative;overflow:hidden;
@@ -223,7 +251,6 @@ section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-inde
 }
 .card:hover{border-color:var(--line-hover);background:var(--card-hover);transform:translateY(-2px)}
 .card:hover::before{opacity:1}
-
 .card-icon{font-size:1.2rem;margin-bottom:10px}
 .card h3{
   font-family:'Red Hat Display',sans-serif;font-weight:900;color:var(--gold);
@@ -286,6 +313,12 @@ body.lang-es .inline-es{display:inline}
   .section-copy{font-size:.82rem;margin-bottom:18px}
   .section-label{font-size:.5rem;margin-bottom:6px}
 
+  .compare{grid-template-columns:1fr;gap:10px}
+  .compare-card{padding:20px 16px;border-radius:14px}
+  .compare-card h3{font-size:.92rem}
+  .compare-card .compare-grid{font-size:1.4rem}
+  .compare-list li{font-size:.74rem;padding:4px 0}
+
   .card{padding:16px 14px;border-radius:12px}
   .card-icon{font-size:1rem;margin-bottom:7px}
   .card h3{font-size:.82rem;margin-bottom:3px}
@@ -331,38 +364,39 @@ body.lang-es .inline-es{display:inline}
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">
-      <span class="lang-block en">Reaction Gaming Has Arrived</span>
-      <span class="lang-block es">Reaction Gaming Ha Llegado</span>
+      <span class="lang-block en">Number Hunt™</span>
+      <span class="lang-block es">Number Hunt™</span>
     </div>
 
-    <h1>REACTIFIC™</h1>
+    <h1>
+      <span class="lang-block en">How Fast<br>Can You Find 7?</span>
+      <span class="lang-block es">¿Qué Tan Rápido<br>Encuentras El 7?</span>
+    </h1>
 
     <p class="lead">
       <span class="lang-block en">
-        <strong>The Home of Reaction Gaming™</strong><br>
-        Powered by <strong>NUMBER HUNT™</strong>.<br>
-        Scan. Find. React. Beat the <strong>Reactific Shot Clock™</strong>.
+        Numbers flash. Clock ticks. You scan, find, and react — or the buzzer wins.
+        <strong>Practice free on the 5×5 court.</strong> Compete on the 6×10.
       </span>
       <span class="lang-block es">
-        <strong>El hogar de Reaction Gaming™</strong><br>
-        Impulsado por <strong>NUMBER HUNT™</strong>.<br>
-        Escanea. Encuentra. Reacciona. Vence el <strong>Reactific Shot Clock™</strong>.
+        Los números aparecen. El reloj corre. Escaneas, encuentras y reaccionas — o la bocina gana.
+        <strong>Practica gratis en la cancha 5×5.</strong> Compite en la 6×10.
       </span>
     </p>
 
     <div class="free-pill">
-      <span class="lang-block en">Play free on the 5×5 Training Court™</span>
-      <span class="lang-block es">Juega gratis en la 5×5 Training Court™</span>
+      <span class="lang-block en">Free practice — no account needed</span>
+      <span class="lang-block es">Práctica gratis — sin cuenta</span>
     </div>
 
     <div class="cta-row">
       <a href="cog-10.html" class="btn btn-primary">
-        <span class="lang-block en">Play Number Hunt™</span>
-        <span class="lang-block es">Jugar Number Hunt™</span>
+        <span class="lang-block en">Practice Now — It's Free</span>
+        <span class="lang-block es">Practica Ahora — Es Gratis</span>
       </a>
       <a href="#free" class="btn btn-secondary">
-        <span class="lang-block en">Learn More</span>
-        <span class="lang-block es">Conoce Más</span>
+        <span class="lang-block en">See The Courts</span>
+        <span class="lang-block es">Ver Las Canchas</span>
       </a>
     </div>
   </div>
@@ -396,8 +430,8 @@ body.lang-es .inline-es{display:inline}
     <div class="stats">
       <div class="stat">
         <b>5×5</b>
-        <span class="lang-block en">Court</span>
-        <span class="lang-block es">Cancha</span>
+        <span class="lang-block en">Practice</span>
+        <span class="lang-block es">Práctica</span>
       </div>
       <div class="stat">
         <b>25</b>
@@ -406,107 +440,201 @@ body.lang-es .inline-es{display:inline}
       </div>
       <div class="stat">
         <b>FREE</b>
-        <span class="lang-block en">Play</span>
-        <span class="lang-block es">Juego</span>
+        <span class="lang-block en">Always</span>
+        <span class="lang-block es">Siempre</span>
       </div>
     </div>
   </div>
 </section>
 
+<!-- TWO COURTS -->
 <section id="free">
   <div class="section-label">
-    <span class="lang-block en">Number Hunt™</span>
-    <span class="lang-block es">Number Hunt™</span>
+    <span class="lang-block en">Two Courts. One Game.</span>
+    <span class="lang-block es">Dos Canchas. Un Juego.</span>
   </div>
 
   <h2 class="section-title">
-    <span class="lang-block en">Free to Play.<br>Brutal to Master.</span>
-    <span class="lang-block es">Gratis para Jugar.<br>Brutal de Dominar.</span>
+    <span class="lang-block en">Practice Free.<br>Compete For Real.</span>
+    <span class="lang-block es">Practica Gratis.<br>Compite De Verdad.</span>
   </h2>
 
   <p class="section-copy">
     <span class="lang-block en">
-      Number Hunt™ is the flagship. Play free. Train without realizing it.
-      Climb the leaderboard. Beat the Reactific Shot Clock™.
+      The 5×5 Practice Court is yours — free, forever. Sharpen your reflexes, learn the game, get fast.
+      When you're ready to prove it, step onto the 6×10 Competition Court.
     </span>
     <span class="lang-block es">
-      Number Hunt™ es el flagship. Juega gratis. Entrena sin darte cuenta.
-      Sube en la tabla. Vence el Reactific Shot Clock™.
+      La Cancha de Práctica 5×5 es tuya — gratis, para siempre. Afila tus reflejos, aprende el juego, sé rápido.
+      Cuando estés listo para probarlo, sube a la Cancha de Competencia 6×10.
     </span>
   </p>
 
-  <a href="cog-10.html" class="btn btn-primary">
-    <span class="lang-block en">Start Free Play</span>
-    <span class="lang-block es">Comenzar Gratis</span>
-  </a>
+  <div class="compare">
+    <div class="compare-card">
+      <span class="compare-tag free">
+        <span class="lang-block en">Free Forever</span>
+        <span class="lang-block es">Gratis Siempre</span>
+      </span>
+      <h3>
+        <span class="lang-block en">Practice Court</span>
+        <span class="lang-block es">Cancha de Práctica</span>
+      </h3>
+      <div class="compare-grid">5 × 5</div>
+      <ul class="compare-list">
+        <li><span class="check">✓</span>
+          <span class="lang-block en">25 cells — learn the game</span>
+          <span class="lang-block es">25 celdas — aprende el juego</span>
+        </li>
+        <li><span class="check">✓</span>
+          <span class="lang-block en">Unlimited rounds</span>
+          <span class="lang-block es">Rondas ilimitadas</span>
+        </li>
+        <li><span class="check">✓</span>
+          <span class="lang-block en">3 speed tiers</span>
+          <span class="lang-block es">3 velocidades</span>
+        </li>
+        <li><span class="check">✓</span>
+          <span class="lang-block en">No account needed</span>
+          <span class="lang-block es">Sin cuenta necesaria</span>
+        </li>
+        <li><span class="x">—</span>
+          <span class="lang-block en" style="color:var(--muted)">No leaderboards</span>
+          <span class="lang-block es" style="color:var(--muted)">Sin tabla de posiciones</span>
+        </li>
+        <li><span class="x">—</span>
+          <span class="lang-block en" style="color:var(--muted)">No scoring history</span>
+          <span class="lang-block es" style="color:var(--muted)">Sin historial de puntos</span>
+        </li>
+      </ul>
+      <div style="margin-top:14px">
+        <a href="cog-10.html" class="btn btn-primary" style="width:100%">
+          <span class="lang-block en">Practice Now</span>
+          <span class="lang-block es">Practica Ahora</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="compare-card flagship">
+      <span class="compare-tag pro">
+        <span class="lang-block en">The Flagship</span>
+        <span class="lang-block es">El Flagship</span>
+      </span>
+      <h3>
+        <span class="lang-block en">Competition Court</span>
+        <span class="lang-block es">Cancha de Competencia</span>
+      </h3>
+      <div class="compare-grid">6 × 10</div>
+      <ul class="compare-list">
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">60 cells — the real game</span>
+          <span class="lang-block es">60 celdas — el juego real</span>
+        </li>
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">Global leaderboards</span>
+          <span class="lang-block es">Tabla de posiciones global</span>
+        </li>
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">Scoring & stats history</span>
+          <span class="lang-block es">Historial de puntos y stats</span>
+        </li>
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">Ranked competition</span>
+          <span class="lang-block es">Competencia clasificatoria</span>
+        </li>
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">League seasons</span>
+          <span class="lang-block es">Temporadas de liga</span>
+        </li>
+        <li><span class="gold-check">✓</span>
+          <span class="lang-block en">Shot Clock™ challenges</span>
+          <span class="lang-block es">Retos Shot Clock™</span>
+        </li>
+      </ul>
+      <div style="margin-top:14px">
+        <a href="#free" class="btn btn-gold" style="width:100%">
+          <span class="lang-block en">Coming Soon</span>
+          <span class="lang-block es">Próximamente</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- WHAT'S COMING -->
 <section>
   <div class="section-label">
-    <span class="lang-block en">Game Modes</span>
-    <span class="lang-block es">Modos de Juego</span>
+    <span class="lang-block en">The 6×10 Experience</span>
+    <span class="lang-block es">La Experiencia 6×10</span>
   </div>
 
   <h2 class="section-title">
-    <span class="lang-block en">Play. Compete.<br>Improve. Repeat.</span>
-    <span class="lang-block es">Juega. Compite.<br>Mejora. Repite.</span>
+    <span class="lang-block en">Practice Builds Skill.<br>Competition Proves It.</span>
+    <span class="lang-block es">La Práctica Construye.<br>La Competencia Lo Prueba.</span>
   </h2>
 
   <div class="cards">
     <div class="card">
-      <div class="card-icon">🎯</div>
-      <h3>SOLO</h3>
+      <div class="card-icon">📊</div>
+      <h3>
+        <span class="lang-block en">Leaderboards</span>
+        <span class="lang-block es">Rankings</span>
+      </h3>
       <p>
-        <span class="lang-block en">Climb the leaderboard.</span>
-        <span class="lang-block es">Sube en la tabla.</span>
+        <span class="lang-block en">See where you rank against every player on the platform. Daily, weekly, all-time.</span>
+        <span class="lang-block es">Mira dónde estás contra todos los jugadores. Diario, semanal, histórico.</span>
       </p>
     </div>
 
     <div class="card">
       <div class="card-icon">⏱️</div>
-      <h3>SHOT CLOCK</h3>
+      <h3>SHOT CLOCK™</h3>
       <p>
-        <span class="lang-block en">Find the targets before the buzzer.</span>
-        <span class="lang-block es">Encuentra los objetivos antes de la bocina.</span>
+        <span class="lang-block en">Timed challenges on the full 60-cell court. Find every target before the buzzer kills your run.</span>
+        <span class="lang-block es">Retos cronometrados en la cancha completa de 60 celdas. Encuentra cada objetivo antes que la bocina mate tu racha.</span>
       </p>
     </div>
 
     <div class="card">
       <div class="card-icon">🏆</div>
-      <h3>LEAGUE</h3>
+      <h3>
+        <span class="lang-block en">League</span>
+        <span class="lang-block es">Liga</span>
+      </h3>
       <p>
-        <span class="lang-block en">Competition is coming.</span>
-        <span class="lang-block es">La competencia viene en camino.</span>
+        <span class="lang-block en">Seasonal ranked play. Climb divisions. Earn your spot at the top.</span>
+        <span class="lang-block es">Competencia clasificatoria por temporadas. Sube de división. Gana tu lugar en la cima.</span>
       </p>
     </div>
   </div>
 </section>
 
+<!-- CTA -->
 <section class="final">
   <h2 class="section-title">
-    <span class="lang-block en">This is Reactific.</span>
-    <span class="lang-block es">Esto es Reactific.</span>
+    <span class="lang-block en">Start On The<br>Practice Court.</span>
+    <span class="lang-block es">Empieza En La<br>Cancha De Práctica.</span>
   </h2>
 
   <p class="section-copy">
     <span class="lang-block en">
-      The Home of Reaction Gaming™. Powered by NUMBER HUNT™.
+      Free. No account. No download. Just you, 25 cells, and the shot clock.
     </span>
     <span class="lang-block es">
-      El hogar de Reaction Gaming™. Impulsado por NUMBER HUNT™.
+      Gratis. Sin cuenta. Sin descarga. Solo tú, 25 celdas, y el shot clock.
     </span>
   </p>
 
   <a href="cog-10.html" class="btn btn-primary">
-    <span class="lang-block en">Play Number Hunt™</span>
-    <span class="lang-block es">Jugar Number Hunt™</span>
+    <span class="lang-block en">Practice Now — It's Free</span>
+    <span class="lang-block es">Practica Ahora — Es Gratis</span>
   </a>
 </section>
 
 </main>
 
 <footer>
-  REACTIFIC™ · NUMBER HUNT™ · PLAY FREE
+  REACTIFIC™ · NUMBER HUNT™ · THE HOME OF REACTION GAMING™
 </footer>
 
 <script>
