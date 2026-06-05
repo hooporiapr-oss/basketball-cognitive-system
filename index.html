@@ -2,671 +2,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REACTIFIC™ | Train to the Beat of the Grid™</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REACTIFIC™ | Train to the Beat of the Grid™</title>
 
-  <style>
-    :root {
-      --black: #020202;
-      --panel: #0b0b0b;
-      --line: rgba(255,255,255,0.16);
-      --gold: #d4af37;
-      --cyan: #00d9ff;
-      --white: #ffffff;
-      --muted: #b8b8b8;
-      --green: #23ff8a;
-    }
+<style>
+:root{
+  --black:#020202;
+  --panel:#0b0b0b;
+  --card:#111118;
+  --line:rgba(255,255,255,.14);
+  --gold:#d4af37;
+  --cyan:#00d9ff;
+  --green:#23ff8a;
+  --purple:#9B59B6;
+  --orange:#FF6B35;
+  --lime:#39FF14;
+  --teal:#00D9A5;
+  --white:#ffffff;
+  --muted:#b8b8b8;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.5;
-    }
+html{scroll-behavior:smooth}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.5;
+}
 
-    .page {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top center, rgba(0,217,255,0.18), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(212,175,55,0.12), transparent 35%),
-        #020202;
-    }
+a{text-decoration:none;color:inherit}
 
-    header {
-      width: 100%;
-      padding: 22px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      background: rgba(2,2,2,0.9);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-    }
+.page{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top center,rgba(0,217,255,.16),transparent 34%),
+    radial-gradient(circle at bottom right,rgba(212,175,55,.12),transparent 35%),
+    #020202;
+}
 
-    .brand {
-      font-size: 1.25rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:22px 6%;
+  border-bottom:1px solid var(--line);
+  background:rgba(2,2,2,.92);
+  backdrop-filter:blur(10px);
+}
 
-    .brand span {
-      color: var(--cyan);
-    }
+.brand{
+  font-weight:900;
+  font-size:1.25rem;
+  letter-spacing:.14em;
+}
 
-    .lang-toggle {
-      display: flex;
-      gap: 8px;
-    }
+.brand span{color:var(--cyan)}
 
-    .lang-toggle button {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid var(--line);
-      padding: 8px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 700;
-    }
+.nav{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
 
-    .lang-toggle button.active {
-      background: var(--gold);
-      color: #000;
-      border-color: var(--gold);
-    }
+.nav a{
+  color:var(--muted);
+  font-size:.82rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
 
-    .wrap {
-      width: min(1180px, 90%);
-      margin: auto;
-    }
+.nav a:hover{color:var(--cyan)}
 
-    .hero {
-      min-height: 88vh;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: center;
-      gap: 46px;
-      padding: 70px 0;
-    }
+.lang-toggle{display:flex;gap:8px}
 
-    .eyebrow {
-      color: var(--cyan);
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-    }
+.lang-toggle button{
+  background:transparent;
+  color:var(--white);
+  border:1px solid var(--line);
+  padding:8px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:800;
+}
 
-    h1 {
-      font-size: clamp(3rem, 7vw, 6.6rem);
-      line-height: 0.92;
-      letter-spacing: -0.06em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
+.lang-toggle button.active{
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+}
 
-    h1 .gold {
-      color: var(--gold);
-    }
+.wrap{
+  width:min(1180px,90%);
+  margin:auto;
+}
 
-    .lead {
-      font-size: clamp(1.15rem, 2vw, 1.45rem);
-      color: var(--muted);
-      max-width: 720px;
-      margin-bottom: 30px;
-    }
+.hero{
+  min-height:88vh;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:46px;
+  padding:70px 0;
+}
 
-    .lead strong {
-      color: var(--white);
-    }
+.eyebrow{
+  color:var(--cyan);
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+  font-size:.85rem;
+}
 
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 26px;
-    }
+h1{
+  font-size:clamp(3rem,7vw,6.7rem);
+  line-height:.92;
+  letter-spacing:-.06em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
 
-    .btn {
-      padding: 15px 22px;
-      border-radius: 999px;
-      font-weight: 900;
-      border: 1px solid var(--line);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.25s ease;
-    }
+.gold{color:var(--gold)}
 
-    .btn-primary {
-      background: var(--gold);
-      color: #000;
-      border-color: var(--gold);
-    }
+.lead{
+  font-size:clamp(1.13rem,2vw,1.45rem);
+  color:var(--muted);
+  max-width:740px;
+  margin-bottom:30px;
+}
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(212,175,55,0.38);
-    }
+.lead strong{color:var(--white)}
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--white);
-    }
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:26px;
+}
 
-    .btn-secondary:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
+.btn{
+  padding:15px 22px;
+  border-radius:999px;
+  font-weight:900;
+  border:1px solid var(--line);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:.25s ease;
+  cursor:pointer;
+}
 
-    .hero-card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-      border-radius: 28px;
-      padding: 24px;
-      box-shadow: 0 0 50px rgba(0,0,0,0.55);
-    }
+.btn-primary{
+  background:var(--gold);
+  color:#000;
+  border-color:var(--gold);
+}
 
-    .grid-box {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-bottom: 22px;
-    }
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 28px rgba(212,175,55,.38);
+}
 
-    .cell {
-      aspect-ratio: 1 / 1;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.35);
-      font-weight: 900;
-    }
+.btn-secondary{
+  background:transparent;
+  color:var(--white);
+}
 
-    .cell.active {
-      background: var(--cyan);
-      color: #001014;
-      box-shadow: 0 0 28px rgba(0,217,255,0.65);
-    }
+.btn-secondary:hover{
+  border-color:var(--cyan);
+  color:var(--cyan);
+}
 
-    .cell.gold {
-      background: var(--gold);
-      color: #000;
-      box-shadow: 0 0 28px rgba(212,175,55,0.55);
-    }
+.hero-card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 0 50px rgba(0,0,0,.55);
+}
 
-    .stat-line {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
+.grid-box{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  grid-template-rows:repeat(6,1fr);
+  gap:5px;
+  margin-bottom:22px;
+}
 
-    .stat {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      background: rgba(0,0,0,0.35);
-    }
+.cell{
+  aspect-ratio:1/1;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:6px;
+  background:rgba(255,255,255,.045);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,.28);
+  font-size:.65rem;
+  font-weight:900;
+}
 
-    .stat b {
-      display: block;
-      font-size: 1.55rem;
-      color: var(--green);
-    }
+.cell.active{
+  background:var(--cyan);
+  color:#001014;
+  box-shadow:0 0 24px rgba(0,217,255,.6);
+}
 
-    .stat span {
-      color: var(--muted);
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
+.cell.goldcell{
+  background:var(--gold);
+  color:#000;
+  box-shadow:0 0 24px rgba(212,175,55,.5);
+}
 
-    section {
-      padding: 80px 0;
-      border-top: 1px solid var(--line);
-    }
+.stat-line{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
 
-    .section-title {
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: 1;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-      letter-spacing: -0.04em;
-    }
+.stat{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:rgba(0,0,0,.35);
+}
 
-    .section-title span {
-      color: var(--cyan);
-    }
+.stat b{
+  display:block;
+  font-size:1.55rem;
+  color:var(--green);
+}
 
-    .section-copy {
-      color: var(--muted);
-      max-width: 850px;
-      font-size: 1.1rem;
-      margin-bottom: 34px;
-    }
+.stat span{
+  color:var(--muted);
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
+section{
+  padding:80px 0;
+  border-top:1px solid var(--line);
+}
 
-    .card {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.045);
-      border-radius: 24px;
-      padding: 26px;
-    }
+.section-title{
+  font-size:clamp(2rem,4vw,4rem);
+  line-height:1;
+  margin-bottom:18px;
+  text-transform:uppercase;
+  letter-spacing:-.04em;
+}
 
-    .card h3 {
-      color: var(--gold);
-      margin-bottom: 10px;
-      font-size: 1.25rem;
-    }
+.section-title span{color:var(--cyan)}
 
-    .card p {
-      color: var(--muted);
-    }
+.section-copy{
+  color:var(--muted);
+  max-width:870px;
+  font-size:1.08rem;
+  margin-bottom:34px;
+}
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 30px;
-    }
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
 
-    .step {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 22px;
-      background: rgba(0,0,0,0.38);
-    }
+.card{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:24px;
+  padding:26px;
+}
 
-    .step strong {
-      display: block;
-      color: var(--cyan);
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+.card h3{
+  color:var(--gold);
+  margin-bottom:10px;
+  font-size:1.25rem;
+}
 
-    .step h3 {
-      margin-bottom: 8px;
-    }
+.card p{color:var(--muted)}
 
-    .footer-cta {
-      text-align: center;
-      padding: 90px 0;
-    }
+.program-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
 
-    .footer-cta h2 {
-      font-size: clamp(2.4rem, 6vw, 5rem);
-      line-height: 0.95;
-      text-transform: uppercase;
-      letter-spacing: -0.05em;
-      margin-bottom: 20px;
-    }
+.program-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:26px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  min-height:370px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 6%;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.9rem;
-    }
+.program-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.12;
+  background:radial-gradient(circle at top right,var(--accent),transparent 45%);
+  pointer-events:none;
+}
 
-    [data-lang="es"] {
-      display: none;
-    }
+.program-top,
+.program-bottom{
+  position:relative;
+  z-index:1;
+}
 
-    body.es [data-lang="en"] {
-      display: none;
-    }
+.program-number{
+  display:inline-flex;
+  color:#000;
+  background:var(--gold);
+  border-radius:999px;
+  padding:5px 11px;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.09em;
+  margin-bottom:16px;
+}
 
-    body.es [data-lang="es"] {
-      display: block;
-    }
+.program-card h3{
+  font-size:1.85rem;
+  line-height:1;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:-.03em;
+  color:var(--white);
+}
 
-    body.es span[data-lang="es"],
-    body.es a[data-lang="es"] {
-      display: inline-flex;
-    }
+.program-tagline{
+  color:var(--accent);
+  font-weight:900;
+  margin-bottom:16px;
+}
 
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding-top: 48px;
-      }
+.program-desc{
+  color:var(--muted);
+  font-size:.96rem;
+  margin-bottom:18px;
+}
 
-      .cards,
-      .steps {
-        grid-template-columns: 1fr;
-      }
+.skill-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
 
-      .stat-line {
-        grid-template-columns: 1fr;
-      }
+.skill-list span{
+  border:1px solid rgba(255,255,255,.14);
+  color:var(--muted);
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:.72rem;
+  font-weight:800;
+}
 
-      header {
-        align-items: flex-start;
-        gap: 14px;
-        flex-direction: column;
-      }
-    }
-  </style>
+.program-link{
+  margin-top:22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  padding:13px 16px;
+  border-radius:14px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
+  font-weight:900;
+  color:var(--white);
+  transition:.25s ease;
+}
+
+.program-link:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+  transform:translateY(-2px);
+}
+
+.lock-note{
+  margin-top:9px;
+  color:rgba(255,255,255,.42);
+  font-size:.74rem;
+  text-align:center;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+
+.step{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+  background:rgba(0,0,0,.38);
+}
+
+.step strong{
+  display:block;
+  color:var(--cyan);
+  font-size:.8rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.step h3{margin-bottom:8px}
+
+.footer-cta{
+  text-align:center;
+  padding:90px 0;
+}
+
+.footer-cta h2{
+  font-size:clamp(2.4rem,6vw,5rem);
+  line-height:.95;
+  text-transform:uppercase;
+  letter-spacing:-.05em;
+  margin-bottom:20px;
+}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 6%;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  font-size:.9rem;
+}
+
+[data-lang="es"]{display:none}
+body.es [data-lang="en"]{display:none}
+body.es [data-lang="es"]{display:block}
+body.es span[data-lang="es"],
+body.es a[data-lang="es"]{display:inline-flex}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .cards,.program-grid,.steps{grid-template-columns:1fr}
+  .stat-line{grid-template-columns:1fr}
+  header{align-items:flex-start;flex-direction:column}
+}
+</style>
 </head>
 
 <body>
-  <div class="page">
+<div class="page">
 
-    <header>
-      <div class="brand">REACTIFIC<span>™</span></div>
+<header>
+  <div class="brand">REACTIFIC<span>™</span></div>
 
-      <div class="lang-toggle">
-        <button id="btnEn" class="active" onclick="setLang('en')">EN</button>
-        <button id="btnEs" onclick="setLang('es')">ES</button>
-      </div>
-    </header>
+  <div class="nav">
+    <a href="#programs">
+      <span data-lang="en">Programs</span>
+      <span data-lang="es">Programas</span>
+    </a>
+    <a href="#system">
+      <span data-lang="en">System</span>
+      <span data-lang="es">Sistema</span>
+    </a>
+    <a href="#start">
+      <span data-lang="en">Start</span>
+      <span data-lang="es">Comenzar</span>
+    </a>
+    <div class="lang-toggle">
+      <button id="btnEn" class="active" onclick="setLang('en')">EN</button>
+      <button id="btnEs" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</header>
 
-    <main class="wrap">
+<main class="wrap">
 
-      <!-- HERO -->
-      <section class="hero">
-        <div>
-          <div class="eyebrow">
-            <span data-lang="en">Touch • Recognize • React</span>
-            <span data-lang="es">Toca • Reconoce • Reacciona</span>
-          </div>
+<section class="hero">
+  <div>
+    <div class="eyebrow">
+      <span data-lang="en">Touch • Recognize • React</span>
+      <span data-lang="es">Toca • Reconoce • Reacciona</span>
+    </div>
 
-          <h1>
-            <span data-lang="en">Train to the <span class="gold">Beat</span> of the Grid™</span>
-            <span data-lang="es">Entrena al <span class="gold">Ritmo</span> de la Cuadrícula™</span>
-          </h1>
+    <h1>
+      <span data-lang="en">Train to the <span class="gold">Beat</span> of the Grid™</span>
+      <span data-lang="es">Entrena al <span class="gold">Ritmo</span> de la Cuadrícula™</span>
+    </h1>
 
-          <p class="lead">
-            <span data-lang="en">
-              <strong>REACTIFIC™</strong> is a touch-screen reaction training system built for memory,
-              recognition, coordination, rhythm, and adaptive challenge. The system gets faster,
-              smarter, and more demanding as you train.
-            </span>
-            <span data-lang="es">
-              <strong>REACTIFIC™</strong> es un sistema de entrenamiento de reacción en pantalla táctil
-              creado para memoria, reconocimiento, coordinación, ritmo y desafío adaptable. El sistema
-              se vuelve más rápido, más exigente y más retante mientras entrenas.
-            </span>
-          </p>
+    <p class="lead">
+      <span data-lang="en">
+        <strong>REACTIFIC™</strong> is a touch-screen reaction training system built for memory,
+        recognition, coordination, rhythm, and adaptive challenge. It is not another drill library.
+        It is a performance experience.
+      </span>
+      <span data-lang="es">
+        <strong>REACTIFIC™</strong> es un sistema de entrenamiento de reacción en pantalla táctil
+        creado para memoria, reconocimiento, coordinación, ritmo y desafío adaptable. No es otra
+        biblioteca de ejercicios. Es una experiencia de rendimiento.
+      </span>
+    </p>
 
-          <div class="cta-row">
-            <a href="profile.html" class="btn btn-primary">
-              <span data-lang="en">Start Training</span>
-              <span data-lang="es">Comenzar Entrenamiento</span>
-            </a>
-
-            <a href="#system" class="btn btn-secondary">
-              <span data-lang="en">See How It Works</span>
-              <span data-lang="es">Ver Cómo Funciona</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="grid-box">
-            <div class="cell">1</div><div class="cell active">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div>
-            <div class="cell">6</div><div class="cell">7</div><div class="cell gold">8</div><div class="cell">9</div><div class="cell">10</div>
-            <div class="cell">11</div><div class="cell">12</div><div class="cell active">13</div><div class="cell">14</div><div class="cell">15</div>
-            <div class="cell">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell gold">19</div><div class="cell">20</div>
-            <div class="cell active">21</div><div class="cell">22</div><div class="cell">23</div><div class="cell">24</div><div class="cell">25</div>
-          </div>
-
-          <div class="stat-line">
-            <div class="stat">
-              <b>3</b>
-              <span data-lang="en">Speeds</span>
-              <span data-lang="es">Velocidades</span>
-            </div>
-            <div class="stat">
-              <b>BPM</b>
-              <span data-lang="en">Beat Training</span>
-              <span data-lang="es">Ritmo</span>
-            </div>
-            <div class="stat">
-              <b>∞</b>
-              <span data-lang="en">Adaptive Challenge</span>
-              <span data-lang="es">Desafío Adaptable</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- WHAT IT IS -->
-      <section id="system">
-        <h2 class="section-title">
-          <span data-lang="en">A Reaction System, Not Another Drill Library.</span>
-          <span data-lang="es">Un Sistema de Reacción, No Otra Biblioteca de Ejercicios.</span>
-        </h2>
-
-        <p class="section-copy">
-          <span data-lang="en">
-            REACTIFIC™ is built around action. Athletes and learners do not just watch instructions —
-            they touch, recognize, react, adjust, and improve. Every session presents its own case.
-          </span>
-          <span data-lang="es">
-            REACTIFIC™ está construido alrededor de la acción. Los atletas y estudiantes no solo miran
-            instrucciones — tocan, reconocen, reaccionan, se ajustan y mejoran. Cada sesión presenta su
-            propio caso.
-          </span>
-        </p>
-
-        <div class="cards">
-          <div class="card">
-            <h3>
-              <span data-lang="en">Touch-Based Training</span>
-              <span data-lang="es">Entrenamiento Táctil</span>
-            </h3>
-            <p>
-              <span data-lang="en">The screen becomes the training surface. The user engages directly with the grid.</span>
-              <span data-lang="es">La pantalla se convierte en la superficie de entrenamiento. El usuario interactúa directamente con la cuadrícula.</span>
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>
-              <span data-lang="en">Recognition Under Speed</span>
-              <span data-lang="es">Reconocimiento Bajo Velocidad</span>
-            </h3>
-            <p>
-              <span data-lang="en">The system challenges timing, awareness, memory, and response through paced movement.</span>
-              <span data-lang="es">El sistema reta el tiempo de reacción, la conciencia, la memoria y la respuesta a través del ritmo.</span>
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>
-              <span data-lang="en">Adaptive Challenge</span>
-              <span data-lang="es">Desafío Adaptable</span>
-            </h3>
-            <p>
-              <span data-lang="en">As performance improves, the challenge grows. The grid never stands still.</span>
-              <span data-lang="es">Mientras mejora el rendimiento, el desafío aumenta. La cuadrícula nunca se queda quieta.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- METHOD -->
-      <section>
-        <h2 class="section-title">
-          <span data-lang="en">How Reactific Works</span>
-          <span data-lang="es">Cómo Funciona Reactific</span>
-        </h2>
-
-        <p class="section-copy">
-          <span data-lang="en">
-            REACTIFIC™ combines touch, rhythm, recognition, reaction, coordination, and positive mindset
-            into one training flow.
-          </span>
-          <span data-lang="es">
-            REACTIFIC™ combina tacto, ritmo, reconocimiento, reacción, coordinación y mentalidad positiva
-            en un solo flujo de entrenamiento.
-          </span>
-        </p>
-
-        <div class="steps">
-          <div class="step">
-            <strong>01</strong>
-            <h3>
-              <span data-lang="en">Enter</span>
-              <span data-lang="es">Entra</span>
-            </h3>
-            <p>
-              <span data-lang="en">Select your training mode and speed.</span>
-              <span data-lang="es">Selecciona tu modo de entrenamiento y velocidad.</span>
-            </p>
-          </div>
-
-          <div class="step">
-            <strong>02</strong>
-            <h3>
-              <span data-lang="en">Recognize</span>
-              <span data-lang="es">Reconoce</span>
-            </h3>
-            <p>
-              <span data-lang="en">Read the grid, locate the target, and stay present.</span>
-              <span data-lang="es">Lee la cuadrícula, ubica el objetivo y mantente presente.</span>
-            </p>
-          </div>
-
-          <div class="step">
-            <strong>03</strong>
-            <h3>
-              <span data-lang="en">React</span>
-              <span data-lang="es">Reacciona</span>
-            </h3>
-            <p>
-              <span data-lang="en">Touch with focus, timing, and control.</span>
-              <span data-lang="es">Toca con enfoque, tiempo y control.</span>
-            </p>
-          </div>
-
-          <div class="step">
-            <strong>04</strong>
-            <h3>
-              <span data-lang="en">Adapt</span>
-              <span data-lang="es">Adáptate</span>
-            </h3>
-            <p>
-              <span data-lang="en">The system gets more challenging as you improve.</span>
-              <span data-lang="es">El sistema se vuelve más retante mientras mejoras.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROGRAMS -->
-      <section>
-        <h2 class="section-title">
-          <span data-lang="en">Built for Reaction, Recognition, and Positive Mindset.</span>
-          <span data-lang="es">Creado para Reacción, Reconocimiento y Mentalidad Positiva.</span>
-        </h2>
-
-        <div class="cards">
-          <div class="card">
-            <h3>Number Hunt</h3>
-            <p>
-              <span data-lang="en">Find targets quickly, respond accurately, and build visual search speed.</span>
-              <span data-lang="es">Encuentra objetivos rápido, responde con precisión y desarrolla velocidad visual.</span>
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>
-              <span data-lang="en">Memory Challenge</span>
-              <span data-lang="es">Desafío de Memoria</span>
-            </h3>
-            <p>
-              <span data-lang="en">Train recall, sequencing, and controlled response under pressure.</span>
-              <span data-lang="es">Entrena memoria, secuencia y respuesta controlada bajo presión.</span>
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>
-              <span data-lang="en">Reaction Flow</span>
-              <span data-lang="es">Flujo de Reacción</span>
-            </h3>
-            <p>
-              <span data-lang="en">React to changing targets as the beat increases and the grid evolves.</span>
-              <span data-lang="es">Reacciona a objetivos cambiantes mientras el ritmo aumenta y la cuadrícula evoluciona.</span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- FINAL CTA -->
-      <section class="footer-cta">
-        <h2>
-          <span data-lang="en">Be Reactific.</span>
-          <span data-lang="es">Sé Reactific.</span>
-        </h2>
-
-        <p class="section-copy" style="margin-left:auto;margin-right:auto;">
-          <span data-lang="en">
-            Stop watching. Start reacting. Train to the beat. Adapt to the challenge.
-          </span>
-          <span data-lang="es">
-            Deja de mirar. Empieza a reaccionar. Entrena al ritmo. Adáptate al desafío.
-          </span>
-        </p>
-
-        <div class="cta-row" style="justify-content:center;">
-          <a href="profile.html" class="btn btn-primary">
-            <span data-lang="en">Enter Reactific</span>
-            <span data-lang="es">Entrar a Reactific</span>
-          </a>
-        </div>
-      </section>
-
-    </main>
-
-    <footer>
-      <div>REACTIFIC™ — Train to the Beat of the Grid™</div>
-      <div>Brought to life by Gostar Digital LLC</div>
-      <div>reactific.co</div>
-    </footer>
-
+    <div class="cta-row">
+      <a href="#programs" class="btn btn-primary">
+        <span data-lang="en">Explore Programs</span>
+        <span data-lang="es">Explorar Programas</span>
+      </a>
+      <a href="#start" class="btn btn-secondary">
+        <span data-lang="en">Join Waitlist</span>
+        <span data-lang="es">Unirse a la Lista</span>
+      </a>
+    </div>
   </div>
 
-  <script>
-    function setLang(lang) {
-      document.body.classList.toggle('es', lang === 'es');
-      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
-      document.getElementById('btnEs').classList.toggle('active', lang === 'es');
-      document.documentElement.lang = lang;
-    }
-  </script>
+  <div class="hero-card">
+    <div class="grid-box">
+      <div class="cell">1</div><div class="cell active">2</div><div class="cell">3</div><div class="cell">4</div><div class="cell">5</div><div class="cell">6</div><div class="cell goldcell">7</div><div class="cell">8</div><div class="cell">9</div><div class="cell">10</div>
+      <div class="cell">11</div><div class="cell">12</div><div class="cell active">13</div><div class="cell">14</div><div class="cell">15</div><div class="cell">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell goldcell">19</div><div class="cell">20</div>
+      <div class="cell active">21</div><div class="cell">22</div><div class="cell">23</div><div class="cell">24</div><div class="cell">25</div><div class="cell">26</div><div class="cell">27</div><div class="cell active">28</div><div class="cell">29</div><div class="cell">30</div>
+      <div class="cell">31</div><div class="cell">32</div><div class="cell goldcell">33</div><div class="cell">34</div><div class="cell">35</div><div class="cell">36</div><div class="cell">37</div><div class="cell">38</div><div class="cell">39</div><div class="cell active">40</div>
+      <div class="cell">41</div><div class="cell">42</div><div class="cell">43</div><div class="cell active">44</div><div class="cell">45</div><div class="cell">46</div><div class="cell">47</div><div class="cell">48</div><div class="cell">49</div><div class="cell">50</div>
+      <div class="cell goldcell">51</div><div class="cell">52</div><div class="cell">53</div><div class="cell">54</div><div class="cell active">55</div><div class="cell">56</div><div class="cell">57</div><div class="cell">58</div><div class="cell">59</div><div class="cell">60</div>
+    </div>
+
+    <div class="stat-line">
+      <div class="stat">
+        <b>6×10</b>
+        <span data-lang="en">Grid</span>
+        <span data-lang="es">Cuadrícula</span>
+      </div>
+      <div class="stat">
+        <b>BPM</b>
+        <span data-lang="en">Beat Training</span>
+        <span data-lang="es">Ritmo</span>
+      </div>
+      <div class="stat">
+        <b>6</b>
+        <span data-lang="en">Programs</span>
+        <span data-lang="es">Programas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <h2 class="section-title">
+    <span data-lang="en">Six Programs. One Reaction System.</span>
+    <span data-lang="es">Seis Programas. Un Sistema de Reacción.</span>
+  </h2>
+
+  <p class="section-copy">
+    <span data-lang="en">
+      Each REACTIFIC™ program trains a different layer of performance: recognition, reaction,
+      recall, execution, change detection, and visual search.
+    </span>
+    <span data-lang="es">
+      Cada programa REACTIFIC™ entrena una capa diferente del rendimiento: reconocimiento, reacción,
+      memoria, ejecución, detección de cambios y búsqueda visual.
+    </span>
+  </p>
+
+  <div class="program-grid">
+
+    <div class="program-card" style="--accent:var(--orange)">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 01</div>
+        <h3>Pattern Recognition™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">Remember. React. Repeat.</span>
+          <span data-lang="es">Recuerda. Reacciona. Repite.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">Observe targets, build a mental map, and react from memory under pressure.</span>
+          <span data-lang="es">Observa objetivos, crea un mapa mental y reacciona desde la memoria bajo presión.</span>
+        </p>
+        <div class="skill-list">
+          <span>Recognition</span><span>Memory</span><span>Sequencing</span><span>Reaction</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=pattern-recognition">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+    <div class="program-card" style="--accent:var(--purple)">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 02</div>
+        <h3>Reaction Control™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">See it. Hit it. Stay on beat.</span>
+          <span data-lang="es">Velo. Tócalo. Mantén el ritmo.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">React to changing targets with timing, precision, and controlled focus.</span>
+          <span data-lang="es">Reacciona a objetivos cambiantes con tiempo, precisión y enfoque controlado.</span>
+        </p>
+        <div class="skill-list">
+          <span>Reaction</span><span>Timing</span><span>Tracking</span><span>Precision</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=reaction-control">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+    <div class="program-card" style="--accent:var(--cyan)">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 03</div>
+        <h3>Sequence Recall™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">Watch. Retain. Recover.</span>
+          <span data-lang="es">Observa. Retén. Recupera.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">Capture visual information, hold it, and recover it when the grid disappears.</span>
+          <span data-lang="es">Captura información visual, reténla y recupérala cuando la cuadrícula desaparece.</span>
+        </p>
+        <div class="skill-list">
+          <span>Recall</span><span>Awareness</span><span>Retention</span><span>Decision</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=sequence-recall">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+    <div class="program-card" style="--accent:var(--teal)">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 04</div>
+        <h3>Focus Control™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">Watch. Follow. Execute.</span>
+          <span data-lang="es">Observa. Sigue. Ejecuta.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">Stay locked in and reproduce visual sequences with rhythm and precision.</span>
+          <span data-lang="es">Mantente enfocado y reproduce secuencias visuales con ritmo y precisión.</span>
+        </p>
+        <div class="skill-list">
+          <span>Focus</span><span>Execution</span><span>Rhythm</span><span>Control</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=focus-control">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+    <div class="program-card" style="--accent:#9ACD32">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 05</div>
+        <h3>Change Detection™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">Observe. Compare. React.</span>
+          <span data-lang="es">Observa. Compara. Reacciona.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">Compare patterns and detect what changed before the beat runs out.</span>
+          <span data-lang="es">Compara patrones y detecta qué cambió antes de que termine el ritmo.</span>
+        </p>
+        <div class="skill-list">
+          <span>Compare</span><span>Detect</span><span>Awareness</span><span>React</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=change-detection">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+    <div class="program-card" style="--accent:var(--lime)">
+      <div class="program-top">
+        <div class="program-number">PROGRAM 06</div>
+        <h3>Number Hunt™</h3>
+        <div class="program-tagline">
+          <span data-lang="en">Scan. Find. React.</span>
+          <span data-lang="es">Escanea. Encuentra. Reacciona.</span>
+        </div>
+        <p class="program-desc">
+          <span data-lang="en">Search the full 60-cell field and locate targets under time pressure.</span>
+          <span data-lang="es">Busca en el campo completo de 60 celdas y localiza objetivos bajo presión.</span>
+        </p>
+        <div class="skill-list">
+          <span>Search</span><span>Scan</span><span>Peripheral</span><span>Speed</span>
+        </div>
+      </div>
+      <div class="program-bottom">
+        <a class="program-link" href="register.html?program=number-hunt">
+          <span data-lang="en">Program Access Coming Soon</span>
+          <span data-lang="es">Acceso Próximamente</span>
+        </a>
+        <div class="lock-note">Future login / registration link</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="system">
+  <h2 class="section-title">
+    <span data-lang="en">A Reaction System, Not Another Drill Library.</span>
+    <span data-lang="es">Un Sistema de Reacción, No Otra Biblioteca de Ejercicios.</span>
+  </h2>
+
+  <p class="section-copy">
+    <span data-lang="en">
+      REACTIFIC™ combines touch, memory, recognition, coordination, reaction, rhythm, and positive mindset.
+      The athlete does not just watch. The athlete enters the grid and adapts.
+    </span>
+    <span data-lang="es">
+      REACTIFIC™ combina tacto, memoria, reconocimiento, coordinación, reacción, ritmo y mentalidad positiva.
+      El usuario no solo observa. Entra a la cuadrícula y se adapta.
+    </span>
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>
+        <span data-lang="en">Touch-Based</span>
+        <span data-lang="es">Basado en Tacto</span>
+      </h3>
+      <p>
+        <span data-lang="en">The screen becomes the training surface. Every touch becomes feedback.</span>
+        <span data-lang="es">La pantalla se convierte en la superficie de entrenamiento. Cada toque genera respuesta.</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span data-lang="en">Beat-Based</span>
+        <span data-lang="es">Basado en Ritmo</span>
+      </h3>
+      <p>
+        <span data-lang="en">Training speeds follow BPM levels: Training, Tempo, and Elite.</span>
+        <span data-lang="es">Las velocidades siguen niveles BPM: Entrenamiento, Tempo y Elite.</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>
+        <span data-lang="en">Adaptive Challenge</span>
+        <span data-lang="es">Desafío Adaptable</span>
+      </h3>
+      <p>
+        <span data-lang="en">As performance improves, the challenge grows. The grid never stands still.</span>
+        <span data-lang="es">Mientras mejora el rendimiento, el desafío aumenta. La cuadrícula nunca se queda quieta.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">
+    <span data-lang="en">The Reactific Flow</span>
+    <span data-lang="es">El Flujo Reactific</span>
+  </h2>
+
+  <div class="steps">
+    <div class="step">
+      <strong>01</strong>
+      <h3>
+        <span data-lang="en">Enter</span>
+        <span data-lang="es">Entra</span>
+      </h3>
+      <p>
+        <span data-lang="en">Choose your program and speed.</span>
+        <span data-lang="es">Escoge tu programa y velocidad.</span>
+      </p>
+    </div>
+
+    <div class="step">
+      <strong>02</strong>
+      <h3>
+        <span data-lang="en">Recognize</span>
+        <span data-lang="es">Reconoce</span>
+      </h3>
+      <p>
+        <span data-lang="en">Read the grid and stay present.</span>
+        <span data-lang="es">Lee la cuadrícula y mantente presente.</span>
+      </p>
+    </div>
+
+    <div class="step">
+      <strong>03</strong>
+      <h3>
+        <span data-lang="en">React</span>
+        <span data-lang="es">Reacciona</span>
+      </h3>
+      <p>
+        <span data-lang="en">Touch with speed, timing, and control.</span>
+        <span data-lang="es">Toca con velocidad, ritmo y control.</span>
+      </p>
+    </div>
+
+    <div class="step">
+      <strong>04</strong>
+      <h3>
+        <span data-lang="en">Adapt</span>
+        <span data-lang="es">Adáptate</span>
+      </h3>
+      <p>
+        <span data-lang="en">The challenge grows as you improve.</span>
+        <span data-lang="es">El desafío crece mientras mejoras.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta" id="start">
+  <h2>
+    <span data-lang="en">Be Reactific.</span>
+    <span data-lang="es">Sé Reactific.</span>
+  </h2>
+
+  <p class="section-copy" style="margin-left:auto;margin-right:auto;">
+    <span data-lang="en">
+      Program access, login, and registration are coming next.
+    </span>
+    <span data-lang="es">
+      El acceso a programas, login y registro vienen próximamente.
+    </span>
+  </p>
+
+  <div class="cta-row" style="justify-content:center;">
+    <a href="register.html" class="btn btn-primary">
+      <span data-lang="en">Join the Reactific Waitlist</span>
+      <span data-lang="es">Unirse a la Lista Reactific</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>REACTIFIC™ — Train to the Beat of the Grid™</div>
+  <div>Brought to life by Gostar Digital LLC</div>
+  <div>reactific.co</div>
+</footer>
+
+</div>
+
+<script>
+function setLang(lang){
+  document.body.classList.toggle('es', lang === 'es');
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('btnEs').classList.toggle('active', lang === 'es');
+  document.documentElement.lang = lang;
+}
+</script>
+
 </body>
 </html>
 ```
