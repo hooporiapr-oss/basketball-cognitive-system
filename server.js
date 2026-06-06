@@ -419,6 +419,43 @@ async function handleStripeWebhook(req, res) {
   res.json({ received: true });
 }
 
+// ── One-time DB setup (delete after use) ────────────────
+app.get('/api/setup-db', async (req, res) => {
+  try {
+    await pool.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS users (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      email VARCHAR(255) UNIQUE NOT NULL,
+      username VARCHAR(30) UNIQUE NOT NULL,
+      password_hash VARCHAR(255) NOT NULL,
+      stripe_customer_id VARCHAR(255),
+      subscription_status VARCHAR(20) DEFAULT 'free',
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS scores (
+      id BIGSERIAL PRIMARY KEY,
+      user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      court VARCHAR(10) NOT NULL DEFAULT 'full',
+      speed VARCHAR(10) NOT NULL,
+      level INTEGER NOT NULL,
+      score INTEGER NOT NULL,
+      streak INTEGER NOT NULL DEFAULT 0,
+      tier INTEGER NOT NULL DEFAULT 1,
+      targets_found INTEGER NOT NULL DEFAULT 0,
+      time_remaining_ms INTEGER DEFAULT 0,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_scores_user ON scores(user_id)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_scores_created ON scores(created_at DESC)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_scores_leaderboard ON scores(court, speed, score DESC)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_scores_daily ON scores(created_at, score DESC)`);
+    res.json({ status: 'ok', message: 'Tables created' });
+  } catch (err) {
+    console.error('Setup error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
 // ── Health check ────────────────────────────────────────
 app.get('/api/health', async (req, res) => {
   try {
