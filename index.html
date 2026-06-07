@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>REACTIFIC™ | Number Hunt™</title>
+<title>REACTIFIC™ Reaction Gaming™</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -63,11 +63,18 @@ header{
   border-bottom:1px solid var(--line);
 }
 .header-inner{
-  width:min(1080px,90%);margin:auto;
-  display:flex;justify-content:space-between;align-items:center;height:52px;
+  width:min(1080px,90%);
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:8px 0;
+  height:auto;
+  gap:4px;
 }
 .logo{font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
 .logo span{color:var(--accent)}
+.logo-sub{font-size:1rem;color:var(--white);letter-spacing:0.15em;margin-left:8px;font-weight:900}
 .lang{display:flex;gap:4px}
 .lang button{
   border:1px solid var(--line);background:transparent;color:var(--muted);
@@ -287,8 +294,16 @@ body.lang-es .inline-es{display:inline}
 }
 
 @media(max-width:600px){
-  .header-inner{height:48px}
-  .logo{font-size:.88rem;letter-spacing:.12em}
+  .header-inner{
+  width:min(1080px,90%);
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:8px 0;
+  height:auto;
+  gap:4px;
+}
   .lang button{padding:5px 10px;font-size:.6rem}
 
   .hero-logo{width:min(220px,55%)}
@@ -347,6 +362,7 @@ body.lang-es .inline-es{display:inline}
   h1{font-size:1.55rem}
   .section-title{font-size:1.05rem}
   .logo{font-size:.8rem}
+  .logo-sub{font-size:.8rem;margin-left:5px}
 }
 </style>
 </head>
@@ -355,7 +371,7 @@ body.lang-es .inline-es{display:inline}
 
 <header>
   <div class="header-inner">
-    <div class="logo">REACTIFIC<span>™</span></div>
+    <div class="logo">REACTIFIC<span>™</span> <span class="logo-sub">REACTION GAMING™</span></div>
     <div class="lang">
       <button id="englishBtn" class="active" onclick="setLang('en')">English</button>
       <button id="spanishBtn" onclick="setLang('es')">Español</button>
@@ -367,10 +383,10 @@ body.lang-es .inline-es{display:inline}
 
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-logo"><img src="logo.png" alt="Reactific™ Reaction Gaming™"></div>
+    <div class="hero-logo"><img src="logo.png" alt="Reactific Reaction Gaming"></div>
     <div class="eyebrow">
-      <span class="lang-block en">Number Hunt™</span>
-      <span class="lang-block es">Number Hunt™</span>
+      <span class="lang-block en">Number Hunt</span>
+      <span class="lang-block es">Number Hunt</span>
     </div>
 
     <h1 style="display:none">
@@ -381,17 +397,17 @@ body.lang-es .inline-es{display:inline}
     <p class="lead">
       <span class="lang-block en">
         Numbers flash. Clock ticks. You scan, find, and react — or the buzzer wins.
-        <strong>Practice free on the Reactific Half-Court™.</strong> Compete on the Reactific Full-Court™.
+        <strong>Practice free on the Reactific Half-Court.</strong> Compete on the Reactific Full-Court.
       </span>
       <span class="lang-block es">
         Los números aparecen. El reloj corre. Escaneas, encuentras y reaccionas — o la bocina gana.
-        <strong>Practica gratis en la Reactific Half-Court™.</strong> Compite en la Reactific Full-Court™.
+        <strong>Practica gratis en la Reactific Half-Court.</strong> Compite en la Reactific Full-Court.
       </span>
     </p>
 
     <div class="free-pill">
-      <span class="lang-block en">Free Reactific Half-Court™ — no account needed</span>
-      <span class="lang-block es">Reactific Half-Court™ gratis — sin cuenta</span>
+      <span class="lang-block en">Free Reactific Half-Court — no account needed</span>
+      <span class="lang-block es">Reactific Half-Court gratis — sin cuenta</span>
     </div>
 
     <div class="cta-row">
@@ -409,7 +425,7 @@ body.lang-es .inline-es{display:inline}
   <div class="demo-card">
     <div class="shot-clock">
       <div>
-        <small>Reactific Shot Clock™</small>
+        <small>Reactific Shot Clock</small>
         <span class="lang-block en">Beat the buzzer</span>
         <span class="lang-block es">Vence la bocina</span>
       </div>
@@ -435,8 +451,8 @@ body.lang-es .inline-es{display:inline}
     <div class="stats">
       <div class="stat">
         <b>5×5</b>
-        <span class="lang-block en">Reactific Half-Court™</span>
-        <span class="lang-block es">Reactific Half-Court™</span>
+        <span class="lang-block en">Reactific Half-Court</span>
+        <span class="lang-block es">Reactific Half-Court</span>
       </div>
       <div class="stat">
         <b>25</b>
@@ -455,8 +471,8 @@ body.lang-es .inline-es{display:inline}
 <!-- TWO COURTS -->
 <section id="free">
   <div class="section-label">
-    <span class="lang-block en">Reactific Half-Court™. Reactific Full-Court™.</span>
-    <span class="lang-block es">Reactific Half-Court™. Reactific Full-Court™.</span>
+    <span class="lang-block en">Reactific Half-Court. Reactific Full-Court.</span>
+    <span class="lang-block es">Reactific Half-Court. Reactific Full-Court.</span>
   </div>
 
   <h2 class="section-title">
@@ -466,12 +482,12 @@ body.lang-es .inline-es{display:inline}
 
   <p class="section-copy">
     <span class="lang-block en">
-      The Reactific Half-Court™ is yours — free, forever. Sharpen your reflexes, learn the game, get fast.
-      When you're ready to prove it, step onto the Reactific Full-Court™.
+      The Reactific Half-Court is yours — free, forever. Sharpen your reflexes, learn the game, get fast.
+      When you're ready to prove it, step onto the Reactific Full-Court.
     </span>
     <span class="lang-block es">
-      La Reactific Half-Court™ es tuya — gratis, para siempre. Afila tus reflejos, aprende el juego, sé rápido.
-      Cuando estés listo para probarlo, sube a la Reactific Full-Court™.
+      La Reactific Half-Court es tuya — gratis, para siempre. Afila tus reflejos, aprende el juego, sé rápido.
+      Cuando estés listo para probarlo, sube a la Reactific Full-Court.
     </span>
   </p>
 
@@ -482,8 +498,8 @@ body.lang-es .inline-es{display:inline}
         <span class="lang-block es">Gratis Siempre</span>
       </span>
       <h3>
-        <span class="lang-block en">Reactific Half-Court™</span>
-        <span class="lang-block es">Reactific Half-Court™</span>
+        <span class="lang-block en">Reactific Half-Court</span>
+        <span class="lang-block es">Reactific Half-Court</span>
       </h3>
       <div class="compare-grid">5 × 5</div>
       <ul class="compare-list">
@@ -526,10 +542,10 @@ body.lang-es .inline-es{display:inline}
         <span class="lang-block es">El Flagship</span>
       </span>
       <h3>
-        <span class="lang-block en">Reactific Full-Court™</span>
-        <span class="lang-block es">Reactific Full-Court™</span>
+        <span class="lang-block en">Reactific Full-Court</span>
+        <span class="lang-block es">Reactific Full-Court</span>
       </h3>
-      <div class="compare-grid">5 × 10</div>
+      <div class="compare-grid">6 × 10</div>
       <ul class="compare-list">
         <li><span class="gold-check">✓</span>
           <span class="lang-block en">50 cells — the real game</span>
@@ -552,8 +568,8 @@ body.lang-es .inline-es{display:inline}
           <span class="lang-block es">Temporadas de liga</span>
         </li>
         <li><span class="gold-check">✓</span>
-          <span class="lang-block en">Reactific Shot Clock™ challenges</span>
-          <span class="lang-block es">Retos Reactific Shot Clock™</span>
+          <span class="lang-block en">Reactific Shot Clock challenges</span>
+          <span class="lang-block es">Retos Reactific Shot Clock</span>
         </li>
       </ul>
       <div style="margin-top:14px">
@@ -569,13 +585,13 @@ body.lang-es .inline-es{display:inline}
 <!-- WHAT'S COMING -->
 <section>
   <div class="section-label">
-    <span class="lang-block en">The Reactific Full-Court™ Experience</span>
-    <span class="lang-block es">La Experiencia Reactific Full-Court™</span>
+    <span class="lang-block en">The Reactific Full-Court Experience</span>
+    <span class="lang-block es">La Experiencia Reactific Full-Court</span>
   </div>
 
   <h2 class="section-title">
-    <span class="lang-block en">Reactific Half-Court™ Builds Skill.<br>Reactific Full-Court™ Proves It.</span>
-    <span class="lang-block es">La Reactific Half-Court™ Construye.<br>La Reactific Full-Court™ Lo Prueba.</span>
+    <span class="lang-block en">Reactific Half-Court Builds Skill.<br>Reactific Full-Court Proves It.</span>
+    <span class="lang-block es">La Reactific Half-Court Construye.<br>La Reactific Full-Court Lo Prueba.</span>
   </h2>
 
   <div class="cards">
@@ -593,7 +609,7 @@ body.lang-es .inline-es{display:inline}
 
     <div class="card">
       <div class="card-icon">⏱️</div>
-      <h3>SHOT CLOCK™</h3>
+      <h3>SHOT CLOCK</h3>
       <p>
         <span class="lang-block en">Timed challenges on the full 50-cell court. Find every target before the buzzer kills your run.</span>
         <span class="lang-block es">Retos cronometrados en la cancha completa de 50 celdas. Encuentra cada objetivo antes que la bocina mate tu racha.</span>
@@ -617,16 +633,16 @@ body.lang-es .inline-es{display:inline}
 <!-- CTA -->
 <section class="final">
   <h2 class="section-title">
-    <span class="lang-block en">Start On The<br>Reactific Half-Court™.</span>
-    <span class="lang-block es">Empieza En La<br>Reactific Half-Court™.</span>
+    <span class="lang-block en">Start On The<br>Reactific Half-Court.</span>
+    <span class="lang-block es">Empieza En La<br>Reactific Half-Court.</span>
   </h2>
 
   <p class="section-copy">
     <span class="lang-block en">
-      Free. No account. No download. Just you, 25 cells, and the Reactific Shot Clock™.
+      Free. No account. No download. Just you, 25 cells, and the Reactific Shot Clock.
     </span>
     <span class="lang-block es">
-      Gratis. Sin cuenta. Sin descarga. Solo tú, 25 celdas, y el Reactific Shot Clock™.
+      Gratis. Sin cuenta. Sin descarga. Solo tú, 25 celdas, y el Reactific Shot Clock.
     </span>
   </p>
 
@@ -639,7 +655,7 @@ body.lang-es .inline-es{display:inline}
 </main>
 
 <footer>
-  REACTIFIC™ · REACTION GAMING™ · NUMBER HUNT™ · REACTIFIC SHOT CLOCK™ · REACTIFIC HALF-COURT™ · REACTIFIC FULL-COURT™<br>are trademarks of Reactific. All rights reserved.
+  © Reactific Gaming. All rights reserved.
 </footer>
 
 <script>
