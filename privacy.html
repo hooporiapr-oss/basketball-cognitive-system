@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Privacy Policy | REACTIFIC™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#040404;--card:#0e0e12;--white:#eaeaea;--muted:#5e5e6a;--muted-light:#9292a0;--line:rgba(255,255,255,.06);--line-hover:rgba(255,255,255,.14);--accent:#7ecf5a;--gold:#bfa02e}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:100;background:rgba(4,4,4,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.header-inner{width:min(800px,90%);margin:auto;display:flex;justify-content:space-between;align-items:center;height:52px}
+.logo{font-family:'Red Hat Display',sans-serif;font-size:.9rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--white);text-decoration:none}
+.logo span{color:var(--accent)}
+.header-right{display:flex;align-items:center;gap:10px}
+.back{font-size:.72rem;color:var(--muted);font-weight:600;text-decoration:none;border:1px solid var(--line);padding:5px 12px;border-radius:999px}
+.back:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.lang{display:flex;gap:3px}
+.lang button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:5px 10px;font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.lang button:hover{border-color:var(--line-hover);color:var(--white)}
+.lang button.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.wrap{width:min(800px,90%);margin:0 auto;padding:48px 0 80px}
+h1{font-family:'Red Hat Display',sans-serif;font-size:1.8rem;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:6px}
+.last-updated{font-size:.75rem;color:var(--muted);margin-bottom:36px}
+h2{font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;margin-top:36px;margin-bottom:10px}
+p,li{font-size:.88rem;color:var(--muted-light);margin-bottom:12px}
+ul{padding-left:20px;margin-bottom:12px}
+li{margin-bottom:6px}
+strong{color:var(--white);font-weight:600}
+footer{border-top:1px solid var(--line);padding:22px 16px;text-align:center;color:var(--muted);font-size:.6rem;font-weight:600;letter-spacing:.1em}
+.footer-links{margin-top:6px;display:flex;justify-content:center;gap:16px}
+.footer-links a{color:var(--muted);font-size:.55rem;font-weight:600;letter-spacing:.08em;text-decoration:none}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+.lang-block{display:none}
+body.lang-en .en{display:block}
+body.lang-es .es{display:block}
+@media(max-width:600px){
+  h1{font-size:1.4rem}
+  h2{font-size:.88rem;margin-top:28px}
+  p,li{font-size:.82rem}
+  .wrap{padding:32px 0 60px}
+  .header-inner{height:48px}
+  .logo{font-size:.8rem}
+}
+</style>
+</head>
+<body class="lang-en">
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">REACTIFIC<span>™</span></a>
+    <div class="header-right">
+      <div class="lang">
+        <button id="langEN" class="active" onclick="setLang('en')">EN</button>
+        <button id="langES" onclick="setLang('es')">ES</button>
+      </div>
+      <a href="/" class="back">← Back</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<h1>
+  <span class="lang-block en">Privacy Policy</span>
+  <span class="lang-block es">Política de Privacidad</span>
+</h1>
+<p class="last-updated">
+  <span class="lang-block en">Last updated: June 7, 2026</span>
+  <span class="lang-block es">Última actualización: 7 de junio de 2026</span>
+</p>
+
+<div class="lang-block en">
+<p>Gostar Digital LLC ("we," "us," "our") operates the Reactific™ platform at reactificgaming.com. This Privacy Policy explains how we collect, use, and protect your information when you use our services.</p>
+
+<h2>1. Information We Collect</h2>
+<p><strong>Account Information:</strong> When you create an account, we collect your email address, username, and password (stored securely as a hash — we never store your actual password).</p>
+<p><strong>Game Data:</strong> We collect scores, round results, speed tier selections, streak counts, and other gameplay data to power leaderboards and track your progress.</p>
+<p><strong>Payment Information:</strong> Payments are processed by Stripe. We do not store your credit card number, CVV, or full payment details. Stripe handles all payment data in accordance with PCI-DSS standards. We receive only your Stripe customer ID and subscription status.</p>
+<p><strong>Usage Data:</strong> We may collect basic usage data such as device type, browser type, and pages visited to improve the platform experience.</p>
+
+<h2>2. How We Use Your Information</h2>
+<ul>
+<li>To create and manage your account</li>
+<li>To display your username on public leaderboards</li>
+<li>To process subscriptions and payments through Stripe</li>
+<li>To track your game progress and scores</li>
+<li>To improve the platform and user experience</li>
+<li>To communicate important updates about your account or the service</li>
+</ul>
+
+<h2>3. Public Information</h2>
+<p>Your <strong>username</strong> and <strong>game scores</strong> are displayed publicly on leaderboards. Your email address is never displayed publicly. Choose a username that does not reveal your real identity if you prefer to remain anonymous.</p>
+
+<h2>4. Data Sharing</h2>
+<p>We do not sell, rent, or trade your personal information. We share data only with:</p>
+<ul>
+<li><strong>Stripe:</strong> For payment processing</li>
+<li><strong>Render:</strong> Our hosting provider, for infrastructure services</li>
+<li><strong>Legal requirements:</strong> If required by law, regulation, or legal process</li>
+</ul>
+
+<h2>5. Data Security</h2>
+<p>We use industry-standard security measures including encrypted connections (HTTPS/TLS), hashed passwords (bcrypt), and secure authentication tokens (JWT). While no system is 100% secure, we take reasonable measures to protect your data.</p>
+
+<h2>6. Cookies and Local Storage</h2>
+<p>We use browser local storage to save your game preferences, language selection, and authentication tokens. We do not use third-party tracking cookies or advertising cookies.</p>
+
+<h2>7. Children's Privacy</h2>
+<p>Reactific is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, please contact us and we will delete it promptly.</p>
+
+<h2>8. Your Rights</h2>
+<p>You may:</p>
+<ul>
+<li>Request access to your personal data</li>
+<li>Request deletion of your account and associated data</li>
+<li>Update your email or username through your account settings</li>
+<li>Cancel your subscription at any time through the Stripe customer portal</li>
+</ul>
+
+<h2>9. Data Retention</h2>
+<p>We retain your account data and game scores as long as your account is active. If you request account deletion, we will remove your personal data within 30 days. Anonymized, aggregated data may be retained for analytics purposes.</p>
+
+<h2>10. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of Reactific after changes constitutes acceptance of the revised policy.</p>
+
+<h2>11. Contact</h2>
+<p>For privacy questions or data requests, contact us at:</p>
+<p><strong>Gostar Digital LLC</strong><br>San Juan, Puerto Rico<br>Email: reactific@gmail.com</p>
+</div>
+
+<div class="lang-block es">
+<p>Gostar Digital LLC ("nosotros," "nos," "nuestro") opera la plataforma Reactific™ en reactificgaming.com. Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos tu información cuando utilizas nuestros servicios.</p>
+
+<h2>1. Información Que Recopilamos</h2>
+<p><strong>Información de Cuenta:</strong> Cuando creas una cuenta, recopilamos tu dirección de correo electrónico, nombre de usuario y contraseña (almacenada de forma segura como hash — nunca almacenamos tu contraseña real).</p>
+<p><strong>Datos del Juego:</strong> Recopilamos puntuaciones, resultados de rondas, selecciones de velocidad, rachas y otros datos de juego para alimentar las tablas de posiciones y rastrear tu progreso.</p>
+<p><strong>Información de Pago:</strong> Los pagos son procesados por Stripe. No almacenamos tu número de tarjeta de crédito, CVV ni datos completos de pago. Stripe maneja todos los datos de pago de acuerdo con los estándares PCI-DSS. Solo recibimos tu ID de cliente de Stripe y el estado de tu suscripción.</p>
+<p><strong>Datos de Uso:</strong> Podemos recopilar datos básicos de uso como tipo de dispositivo, tipo de navegador y páginas visitadas para mejorar la experiencia de la plataforma.</p>
+
+<h2>2. Cómo Usamos Tu Información</h2>
+<ul>
+<li>Para crear y administrar tu cuenta</li>
+<li>Para mostrar tu nombre de usuario en las tablas de posiciones públicas</li>
+<li>Para procesar suscripciones y pagos a través de Stripe</li>
+<li>Para rastrear tu progreso y puntuaciones en el juego</li>
+<li>Para mejorar la plataforma y la experiencia del usuario</li>
+<li>Para comunicar actualizaciones importantes sobre tu cuenta o el servicio</li>
+</ul>
+
+<h2>3. Información Pública</h2>
+<p>Tu <strong>nombre de usuario</strong> y <strong>puntuaciones</strong> se muestran públicamente en las tablas de posiciones. Tu correo electrónico nunca se muestra públicamente. Elige un nombre de usuario que no revele tu identidad real si prefieres mantenerte anónimo.</p>
+
+<h2>4. Compartir Datos</h2>
+<p>No vendemos, alquilamos ni intercambiamos tu información personal. Compartimos datos solo con:</p>
+<ul>
+<li><strong>Stripe:</strong> Para procesamiento de pagos</li>
+<li><strong>Render:</strong> Nuestro proveedor de hosting, para servicios de infraestructura</li>
+<li><strong>Requisitos legales:</strong> Si lo requiere la ley, regulación o proceso legal</li>
+</ul>
+
+<h2>5. Seguridad de Datos</h2>
+<p>Utilizamos medidas de seguridad estándar de la industria incluyendo conexiones cifradas (HTTPS/TLS), contraseñas hasheadas (bcrypt) y tokens de autenticación seguros (JWT). Aunque ningún sistema es 100% seguro, tomamos medidas razonables para proteger tus datos.</p>
+
+<h2>6. Cookies y Almacenamiento Local</h2>
+<p>Usamos el almacenamiento local del navegador para guardar tus preferencias de juego, selección de idioma y tokens de autenticación. No usamos cookies de rastreo de terceros ni cookies publicitarias.</p>
+
+<h2>7. Privacidad de Menores</h2>
+<p>Reactific no está dirigido a menores de 13 años. No recopilamos conscientemente información personal de menores de 13 años. Si crees que un menor de 13 años ha creado una cuenta, contáctanos y la eliminaremos de inmediato.</p>
+
+<h2>8. Tus Derechos</h2>
+<p>Puedes:</p>
+<ul>
+<li>Solicitar acceso a tus datos personales</li>
+<li>Solicitar la eliminación de tu cuenta y datos asociados</li>
+<li>Actualizar tu correo electrónico o nombre de usuario a través de la configuración de tu cuenta</li>
+<li>Cancelar tu suscripción en cualquier momento a través del portal de clientes de Stripe</li>
+</ul>
+
+<h2>9. Retención de Datos</h2>
+<p>Retenemos los datos de tu cuenta y puntuaciones mientras tu cuenta esté activa. Si solicitas la eliminación de tu cuenta, eliminaremos tus datos personales dentro de 30 días. Los datos anonimizados y agregados pueden retenerse con fines analíticos.</p>
+
+<h2>10. Cambios a Esta Política</h2>
+<p>Podemos actualizar esta Política de Privacidad de vez en cuando. Los cambios se publicarán en esta página con una fecha actualizada. El uso continuado de Reactific después de los cambios constituye la aceptación de la política revisada.</p>
+
+<h2>11. Contacto</h2>
+<p>Para preguntas sobre privacidad o solicitudes de datos, contáctanos en:</p>
+<p><strong>Gostar Digital LLC</strong><br>San Juan, Puerto Rico<br>Email: reactific@gmail.com</p>
+</div>
+
+</div>
+
+<footer>
+  © Gostar Digital LLC. All rights reserved.
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Use</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.body.classList.remove('lang-en','lang-es');
+  document.body.classList.add(lang==='es'?'lang-es':'lang-en');
+  document.documentElement.lang=lang;
+  document.getElementById('langEN').classList.toggle('active',lang==='en');
+  document.getElementById('langES').classList.toggle('active',lang==='es');
+}
+</script>
+</body>
+</html>
