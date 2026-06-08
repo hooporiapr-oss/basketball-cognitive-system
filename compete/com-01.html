@@ -233,6 +233,29 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'DM Sans',sa
 </div>
 </div>
 
+
+<!-- SUBSCRIPTION GATE -->
+<div class="sub-overlay hidden" id="subOverlay">
+<div class="sub-box">
+  <div class="sub-welcome" id="subWelcome">Welcome back</div>
+  <div class="sub-title">UNLOCK THE<br>COMPETITIVE COURT</div>
+  <ul class="sub-features">
+    <li><span>🏆</span> Global leaderboards — see where you rank</li>
+    <li><span>⚡</span> Shot Clock challenges — official timed events</li>
+    <li><span>🔥</span> Daily challenges — new rounds, new pressure</li>
+    <li><span>🥇</span> Ranked competition — every round counts</li>
+    <li><span>👥</span> Team competition — compete together</li>
+    <li><span>📈</span> Score history — track your performance</li>
+    <li><span>🏅</span> Recognition — earn your place</li>
+  </ul>
+  <div class="sub-price">$9.99 <small>/month</small></div>
+  <button class="sub-btn" id="subBtn" onclick="doSubscribe()">SUBSCRIBE & COMPETE</button>
+  <div class="sub-skip">
+    <a href="/cog-10.html">← Play free on The Open Court</a>
+  </div>
+</div>
+</div>
+
 <!-- RANK BADGE -->
 <div class="rank-badge" id="rankBadge"></div>
 
@@ -432,10 +455,35 @@ function doRegister(){
 
 function checkAuth(){
   var token=getToken();var user=getUser();
-  if(!token||!user){document.getElementById('authOverlay').classList.remove('hidden');return}
+  if(!token||!user){
+    document.getElementById('authOverlay').classList.remove('hidden');
+    document.getElementById('subOverlay').classList.add('hidden');
+    return;
+  }
   document.getElementById('authOverlay').classList.add('hidden');
   document.getElementById('navUser').textContent=user.username;
-  // Auth passed — game is accessible
+  
+  // Refresh user data from server to get current subscription status
+  api('GET','/api/auth/me').then(function(data){
+    if(data.user){
+      setAuth(token,data.user);
+      document.getElementById('navUser').textContent=data.user.username;
+      if(data.user.subscription_status==='active'){
+        document.getElementById('subOverlay').classList.add('hidden');
+      }else{
+        document.getElementById('subWelcome').textContent='Welcome, '+data.user.username;
+        document.getElementById('subOverlay').classList.remove('hidden');
+      }
+    }
+  }).catch(function(){
+    // If server is down, check local user data
+    if(user.subscription_status==='active'){
+      document.getElementById('subOverlay').classList.add('hidden');
+    }else{
+      document.getElementById('subWelcome').textContent='Welcome, '+user.username;
+      document.getElementById('subOverlay').classList.remove('hidden');
+    }
+  });
 }
 
 function showRank(rank){
@@ -444,6 +492,46 @@ function showRank(rank){
   b.classList.add('show');
   setTimeout(function(){b.classList.remove('show')},3000);
 }
+
+
+function doSubscribe(){
+  document.getElementById('subBtn').disabled=true;
+  document.getElementById('subBtn').textContent='CONNECTING...';
+  api('POST','/api/stripe/checkout').then(function(data){
+    if(data.url){window.location.href=data.url}
+    else{document.getElementById('subBtn').disabled=false;document.getElementById('subBtn').textContent='SUBSCRIBE & COMPETE';alert(data.error||'Could not connect to payment. Try again.')}
+  }).catch(function(){
+    document.getElementById('subBtn').disabled=false;
+    document.getElementById('subBtn').textContent='SUBSCRIBE & COMPETE';
+    alert('Connection error. Please try again.');
+  });
+}
+
+// Handle return from Stripe checkout
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  if(params.get('session_id')){
+    // Returned from successful Stripe checkout — refresh user status
+    window.history.replaceState({},'',window.location.pathname);
+    var token=getToken();
+    if(token){
+      // Poll for subscription update (webhook may take a moment)
+      var attempts=0;
+      var pollSub=setInterval(function(){
+        attempts++;
+        api('GET','/api/auth/me').then(function(data){
+          if(data.user&&data.user.subscription_status==='active'){
+            setAuth(token,data.user);
+            document.getElementById('subOverlay').classList.add('hidden');
+            document.getElementById('navUser').textContent=data.user.username;
+            clearInterval(pollSub);
+          }
+        });
+        if(attempts>=10)clearInterval(pollSub);
+      },2000);
+    }
+  }
+})();
 
 function postScore(speed,level,score,streak,tier){
   api('POST','/api/scores',{court:'full',speed:speed,level:level,score:score,streak:streak||0,tier:tier||1,targets_found:level,time_remaining_ms:0}).then(function(data){
