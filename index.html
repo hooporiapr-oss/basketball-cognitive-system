@@ -33,7 +33,6 @@ header{position:sticky;top:0;z-index:100;background:rgba(4,4,4,.9);backdrop-filt
 .lang button:hover{border-color:var(--line-hover);color:var(--white)}
 .lang button.active{background:var(--accent);color:#000;border-color:var(--accent)}
 
-/* HERO */
 .hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:44px 0 64px}
 .hero-logo{display:block;width:min(280px,60%);margin:0 auto 20px;filter:drop-shadow(0 0 30px rgba(126,207,90,.2))}
 .hero-logo img{width:100%;height:auto}
@@ -60,13 +59,11 @@ header{position:sticky;top:0;z-index:100;background:rgba(4,4,4,.9);backdrop-filt
 .stat b{display:block;color:var(--accent);font-family:'Red Hat Display',sans-serif;font-size:.95rem;font-weight:900}
 .stat span{color:var(--muted);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
 
-/* SECTIONS */
 section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-index:1}
 .section-label{color:var(--gold);font-size:.55rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;text-align:center}
 .section-title{font-family:'Red Hat Display',sans-serif;font-size:clamp(1.4rem,4vw,2.8rem);font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:14px;text-align:center}
 .section-copy{color:var(--muted-light);font-size:.92rem;max-width:540px;margin:0 auto 24px;line-height:1.6;text-align:center}
 
-/* OPEN COURT */
 .open-court-card{border:1px solid var(--accent-border);border-radius:20px;padding:32px 28px;background:linear-gradient(165deg,rgba(126,207,90,.04),var(--card));position:relative;overflow:hidden;max-width:540px;margin:0 auto}
 .open-court-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
 .oc-title{font-family:'Red Hat Display',sans-serif;font-size:1.3rem;font-weight:900;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px;text-align:center}
@@ -79,7 +76,6 @@ section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-inde
 .btn-primary{background:var(--accent);border-color:var(--accent);color:#050505;box-shadow:0 0 20px var(--accent-glow)}
 .btn-primary:hover{box-shadow:0 0 36px rgba(126,207,90,.2);transform:translateY(-1px)}
 
-/* UNLOCKS */
 .unlock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:700px;margin:0 auto}
 .unlock-card{border:1px solid var(--line);border-radius:14px;padding:18px 16px;background:var(--card);display:flex;align-items:flex-start;gap:12px;transition:all .2s}
 .unlock-card:hover{border-color:var(--gold-border);background:var(--card-hover)}
@@ -87,7 +83,6 @@ section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-inde
 .unlock-info h4{font-family:'Red Hat Display',sans-serif;font-size:.82rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
 .unlock-info p{font-size:.75rem;color:var(--muted-light);line-height:1.4}
 
-/* TRAINING */
 .training-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .train-card{border:1px solid var(--line);border-radius:16px;padding:20px 14px;background:var(--card);transition:all .2s;position:relative;overflow:hidden;text-align:center;text-decoration:none}
 .train-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.6;background:var(--tc,var(--gold))}
@@ -98,19 +93,20 @@ section{padding:60px 0;border-top:1px solid var(--line);position:relative;z-inde
 .train-card p{color:var(--muted);font-size:.68rem;line-height:1.4}
 .train-tag{display:inline-block;font-size:.45rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-top:10px;background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--line)}
 
-/* FINAL */
 .final{text-align:center;padding:70px 0}
 .final .section-copy{margin-left:auto;margin-right:auto}
 .final-actions{font-family:'Red Hat Display',sans-serif;font-size:clamp(.9rem,2vw,1.2rem);font-weight:800;color:var(--muted-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px;line-height:1.8}
 .final-actions strong{color:var(--white)}
 
 footer{border-top:1px solid var(--line);padding:22px 16px;text-align:center;color:var(--muted);font-size:.6rem;font-weight:600;letter-spacing:.1em;position:relative;z-index:1}
+.footer-links{margin-top:6px;display:flex;justify-content:center;gap:16px}
+.footer-links a{color:var(--muted);font-size:.55rem;font-weight:600;letter-spacing:.08em;text-decoration:none}
+.footer-links a:hover{color:var(--accent)}
 
 .lang-block{display:none}
 body.lang-en .en{display:block}
 body.lang-es .es{display:block}
 
-/* RESPONSIVE */
 @media(max-width:900px){
   .unlock-grid{grid-template-columns:1fr}
   .training-cards{grid-template-columns:repeat(3,1fr)}
@@ -178,7 +174,6 @@ body.lang-es .es{display:block}
 
 <main class="wrap">
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-logo"><img src="logo.png" alt="Reactific Reaction Gaming"></div>
 
@@ -223,7 +218,6 @@ body.lang-es .es{display:block}
   </div>
 </section>
 
-<!-- THE OPEN COURT -->
 <section id="open-court">
   <div class="section-label">
     <span class="lang-block en">The Open Court</span>
@@ -259,7 +253,6 @@ body.lang-es .es{display:block}
   </div>
 </section>
 
-<!-- COMPETITIVE UNLOCKS -->
 <section>
   <div class="section-label">
     <span class="lang-block en">The Competitive Court</span>
@@ -324,7 +317,6 @@ body.lang-es .es{display:block}
   </div>
 </section>
 
-<!-- TRAINING -->
 <section id="training">
   <div class="section-label">
     <span class="lang-block en">Reaction Training System</span>
@@ -375,7 +367,6 @@ body.lang-es .es{display:block}
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="final">
   <h2 class="section-title">
     <span class="lang-block en">The Court Is Open.</span>
@@ -395,7 +386,13 @@ body.lang-es .es{display:block}
 
 </main>
 
-<footer>© Gostar Digital LLC. All rights reserved.</footer>
+<footer>
+  © Gostar Digital LLC. All rights reserved.
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Use</a>
+  </div>
+</footer>
 
 <script>
 function setLang(lang){
