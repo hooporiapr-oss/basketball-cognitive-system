@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Pricing | REACTIFIC™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#040404;--card:#0e0e12;--card-hover:#141418;--white:#eaeaea;--muted:#5e5e6a;--muted-light:#9292a0;--line:rgba(255,255,255,.06);--line-hover:rgba(255,255,255,.14);--orange:#f28a1f;--orange-dark:#d97a1a;--orange-soft:rgba(242,138,31,.1);--orange-border:rgba(242,138,31,.2);--cyan:#00bbf0;--cyan-soft:rgba(0,187,240,.08);--cyan-border:rgba(0,187,240,.18);--border:rgba(255,255,255,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 50% 40% at 10% 5%,rgba(0,187,240,.03),transparent),radial-gradient(ellipse 40% 35% at 90% 90%,rgba(242,138,31,.025),transparent);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.015) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;z-index:0}
+a{color:inherit;text-decoration:none}
+
+header{position:sticky;top:0;z-index:100;background:rgba(4,4,4,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.header-inner{width:min(900px,90%);margin:auto;display:flex;justify-content:space-between;align-items:center;height:52px}
+.logo{font-family:'Red Hat Display',sans-serif;font-size:.9rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--white);text-decoration:none}
+.logo span{color:var(--orange)}
+.header-right{display:flex;align-items:center;gap:10px}
+.back{font-size:.72rem;color:var(--muted);font-weight:600;text-decoration:none;border:1px solid var(--line);padding:5px 12px;border-radius:999px}
+.back:hover{border-color:var(--orange);color:var(--orange)}
+.lang{display:flex;gap:3px}
+.lang button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:5px 10px;font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.lang button:hover{border-color:var(--line-hover);color:var(--white)}
+.lang button.active{background:var(--orange);color:#000;border-color:var(--orange)}
+
+.wrap{width:min(900px,90%);margin:0 auto;padding:48px 0 80px;position:relative;z-index:1}
+
+.page-header{text-align:center;margin-bottom:40px}
+.page-badge{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:999px;background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-border);margin-bottom:12px}
+.page-title{font-family:'Red Hat Display',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:8px}
+.page-sub{font-size:.88rem;color:var(--muted-light);max-width:500px;margin:0 auto}
+
+/* PRICING CARDS */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+.price-card{border:1px solid var(--line);border-radius:18px;padding:28px 22px;background:var(--card);position:relative;overflow:hidden;transition:all .2s;display:flex;flex-direction:column}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan);opacity:.4}
+.price-card:hover{border-color:var(--line-hover);background:var(--card-hover);transform:translateY(-2px)}
+.price-card.featured{border-color:var(--orange-border);background:linear-gradient(165deg,rgba(242,138,31,.05),var(--card))}
+.price-card.featured::before{background:var(--orange);opacity:1}
+
+.price-popular{position:absolute;top:12px;right:12px;font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--orange);color:#000}
+
+.price-icon{font-size:1.8rem;margin-bottom:12px}
+.price-name{font-family:'Red Hat Display',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.price-card.featured .price-name{color:var(--orange)}
+.price-for{font-size:.7rem;color:var(--muted);margin-bottom:16px}
+
+.price-amount{font-family:'Red Hat Display',sans-serif;font-size:2.2rem;font-weight:900;color:var(--white);margin-bottom:2px}
+.price-amount small{font-size:.7rem;color:var(--muted);font-weight:400}
+.price-card.featured .price-amount{color:var(--orange)}
+.price-per-month{font-size:.65rem;color:var(--muted);margin-bottom:16px}
+
+.price-features{list-style:none;flex:1;margin-bottom:18px}
+.price-features li{font-size:.78rem;color:var(--muted-light);padding:5px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.price-features li:last-child{border-bottom:none}
+.price-features li span{color:var(--cyan);font-size:.75rem}
+.price-card.featured .price-features li span{color:var(--orange)}
+
+.price-btn{width:100%;padding:12px;border:none;border-radius:10px;font-family:'Red Hat Display',sans-serif;font-size:.85rem;font-weight:900;letter-spacing:.06em;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;display:block}
+.price-btn:active{transform:scale(.98)}
+.price-btn-outline{background:transparent;border:1px solid var(--cyan-border);color:var(--cyan)}
+.price-btn-outline:hover{background:var(--cyan-soft);border-color:var(--cyan)}
+.price-btn-primary{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#000;box-shadow:0 0 16px rgba(242,138,31,.15)}
+.price-btn-primary:hover{box-shadow:0 0 24px rgba(242,138,31,.25)}
+
+/* INDIVIDUAL */
+.individual-section{text-align:center;margin-bottom:40px;padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.individual-title{font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;color:var(--cyan)}
+.individual-price{font-family:'Red Hat Display',sans-serif;font-size:1.4rem;font-weight:900;margin-bottom:4px}
+.individual-price small{font-size:.65rem;color:var(--muted);font-weight:400}
+.individual-desc{font-size:.78rem;color:var(--muted-light);margin-bottom:14px}
+.individual-btn{display:inline-block;padding:10px 28px;border:1px solid var(--cyan-border);background:transparent;color:var(--cyan);border-radius:10px;font-family:'Red Hat Display',sans-serif;font-size:.8rem;font-weight:900;letter-spacing:.06em;text-decoration:none;transition:all .2s}
+.individual-btn:hover{background:var(--cyan-soft)}
+
+/* FEATURES */
+.features-section{margin-bottom:40px}
+.features-title{font-family:'Red Hat Display',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;text-align:center;margin-bottom:20px}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.feature-icon{font-size:1.2rem;flex-shrink:0}
+.feature-text h4{font-family:'Red Hat Display',sans-serif;font-size:.75rem;font-weight:900;color:var(--orange);text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.feature-text p{font-size:.72rem;color:var(--muted-light);line-height:1.4}
+
+/* CTA */
+.cta-section{text-align:center;padding:40px 0}
+.cta-title{font-family:'Red Hat Display',sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:8px}
+.cta-sub{font-size:.85rem;color:var(--muted-light);margin-bottom:18px}
+.cta-btn{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#000;border-radius:12px;font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.06em;text-decoration:none;box-shadow:0 0 20px rgba(242,138,31,.15);transition:all .2s}
+.cta-btn:hover{box-shadow:0 0 30px rgba(242,138,31,.25);transform:translateY(-1px)}
+.cta-email{margin-top:12px;font-size:.75rem;color:var(--muted)}
+.cta-email a{color:var(--cyan);text-decoration:none}
+
+footer{border-top:1px solid var(--line);padding:22px 16px;text-align:center;color:var(--muted);font-size:.6rem;font-weight:600;letter-spacing:.1em;position:relative;z-index:1}
+.footer-links{margin-top:6px;display:flex;justify-content:center;gap:16px}
+.footer-links a{color:var(--muted);font-size:.55rem;font-weight:600;letter-spacing:.08em;text-decoration:none}
+.footer-links a:hover{color:var(--cyan)}
+
+.lang-block{display:none}
+body.lang-en .en{display:block}
+body.lang-es .es{display:block}
+
+@media(max-width:768px){
+  .pricing-grid{grid-template-columns:1fr;gap:12px}
+  .features-grid{grid-template-columns:1fr}
+  .price-card{padding:22px 18px}
+  .page-title{font-size:1.5rem}
+}
+@media(max-width:480px){
+  .wrap{padding:32px 0 60px}
+  .header-inner{height:48px}
+  .logo{font-size:.8rem}
+  .price-amount{font-size:1.8rem}
+}
+</style>
+</head>
+<body class="lang-en">
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">REACTIFIC<span>™</span></a>
+    <div class="header-right">
+      <div class="lang">
+        <button id="langEN" class="active" onclick="setLang('en')">EN</button>
+        <button id="langES" onclick="setLang('es')">ES</button>
+      </div>
+      <a href="/" class="back">← Back</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="page-header">
+  <div class="page-badge">
+    <span class="lang-block en">Schools & Programs</span>
+    <span class="lang-block es">Escuelas y Programas</span>
+  </div>
+  <h1 class="page-title">
+    <span class="lang-block en">Bring Reactific To Your School</span>
+    <span class="lang-block es">Lleva Reactific a Tu Escuela</span>
+  </h1>
+  <p class="page-sub">
+    <span class="lang-block en">One URL. Any device. Every student. No hardware required. No app to install. Just open a browser and compete.</span>
+    <span class="lang-block es">Un URL. Cualquier dispositivo. Cada estudiante. Sin hardware requerido. Sin app que instalar. Solo abre un navegador y compite.</span>
+  </p>
+</div>
+
+<!-- PRICING CARDS -->
+<div class="pricing-grid">
+
+  <!-- PROGRAM -->
+  <div class="price-card">
+    <div class="price-icon">🏠</div>
+    <div class="price-name">
+      <span class="lang-block en">Program License</span>
+      <span class="lang-block es">Licencia de Programa</span>
+    </div>
+    <div class="price-for">
+      <span class="lang-block en">After-school programs, clubs, community centers</span>
+      <span class="lang-block es">Programas extracurriculares, clubes, centros comunitarios</span>
+    </div>
+    <div class="price-amount">$599 <small>/year</small></div>
+    <div class="price-per-month">
+      <span class="lang-block en">~$50/month · Single location</span>
+      <span class="lang-block es">~$50/mes · Una ubicación</span>
+    </div>
+    <ul class="price-features">
+      <li><span>✓</span> <span class="lang-block en">Unlimited devices</span><span class="lang-block es">Dispositivos ilimitados</span></li>
+      <li><span>✓</span> <span class="lang-block en">Unlimited participants</span><span class="lang-block es">Participantes ilimitados</span></li>
+      <li><span>✓</span> <span class="lang-block en">All 6 games included</span><span class="lang-block es">Los 6 juegos incluidos</span></li>
+      <li><span>✓</span> <span class="lang-block en">Kiosk launcher page</span><span class="lang-block es">Página de inicio kiosk</span></li>
+      <li><span>✓</span> <span class="lang-block en">Bilingual EN/ES</span><span class="lang-block es">Bilingüe EN/ES</span></li>
+    </ul>
+    <a href="mailto:reactific@gmail.com?subject=Program License Inquiry" class="price-btn price-btn-outline">
+      <span class="lang-block en">GET STARTED</span>
+      <span class="lang-block es">COMENZAR</span>
+    </a>
+  </div>
+
+  <!-- SCHOOL - FEATURED -->
+  <div class="price-card featured">
+    <div class="price-popular">
+      <span class="lang-block en">MOST POPULAR</span>
+      <span class="lang-block es">MÁS POPULAR</span>
+    </div>
+    <div class="price-icon">🏫</div>
+    <div class="price-name">
+      <span class="lang-block en">School License</span>
+      <span class="lang-block es">Licencia Escolar</span>
+    </div>
+    <div class="price-for">
+      <span class="lang-block en">K-12 schools, charter schools, academies</span>
+      <span class="lang-block es">Escuelas K-12, escuelas charter, academias</span>
+    </div>
+    <div class="price-amount">$899 <small>/year</small></div>
+    <div class="price-per-month">
+      <span class="lang-block en">~$75/month · Single campus</span>
+      <span class="lang-block es">~$75/mes · Un campus</span>
+    </div>
+    <ul class="price-features">
+      <li><span>✓</span> <span class="lang-block en">Unlimited devices</span><span class="lang-block es">Dispositivos ilimitados</span></li>
+      <li><span>✓</span> <span class="lang-block en">Unlimited students</span><span class="lang-block es">Estudiantes ilimitados</span></li>
+      <li><span>✓</span> <span class="lang-block en">All 6 games included</span><span class="lang-block es">Los 6 juegos incluidos</span></li>
+      <li><span>✓</span> <span class="lang-block en">Kiosk launcher page</span><span class="lang-block es">Página de inicio kiosk</span></li>
+      <li><span>✓</span> <span class="lang-block en">School Wars tournament eligibility</span><span class="lang-block es">Elegibilidad para torneos School Wars</span></li>
+      <li><span>✓</span> <span class="lang-block en">School leaderboard</span><span class="lang-block es">Tabla de posiciones escolar</span></li>
+      <li><span>✓</span> <span class="lang-block en">Bilingual EN/ES</span><span class="lang-block es">Bilingüe EN/ES</span></li>
+    </ul>
+    <a href="mailto:reactific@gmail.com?subject=School License Inquiry" class="price-btn price-btn-primary">
+      <span class="lang-block en">GET STARTED</span>
+      <span class="lang-block es">COMENZAR</span>
+    </a>
+  </div>
+
+  <!-- MULTI-CAMPUS -->
+  <div class="price-card">
+    <div class="price-icon">🏛️</div>
+    <div class="price-name">
+      <span class="lang-block en">Multi-Campus</span>
+      <span class="lang-block es">Multi-Campus</span>
+    </div>
+    <div class="price-for">
+      <span class="lang-block en">Organizations with 2-5 campuses or locations</span>
+      <span class="lang-block es">Organizaciones con 2-5 campus o ubicaciones</span>
+    </div>
+    <div class="price-amount">$1,499 <small>/year</small></div>
+    <div class="price-per-month">
+      <span class="lang-block en">~$125/month · Up to 5 campuses</span>
+      <span class="lang-block es">~$125/mes · Hasta 5 campus</span>
+    </div>
+    <ul class="price-features">
+      <li><span>✓</span> <span class="lang-block en">2-5 campuses covered</span><span class="lang-block es">2-5 campus cubiertos</span></li>
+      <li><span>✓</span> <span class="lang-block en">Unlimited devices per campus</span><span class="lang-block es">Dispositivos ilimitados por campus</span></li>
+      <li><span>✓</span> <span class="lang-block en">All 6 games included</span><span class="lang-block es">Los 6 juegos incluidos</span></li>
+      <li><span>✓</span> <span class="lang-block en">Cross-campus competitions</span><span class="lang-block es">Competencias entre campus</span></li>
+      <li><span>✓</span> <span class="lang-block en">School Wars tournament eligibility</span><span class="lang-block es">Elegibilidad para torneos School Wars</span></li>
+      <li><span>✓</span> <span class="lang-block en">Organization leaderboard</span><span class="lang-block es">Tabla de posiciones organizacional</span></li>
+      <li><span>✓</span> <span class="lang-block en">Bilingual EN/ES</span><span class="lang-block es">Bilingüe EN/ES</span></li>
+    </ul>
+    <a href="mailto:reactific@gmail.com?subject=Multi-Campus License Inquiry" class="price-btn price-btn-outline">
+      <span class="lang-block en">GET STARTED</span>
+      <span class="lang-block es">COMENZAR</span>
+    </a>
+  </div>
+
+</div>
+
+<!-- INDIVIDUAL -->
+<div class="individual-section">
+  <div class="individual-title">
+    <span class="lang-block en">Individual Players</span>
+    <span class="lang-block es">Jugadores Individuales</span>
+  </div>
+  <div class="individual-price">$9.99 <small>/month</small></div>
+  <p class="individual-desc">
+    <span class="lang-block en">The Competitive Court — leaderboards, rankings, Shot Clock challenges, score history. Play on any device.</span>
+    <span class="lang-block es">La Cancha Competitiva — rankings, clasificaciones, retos Shot Clock, historial de puntos. Juega en cualquier dispositivo.</span>
+  </p>
+  <a href="/compete/com-01.html" class="individual-btn">
+    <span class="lang-block en">COMPETE NOW</span>
+    <span class="lang-block es">COMPITE AHORA</span>
+  </a>
+</div>
+
+<!-- FEATURES -->
+<div class="features-section">
+  <h2 class="features-title">
+    <span class="lang-block en">Every License Includes</span>
+    <span class="lang-block es">Cada Licencia Incluye</span>
+  </h2>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">💻</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">Any Device</span><span class="lang-block es">Cualquier Dispositivo</span></h4>
+        <p><span class="lang-block en">Chromebooks, iPads, tablets, phones, touchscreens. If it has a browser, it runs Reactific.</span><span class="lang-block es">Chromebooks, iPads, tablets, teléfonos, pantallas táctiles. Si tiene navegador, corre Reactific.</span></p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">Zero Setup</span><span class="lang-block es">Cero Instalación</span></h4>
+        <p><span class="lang-block en">No app to install. No software to download. No IT department needed. Open a browser and go.</span><span class="lang-block es">Sin app que instalar. Sin software que descargar. Sin departamento de IT. Abre un navegador y listo.</span></p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🌐</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">Bilingual</span><span class="lang-block es">Bilingüe</span></h4>
+        <p><span class="lang-block en">Full English and Spanish support. Students switch languages with one tap.</span><span class="lang-block es">Soporte completo en inglés y español. Los estudiantes cambian de idioma con un toque.</span></p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🎮</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">6 Games</span><span class="lang-block es">6 Juegos</span></h4>
+        <p><span class="lang-block en">ShotClock flagship + 5 reaction training games. Pattern Recognition, Reaction Control, Sequence Recall, Focus Control, Cognitive Recovery.</span><span class="lang-block es">ShotClock principal + 5 juegos de entrenamiento. Reconocimiento de Patrones, Control de Reacción, Secuencia de Memoria, Control de Enfoque, Recuperación Cognitiva.</span></p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🏆</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">School Wars</span><span class="lang-block es">School Wars</span></h4>
+        <p><span class="lang-block en">Inter-school tournaments. Campus vs campus. Your students compete against other schools on the leaderboard.</span><span class="lang-block es">Torneos inter-escolares. Campus vs campus. Tus estudiantes compiten contra otras escuelas en la tabla de posiciones.</span></p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🧠</div>
+      <div class="feature-text">
+        <h4><span class="lang-block en">Cognitive Training</span><span class="lang-block es">Entrenamiento Cognitivo</span></h4>
+        <p><span class="lang-block en">Reaction speed, visual scanning, short-term memory, sustained attention, change detection. STEAM-aligned skills.</span><span class="lang-block es">Velocidad de reacción, escaneo visual, memoria a corto plazo, atención sostenida, detección de cambios. Habilidades alineadas con STEAM.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title">
+    <span class="lang-block en">Ready To Bring Reactific<br>To Your School?</span>
+    <span class="lang-block es">¿Listo Para Llevar Reactific<br>a Tu Escuela?</span>
+  </h2>
+  <p class="cta-sub">
+    <span class="lang-block en">Contact us to get started. We'll have your students competing in minutes.</span>
+    <span class="lang-block es">Contáctanos para comenzar. Tus estudiantes estarán compitiendo en minutos.</span>
+  </p>
+  <a href="mailto:reactific@gmail.com?subject=Reactific School Inquiry" class="cta-btn">
+    <span class="lang-block en">CONTACT US</span>
+    <span class="lang-block es">CONTÁCTANOS</span>
+  </a>
+  <div class="cta-email">
+    <span class="lang-block en">or email us directly at <a href="mailto:reactific@gmail.com">reactific@gmail.com</a></span>
+    <span class="lang-block es">o escríbenos a <a href="mailto:reactific@gmail.com">reactific@gmail.com</a></span>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  © Gostar Digital LLC. All rights reserved.
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Use</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.body.classList.remove('lang-en','lang-es');
+  document.body.classList.add(lang==='es'?'lang-es':'lang-en');
+  document.documentElement.lang=lang;
+  document.getElementById('langEN').classList.toggle('active',lang==='en');
+  document.getElementById('langES').classList.toggle('active',lang==='es');
+}
+</script>
+</body>
+</html>
