@@ -234,9 +234,9 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 </div>
 <div class="htp-card">
 <div class="htp-card-title">⚡ <span id="speedsTitle">BPM SPEEDS</span></div>
-<div class="htp-step"><div class="htp-step-num">🏋️</div><div class="htp-step-text" id="speed1"><strong>Training (60 BPM)</strong> — 5 seconds to find them</div></div>
-<div class="htp-step"><div class="htp-step-num">🎯</div><div class="htp-step-text" id="speed2"><strong>Tempo (90 BPM)</strong> — 3 seconds, stay sharp</div></div>
-<div class="htp-step"><div class="htp-step-num">⚡</div><div class="htp-step-text" id="speed3"><strong>Elite (120 BPM)</strong> — 2 seconds, pure reaction!</div></div>
+<div class="htp-step"><div class="htp-step-num">🏋️</div><div class="htp-step-text" id="speed1"><strong>:05 Clock (60 BPM)</strong> — 5 seconds to find them</div></div>
+<div class="htp-step"><div class="htp-step-num">🎯</div><div class="htp-step-text" id="speed2"><strong>:03 Clock (90 BPM)</strong> — 3 seconds, stay sharp</div></div>
+<div class="htp-step"><div class="htp-step-num">⚡</div><div class="htp-step-text" id="speed3"><strong>:02 Clock (120 BPM)</strong> — 2 seconds, pure reaction!</div></div>
 <div class="htp-tip">
 <div class="htp-tip-title">💡 <span id="tipTitle">TIP</span></div>
 <div class="htp-tip-text" id="tipText">Scan the whole grid fast — train your eyes to find multiple targets at once!</div>
@@ -256,17 +256,17 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 <div class="bpm-section">
 <div class="bpm-section-title" id="selectSpeedTitle">SELECT SHOT-CLOCK SPEED</div>
 <div class="bpm-tier active" id="tierSlow" data-speed="slow">
-<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">🏋️</span><div class="bpm-tier-info"><div class="bpm-tier-name">TRAINING</div><div class="bpm-tier-bpm">60 BPM</div></div></div>
+<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">🏋️</span><div class="bpm-tier-info"><div class="bpm-tier-name">:05 CLOCK</div><div class="bpm-tier-bpm">60 BPM</div></div></div>
 <span class="bpm-tier-status" id="tierSlowStatus">✓ FREE</span></div>
 <div class="bpm-tier-progress"><span class="bpm-gostars" id="starsSlow">⭐☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelSlowDisplay">L1</span></div>
 </div>
 <div class="bpm-tier" id="tierMed" data-speed="med">
-<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">🎯</span><div class="bpm-tier-info"><div class="bpm-tier-name">TEMPO</div><div class="bpm-tier-bpm">90 BPM</div></div></div>
+<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">🎯</span><div class="bpm-tier-info"><div class="bpm-tier-name">:03 CLOCK</div><div class="bpm-tier-bpm">90 BPM</div></div></div>
 <span class="bpm-tier-status" id="tierMedStatus">✓ FREE</span></div>
 <div class="bpm-tier-progress"><span class="bpm-gostars" id="starsMed">☆☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelMedDisplay">L1</span></div>
 </div>
 <div class="bpm-tier" id="tierFast" data-speed="fast">
-<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">⚡</span><div class="bpm-tier-info"><div class="bpm-tier-name">ELITE</div><div class="bpm-tier-bpm">120 BPM</div></div></div>
+<div class="bpm-tier-header"><div class="bpm-tier-left"><span class="bpm-tier-icon">⚡</span><div class="bpm-tier-info"><div class="bpm-tier-name">:02 CLOCK</div><div class="bpm-tier-bpm">120 BPM</div></div></div>
 <span class="bpm-tier-status" id="tierFastStatus">✓ FREE</span></div>
 <div class="bpm-tier-progress"><span class="bpm-gostars" id="starsFast">☆☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelFastDisplay">L1</span></div>
 </div></div>
@@ -305,7 +305,7 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 <div class="play-tiers" id="playTierDots"></div>
 <div class="play-court-wrap"><div class="play-court" id="playCourt"></div></div>
 <div class="play-info">
-<div class="play-info-badge" id="playBadge">L1 TRAINING</div>
+<div class="play-info-badge" id="playBadge">L1 PRACTICE</div>
 <div class="play-info-cells" id="playCells">FIND: 1</div>
 <div class="play-info-score" id="playTotal">0</div>
 </div>
@@ -328,7 +328,7 @@ var $=function(id){return document.getElementById(id)};
 var $$=function(sel){return document.querySelectorAll(sel)};
 var currentScreen='demo',currentLang='en';
 var translations={
-en:{demoBadge:'Reaction Gaming',demoSubtitle:'Visual Search · Memory · Reaction',demoFlashLabel:'FIND THESE NUMBERS',htpToggle:'HOW TO PRACTICE',objectiveTitle:'OBJECTIVE',step1:'<strong>See the numbers</strong> flash on screen — memorize them',step2:'<strong>All 25 grid cells</strong> show random numbers 1–25',step3:'<strong>Find and tap</strong> all the target numbers before time runs out!',progressionTitle:'PROGRESSION',prog1:'Complete <strong>3 rounds</strong> to earn a GoStar',prog2:'Level 1 = find <strong>1 number</strong>, Level 2 = find <strong>2</strong>, and so on',prog3:'Wrong tap = <strong>round fails</strong> — accuracy matters!',speedsTitle:'BPM SPEEDS',speed1:'<strong>Training (60 BPM)</strong> — 5 seconds to find them',speed2:'<strong>Tempo (90 BPM)</strong> — 3 seconds, stay sharp',speed3:'<strong>Elite (120 BPM)</strong> — 2 seconds, pure reaction!',tipTitle:'TIP',tipText:'Scan the whole grid fast — train your eyes to find multiple targets at once!',playNow:'▶ PRACTICE NOW',poweredBy:'Powered by',trophyTitle:'YOUR TROPHY ROOM',trophySubtitle:'Reactific Progress',selectSpeed:'SELECT SHOT-CLOCK SPEED',tierFree:'✓ FREE',selectLevel:'SELECT LEVEL',targetsLabel:'Numbers to find:',letsGo:"LET'S GO!",roundLabel:'Round',scoreLabel:'Score',tapLetsGo:"TAP LET'S GO!",memorizeMsg:'MEMORIZE!',findMsg:'FIND THEM!',timeoutMsg:'TOO SLOW!',wrongMsg:'WRONG TAP!',tierupTitle:'GOSTAR EARNED!',tierupMsg:'You earned GoStar {tier}!',tierupLevelMsg:' Now Level {level} — find {targets} numbers!',masterMsg:'🏆 10 GOSTARS — MASTER! 🏆'},
+en:{demoBadge:'Reaction Gaming',demoSubtitle:'Visual Search · Memory · Reaction',demoFlashLabel:'FIND THESE NUMBERS',htpToggle:'HOW TO PRACTICE',objectiveTitle:'OBJECTIVE',step1:'<strong>See the numbers</strong> flash on screen — memorize them',step2:'<strong>All 25 grid cells</strong> show random numbers 1–25',step3:'<strong>Find and tap</strong> all the target numbers before time runs out!',progressionTitle:'PROGRESSION',prog1:'Complete <strong>3 rounds</strong> to earn a GoStar',prog2:'Level 1 = find <strong>1 number</strong>, Level 2 = find <strong>2</strong>, and so on',prog3:'Wrong tap = <strong>round fails</strong> — accuracy matters!',speedsTitle:'BPM SPEEDS',speed1:'<strong>:05 Clock (60 BPM)</strong> — 5 seconds to find them',speed2:'<strong>:03 Clock (90 BPM)</strong> — 3 seconds, stay sharp',speed3:'<strong>:02 Clock (120 BPM)</strong> — 2 seconds, pure reaction!',tipTitle:'TIP',tipText:'Scan the whole grid fast — train your eyes to find multiple targets at once!',playNow:'▶ PRACTICE NOW',poweredBy:'Powered by',trophyTitle:'YOUR TROPHY ROOM',trophySubtitle:'Reactific Progress',selectSpeed:'SELECT SHOT-CLOCK SPEED',tierFree:'✓ FREE',selectLevel:'SELECT LEVEL',targetsLabel:'Numbers to find:',letsGo:"LET'S GO!",roundLabel:'Round',scoreLabel:'Score',tapLetsGo:"TAP LET'S GO!",memorizeMsg:'MEMORIZE!',findMsg:'FIND THEM!',timeoutMsg:'TOO SLOW!',wrongMsg:'WRONG TAP!',tierupTitle:'GOSTAR EARNED!',tierupMsg:'You earned GoStar {tier}!',tierupLevelMsg:' Now Level {level} — find {targets} numbers!',masterMsg:'🏆 10 GOSTARS — MASTER! 🏆'},
 es:{demoBadge:'Reaction Gaming',demoSubtitle:'Búsqueda Visual · Memoria · Reacción',demoFlashLabel:'ENCUENTRA ESTOS NÚMEROS',htpToggle:'CÓMO PRACTICAR',objectiveTitle:'OBJETIVO',step1:'<strong>Ve los números</strong> destellar en pantalla — memorízalos',step2:'<strong>Las 25 celdas</strong> muestran números al azar del 1 al 25',step3:'<strong>Encuentra y toca</strong> todos los números objetivo antes de que se acabe el tiempo',progressionTitle:'PROGRESIÓN',prog1:'Completa <strong>3 rondas</strong> para ganar un GoStar',prog2:'Nivel 1 = encuentra <strong>1 número</strong>, Nivel 2 = encuentra <strong>2</strong>, y así',prog3:'¿Toque incorrecto? = <strong>ronda fallida</strong> — ¡la precisión importa!',speedsTitle:'VELOCIDADES BPM',speed1:'<strong>Entrenamiento (60 BPM)</strong> — 5 segundos para encontrarlos',speed2:'<strong>Tempo (90 BPM)</strong> — 3 segundos, mantente alerta',speed3:'<strong>Elite (120 BPM)</strong> — 2 segundos, ¡pura reacción!',tipTitle:'CONSEJO',tipText:'Escanea toda la cuadrícula rápido — ¡entrena tus ojos para encontrar múltiples objetivos a la vez!',playNow:'▶ PRACTICA AHORA',poweredBy:'Impulsado por',trophyTitle:'TU VITRINA',trophySubtitle:'Progreso de Reactific',selectSpeed:'SELECCIONA VELOCIDAD BPM',tierFree:'✓ GRATIS',selectLevel:'SELECCIONA NIVEL',targetsLabel:'Números a encontrar:',letsGo:"¡PA'LANTE!",roundLabel:'Ronda',scoreLabel:'Puntos',tapLetsGo:"¡TOCA PA'LANTE!",memorizeMsg:'¡MEMORIZA!',findMsg:'¡ENCUÉNTRALOS!',timeoutMsg:'¡MUY LENTO!',wrongMsg:'¡INCORRECTO!',tierupTitle:'¡GOSTAR GANADO!',tierupMsg:'¡Ganaste GoStar {tier}!',tierupLevelMsg:' Ahora Nivel {level} — encuentra {targets} números',masterMsg:'🏆 10 GOSTARS — ¡MAESTRO! 🏆'}
 };
 function t(key){return translations[currentLang][key]||translations.en[key]||key}
@@ -378,7 +378,7 @@ function initPlayCourt(){var pc=$('playCourt');pc.innerHTML='';playCells=[];var 
 function reshuffleGrid(){var nums=shuffleNums();playCells.forEach(function(c,i){c.dataset.num=nums[i];c.textContent=nums[i]})}
 function renderTargetDisplay(){var d=$('targetDisplay');d.innerHTML='';targetNums.forEach(function(n){var card=document.createElement('div');card.className='target-card'+(foundNums.indexOf(n)!==-1?' found':'');card.id='tc-'+n;card.innerHTML='<div class="target-card-label">'+t('findMsg').replace('!','')+'</div><div class="target-card-num">'+n+'</div>';d.appendChild(card)})}
 function renderPlayTierDots(){var c=$('playTierDots');c.innerHTML='';for(var i=1;i<=TOTAL_TIERS;i++){var d=document.createElement('div');d.className='play-tier-dot'+(i<gameState.tier?' completed':'')+(i===gameState.tier?' current':'');c.appendChild(d)}}
-function updatePlayUI(){$('playTier').textContent=gameState.tier;$('playRound').textContent=gameState.roundsCompleted+'/'+ROUNDS_PER_TIER;$('playStreak').textContent=gameState.streak;$('playScore').textContent=gameState.score;$('playTotal').textContent=gameState.score;var spName=gameState.speed==='slow'?'TRAINING':gameState.speed==='med'?'TEMPO':'ELITE';$('playBadge').textContent='L'+gameState.level+' '+spName;$('playCells').textContent='FIND: '+getTargetCount(gameState.level);renderPlayTierDots()}
+function updatePlayUI(){$('playTier').textContent=gameState.tier;$('playRound').textContent=gameState.roundsCompleted+'/'+ROUNDS_PER_TIER;$('playStreak').textContent=gameState.streak;$('playScore').textContent=gameState.score;$('playTotal').textContent=gameState.score;var spName=gameState.speed==='slow'?':05 CLOCK':gameState.speed==='med'?':03 CLOCK':':02 CLOCK';$('playBadge').textContent='L'+gameState.level+' '+spName;$('playCells').textContent='FIND: '+getTargetCount(gameState.level);renderPlayTierDots()}
 
 function resetClock(){var rP=$('clockProgress');var rN=$('clockNum');var rR=$('shotClockRing');rP.style.strokeDashoffset='0';rP.className='shot-clock-progress';rN.className='shot-clock-num';rN.textContent=(SPEED_TIME[gameState.speed]/1000).toFixed(1);rR.className='shot-clock-ring'}
 
