@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Reaction Control | Core Performance</title>
+<title>Reaction Control | Reaction Training</title>
 <link rel="icon" type="image/png" href="bpm-basketball.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
@@ -162,7 +162,7 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 <nav class="mini-nav">
 <div class="nav-row">
 <a href="https://reactificgaming.com" class="back-btn" id="backBtn">← Back</a>
-<div class="nav-title">Cognitivo</div>
+<div class="nav-title">Reactific</div>
 <div class="nav-right">
 <div class="nav-lang">
 <button class="nav-lang-btn" id="langEN">EN</button>
@@ -174,7 +174,7 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 <div class="screen active" id="screen-demo">
 <div class="demo-container">
 <div class="demo-header">
-<div class="demo-badge" id="demoBadge">Core Performance</div>
+<div class="demo-badge" id="demoBadge">Reaction Training</div>
 <h1 class="demo-title">Reaction Control</h1>
 <p class="demo-subtitle" id="demoSubtitle">The Single-Beat Brake Read</p>
 </div>
@@ -220,7 +220,7 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 </div>
 <div class="ritnome-promo">
 <div class="pulse-dot"></div>
-<div class="ritnome-promo-text"><span id="pwBy">Powered by</span> <span>Cognitivo Digital™</span></div>
+<div class="ritnome-promo-text"><span id="pwBy">Powered by</span> <span>Reactific™</span></div>
 </div>
 </div>
 </div>
@@ -289,8 +289,8 @@ html,body{height:100%;overflow-x:hidden;overflow-y:auto;font-family:'Outfit',san
 var $=function(id){return document.getElementById(id)},$$=function(sel){return document.querySelectorAll(sel)};
 var curScr='demo';
 var cL='en';
-var T={en:{db:'Core Performance',ds:'The Single-Beat Brake Read',dlr:'⚡ REACT!',dls:'✅ PERFECT!',pb:'THE PLAYBOOK',ot:'OBJECTIVE',s1:'A cell <strong>lights up purple</strong> on the grid',s2:'<strong>Tap it</strong> as fast as you can!',s3:'Next cell lights up — <strong>react again!</strong>',pt:'PROGRESSION',p1:'Get <strong>2 perfect rounds</strong> to level up',p2:'Higher levels = <strong>more cells</strong> per round',p3:'You have <strong>3 lives (♥♥♥)</strong> per round',st:'BPM SPEEDS',sp1:'<strong>Training (60 BPM)</strong> — 1 cell per second',sp2:'<strong>Tempo (90 BPM)</strong> — Faster rhythm',sp3:'<strong>Elite (120 BPM)</strong> — 2 cells per second!',tt:'TIP',tx:"Keep your eyes on the whole grid — don't tunnel vision on one area!",pn:'▶ PLAY NOW',pw:'Powered by',trt:'YOUR PROGRESS',trs:'Reaction Control Levels',ss:'SELECT BPM SPEED',tf:'✓ FREE',sl:'SELECT LEVEL',cb:'Cells per round:',lg:"LET'S GO!",ll:'Level',rl:'Round',scl:'Score',lu:'LEVEL UP:',tlg:"TAP LET'S GO!",gr:'GET READY...',react:'⚡ REACT!',pf:'✨ SWISH!',gd:'👍 BUCKET!',kg:'💨 KEEP GOING!',wc:'❌ WRONG CELL',ap:'🔥 ALL PERFECT!',li:'🔥 LOCKED IN!',ol:'OUT OF LIVES',ob:'OFF THE BEAT',ta:'💪 Try again!',cl:'🏀 Locked in!',cm:'🏀 Machine!',cn:'🏀 Nice!',cf:'🔥 On fire!',lm:'You are now Level {level}!<br>Cells: {cells} per round',lt:'LEVEL UP!',ml:'👑 MAX LEVEL!'},
-es:{db:'Core Performance',ds:'La Lectura del Freno en un Solo Beat',dlr:'⚡ ¡REACCIONA!',dls:'✅ ¡PERFECTO!',pb:'EL MANUAL',ot:'OBJETIVO',s1:'Una celda <strong>se ilumina púrpura</strong> en la cuadrícula',s2:'<strong>¡Tócala</strong> lo más rápido que puedas!',s3:'La siguiente se ilumina — <strong>¡reacciona otra vez!</strong>',pt:'PROGRESIÓN',p1:'Consigue <strong>2 rondas perfectas</strong> para subir de nivel',p2:'Niveles más altos = <strong>más celdas</strong> por ronda',p3:'Tienes <strong>3 vidas (♥♥♥)</strong> por ronda',st:'VELOCIDADES BPM',sp1:'<strong>Entrenamiento (60 BPM)</strong> — 1 celda por segundo',sp2:'<strong>Tempo (90 BPM)</strong> — Ritmo más rápido',sp3:'<strong>Elite (120 BPM)</strong> — ¡2 celdas por segundo!',tt:'CONSEJO',tx:'¡Mantén los ojos en toda la cuadrícula — no te enfoques en una sola área!',pn:'▶ JUGAR AHORA',pw:'Impulsado por',trt:'TU PROGRESO',trs:'Niveles de Reaction Control',ss:'SELECCIONA VELOCIDAD BPM',tf:'✓ GRATIS',sl:'SELECCIONA NIVEL',cb:'Celdas por ronda:',lg:"¡PA'LANTE!",ll:'Nivel',rl:'Ronda',scl:'Puntos',lu:'SUBIR:',tlg:"¡TOCA PA'LANTE!",gr:'PREPÁRATE...',react:'⚡ ¡REACCIONA!',pf:'✨ ¡SWISH!',gd:'👍 ¡BUCKET!',kg:'💨 ¡SIGUE!',wc:'❌ CELDA INCORRECTA',ap:'🔥 ¡PERFECCIÓN TOTAL!',li:'🔥 ¡CONECTADO!',ol:'SIN VIDAS',ob:'FUERA DE RITMO',ta:'💪 ¡Otra vez!',cl:'🏀 ¡Conectado!',cm:'🏀 ¡Máquina!',cn:'🏀 ¡Bien!',cf:'🔥 ¡En fuego!',lm:'¡Ahora estás en Nivel {level}!<br>Celdas: {cells} por ronda',lt:'¡SUBISTE!',ml:'👑 ¡NIVEL MÁXIMO!'}};
+var T={en:{db:'Reaction Training',ds:'The Single-Beat Brake Read',dlr:'⚡ REACT!',dls:'✅ PERFECT!',pb:'THE PLAYBOOK',ot:'OBJECTIVE',s1:'A cell <strong>lights up purple</strong> on the grid',s2:'<strong>Tap it</strong> as fast as you can!',s3:'Next cell lights up — <strong>react again!</strong>',pt:'PROGRESSION',p1:'Get <strong>2 perfect rounds</strong> to level up',p2:'Higher levels = <strong>more cells</strong> per round',p3:'You have <strong>3 lives (♥♥♥)</strong> per round',st:'BPM SPEEDS',sp1:'<strong>Training (60 BPM)</strong> — 1 cell per second',sp2:'<strong>Tempo (90 BPM)</strong> — Faster rhythm',sp3:'<strong>Elite (120 BPM)</strong> — 2 cells per second!',tt:'TIP',tx:"Keep your eyes on the whole grid — don't tunnel vision on one area!",pn:'▶ PLAY NOW',pw:'Powered by',trt:'YOUR PROGRESS',trs:'Reaction Control Levels',ss:'SELECT BPM SPEED',tf:'✓ FREE',sl:'SELECT LEVEL',cb:'Cells per round:',lg:"LET'S GO!",ll:'Level',rl:'Round',scl:'Score',lu:'LEVEL UP:',tlg:"TAP LET'S GO!",gr:'GET READY...',react:'⚡ REACT!',pf:'✨ SWISH!',gd:'👍 BUCKET!',kg:'💨 KEEP GOING!',wc:'❌ WRONG CELL',ap:'🔥 ALL PERFECT!',li:'🔥 LOCKED IN!',ol:'OUT OF LIVES',ob:'OFF THE BEAT',ta:'💪 Try again!',cl:'🏀 Locked in!',cm:'🏀 Machine!',cn:'🏀 Nice!',cf:'🔥 On fire!',lm:'You are now Level {level}!<br>Cells: {cells} per round',lt:'LEVEL UP!',ml:'👑 MAX LEVEL!'},
+es:{db:'Reaction Training',ds:'La Lectura del Freno en un Solo Beat',dlr:'⚡ ¡REACCIONA!',dls:'✅ ¡PERFECTO!',pb:'EL MANUAL',ot:'OBJETIVO',s1:'Una celda <strong>se ilumina púrpura</strong> en la cuadrícula',s2:'<strong>¡Tócala</strong> lo más rápido que puedas!',s3:'La siguiente se ilumina — <strong>¡reacciona otra vez!</strong>',pt:'PROGRESIÓN',p1:'Consigue <strong>2 rondas perfectas</strong> para subir de nivel',p2:'Niveles más altos = <strong>más celdas</strong> por ronda',p3:'Tienes <strong>3 vidas (♥♥♥)</strong> por ronda',st:'VELOCIDADES BPM',sp1:'<strong>Entrenamiento (60 BPM)</strong> — 1 celda por segundo',sp2:'<strong>Tempo (90 BPM)</strong> — Ritmo más rápido',sp3:'<strong>Elite (120 BPM)</strong> — ¡2 celdas por segundo!',tt:'CONSEJO',tx:'¡Mantén los ojos en toda la cuadrícula — no te enfoques en una sola área!',pn:'▶ JUGAR AHORA',pw:'Impulsado por',trt:'TU PROGRESO',trs:'Niveles de Reaction Control',ss:'SELECCIONA VELOCIDAD BPM',tf:'✓ GRATIS',sl:'SELECCIONA NIVEL',cb:'Celdas por ronda:',lg:"¡PA'LANTE!",ll:'Nivel',rl:'Ronda',scl:'Puntos',lu:'SUBIR:',tlg:"¡TOCA PA'LANTE!",gr:'PREPÁRATE...',react:'⚡ ¡REACCIONA!',pf:'✨ ¡SWISH!',gd:'👍 ¡BUCKET!',kg:'💨 ¡SIGUE!',wc:'❌ CELDA INCORRECTA',ap:'🔥 ¡PERFECCIÓN TOTAL!',li:'🔥 ¡CONECTADO!',ol:'SIN VIDAS',ob:'FUERA DE RITMO',ta:'💪 ¡Otra vez!',cl:'🏀 ¡Conectado!',cm:'🏀 ¡Máquina!',cn:'🏀 ¡Bien!',cf:'🔥 ¡En fuego!',lm:'¡Ahora estás en Nivel {level}!<br>Celdas: {cells} por ronda',lt:'¡SUBISTE!',ml:'👑 ¡NIVEL MÁXIMO!'}};
 function t(k){return(T[cL]||T.en)[k]||k}
 function uUI(){$('demoBadge').textContent=t('db');$('demoSubtitle').textContent=t('ds');$('pbText').textContent=t('pb');$('objT').textContent=t('ot');$('s1').innerHTML=t('s1');$('s2').innerHTML=t('s2');$('s3').innerHTML=t('s3');$('progT').textContent=t('pt');$('p1').innerHTML=t('p1');$('p2').innerHTML=t('p2');$('p3').innerHTML=t('p3');$('spdT').textContent=t('st');$('sp1').innerHTML=t('sp1');$('sp2').innerHTML=t('sp2');$('sp3').innerHTML=t('sp3');$('tipT').textContent=t('tt');$('tipTx').textContent=t('tx');$('playNowBtn').textContent=t('pn');$('pwBy').textContent=t('pw');$('trT').textContent=t('trt');$('trS').textContent=t('trs');$('ssT').textContent=t('ss');$('tsS').textContent=t('tf');$('tsM').textContent=t('tf');$('tsF').textContent=t('tf');$('slT').textContent=t('sl');$('cpbL').textContent=t('cb');$('letsGoBtn').textContent=t('lg');$('pLvL').textContent=t('ll');$('pRdL').textContent=t('rl');$('pScL').textContent=t('scl');$('luL').textContent=t('lu');$('pAct').textContent=t('lg');$('luTtl').textContent=t('lt');$('luBtn').textContent=t('lg');$('langEN').classList.toggle('active',cL==='en');$('langES').classList.toggle('active',cL==='es')}
 function setLang(l){cL=l;localStorage.setItem('lc-lang',l);uUI()}
