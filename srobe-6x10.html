@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>REACTIFIC™ Competition STROBE™</title>
+<style>
+:root{
+  --bg:#02050a; --blue:#008cff; --blue2:#00b7ff; --orange:#ff6b00; --orange2:#ff9b22;
+  --white:#f4f4f4; --muted:#a7adba; --red:#ff3030; --green:#39FF14; --gold:#ffd35a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body{background:radial-gradient(circle at 18% 8%,rgba(0,140,255,.22),transparent 25%),radial-gradient(circle at 88% 12%,rgba(255,107,0,.18),transparent 26%),radial-gradient(circle at 50% 95%,rgba(0,140,255,.14),transparent 42%),linear-gradient(180deg,#030814,#010306 68%,#02050a)}
+.app{width:100vw;height:100vh;display:grid;grid-template-rows:118px 1fr 92px 42px;gap:10px;padding:14px 24px 12px}
+.top{display:grid;grid-template-columns:190px 1fr 250px;gap:18px;align-items:center}
+.emblem{height:100%;border:2px solid var(--orange);clip-path:polygon(12% 0,88% 0,100% 48%,88% 100%,12% 100%,0 48%);background:linear-gradient(135deg,rgba(255,107,0,.22),rgba(0,140,255,.08));display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:900;text-shadow:0 0 20px rgba(255,107,0,.8)}
+.brand{text-align:center}.brand h1{font-size:clamp(2rem,5vw,5rem);line-height:.82;letter-spacing:.08em;font-style:italic;text-transform:uppercase;text-shadow:0 0 18px rgba(0,140,255,.36)}.brand h1 span{color:var(--orange)}
+.brand h2{margin-top:8px;color:var(--orange);font-size:clamp(1rem,2vw,1.8rem);letter-spacing:.18em;text-transform:uppercase}.brand h3{margin-top:8px;color:#ddd;font-size:clamp(.8rem,1.5vw,1.2rem);letter-spacing:.25em;text-transform:uppercase}
+.tagline{border:2px solid var(--blue);background:rgba(0,0,0,.25);clip-path:polygon(8% 0,100% 0,92% 100%,0 100%);padding:20px 24px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(1rem,1.5vw,1.25rem)}
+.tagline div:nth-child(2){color:var(--orange);margin:5px 0}
+.main{min-height:0;display:grid;grid-template-columns:180px 1fr 180px;gap:16px;align-items:stretch}
+.rail{display:flex;flex-direction:column;gap:10px}.box{border:2px solid var(--blue);background:linear-gradient(180deg,rgba(6,16,28,.95),rgba(2,5,10,.95));box-shadow:0 0 18px rgba(0,140,255,.35),inset 0 0 24px rgba(0,140,255,.08);border-radius:12px;padding:12px}
+.box-title{color:var(--orange);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.85rem;margin-bottom:10px;text-align:center}.stack{display:grid;gap:8px}
+.choice{border:1px solid rgba(0,140,255,.72);background:rgba(0,0,0,.35);color:var(--white);border-radius:8px;padding:10px 8px;text-align:center;font-weight:900;cursor:pointer;text-transform:uppercase}
+.choice strong{display:block;font-size:1.8rem;line-height:1;color:#e8e8e8}.choice small{font-size:.65rem;color:#e9e9e9}.choice.active{border-color:var(--orange);box-shadow:0 0 18px rgba(255,107,0,.75),inset 0 0 18px rgba(255,107,0,.16);color:var(--orange)}.choice.active strong{color:#fff}
+.center{min-height:0;display:grid;grid-template-rows:38px 1fr}.grid-title{justify-self:center;align-self:end;color:var(--orange);font-weight:900;letter-spacing:.18em;text-transform:uppercase;font-size:clamp(.9rem,1.6vw,1.25rem);border:2px solid var(--blue);border-bottom:none;background:rgba(5,10,18,.95);padding:8px 42px 6px;clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
+.grid-wrap{border:2px solid var(--blue);border-radius:18px;padding:14px;background:rgba(3,8,15,.92);box-shadow:0 0 30px rgba(0,140,255,.45),inset 0 0 38px rgba(0,140,255,.12);min-height:0;display:flex;align-items:center;justify-content:center}
+.court{width:100%;height:100%;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:7px;transition:filter .06s linear,opacity .06s linear}
+.court.strobe-soft{filter:brightness(.62) contrast(1.08)}.court.strobe-medium{filter:brightness(.42) contrast(1.15)}.court.strobe-hard{opacity:.18}
+.cell{border:1.5px solid rgba(0,170,255,.85);background:radial-gradient(circle at 50% 25%,rgba(0,140,255,.13),rgba(0,0,0,.55));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.1rem,2.1vw,2.2rem);font-weight:900;color:#ddd;text-shadow:0 1px 0 #000,0 0 10px rgba(255,255,255,.22);cursor:pointer}
+.cell.hit{background:var(--orange);border-color:var(--orange2);color:#fff;box-shadow:0 0 20px rgba(255,107,0,.8)}.cell.reveal{background:var(--green);border-color:var(--green);color:#001400}.cell.wrong{background:var(--red);border-color:var(--red)}
+.levelBig{color:#fff;font-size:3.8rem;line-height:1;font-weight:900;text-align:center}.sub{text-align:center;color:#fff;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.hud{display:grid;grid-template-columns:170px 170px 1fr 170px 170px 170px;gap:10px;align-items:center}.hudbtn,.start{border:2px solid var(--blue);background:rgba(0,0,0,.42);color:#fff;border-radius:10px;height:68px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 12px rgba(0,140,255,.3)}.hudbtn span{display:block;color:var(--orange);font-size:.78rem}
+.start{border-color:var(--orange);background:linear-gradient(180deg,var(--orange2),var(--orange));font-size:1.55rem;letter-spacing:.1em;box-shadow:0 0 24px rgba(255,107,0,.75)}.start:disabled{opacity:.7}
+.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--blue);box-shadow:0 0 18px rgba(0,140,255,.35)}.bottom div{display:flex;align-items:center;justify-content:center;color:#ddd;font-weight:900;font-style:italic;letter-spacing:.16em;text-transform:uppercase}.bottom div:nth-child(2){color:var(--orange)}
+.notice{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);opacity:0;z-index:99;background:var(--orange);color:white;padding:18px 32px;border-radius:16px;font-size:1.4rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 30px rgba(255,107,0,.8);transition:.22s}.notice.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+@media(max-width:1000px){html,body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-rows:auto auto auto auto}.top{grid-template-columns:1fr;text-align:center}.emblem{display:none}.tagline{clip-path:none}.main{grid-template-columns:1fr}.rail{display:grid;grid-template-columns:1fr 1fr}.grid-wrap{height:62vh}.hud{grid-template-columns:1fr 1fr}.start{grid-column:1/-1}.bottom{grid-template-columns:1fr}.court{gap:5px}}
+@media(max-width:520px){.app{padding:10px}.brand h1{font-size:2rem}.brand h2{font-size:1rem}.rail{grid-template-columns:1fr}.grid-wrap{height:58vh;padding:8px}.court{gap:4px}.cell{font-size:1rem;border-radius:5px}.hud{grid-template-columns:1fr}.hudbtn,.start{height:58px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+<div class="emblem">R</div>
+<div class="brand"><h1>REACTIFIC<span>™</span></h1><h2>Shot-Clock Challenges™</h2><h3>STROBE™ SYSTEM</h3></div>
+<div class="tagline"><div>Recognize.</div><div>React.</div><div>Advance.</div></div>
+</header>
+<main class="main">
+<aside class="rail">
+<div class="box"><div class="box-title">Shot Clock</div><div class="stack"><button class="choice active" data-clock="7"><strong>7</strong><small>SEC</small></button><button class="choice" data-clock="5"><strong>5</strong><small>SEC</small></button><button class="choice" data-clock="3"><strong>3</strong><small>SEC</small></button></div></div>
+<div class="box"><div class="box-title">BPM</div><div class="stack"><button class="choice" data-bpm="60"><strong>60</strong><small>BPM</small></button><button class="choice active" data-bpm="90"><strong>90</strong><small>BPM</small></button><button class="choice" data-bpm="120"><strong>120</strong><small>BPM</small></button></div></div>
+</aside>
+<section class="center"><div class="grid-title">Competition Mode — 5 × 10 Grid</div><div class="grid-wrap"><div class="court" id="court"></div></div></section>
+<aside class="rail">
+<div class="box"><div class="box-title">Strobe™ Intensity</div><div class="stack"><button class="choice" data-strobe="off"><strong style="font-size:1.2rem">OFF</strong></button><button class="choice" data-strobe="soft"><strong style="font-size:1.2rem">SOFT</strong></button><button class="choice active" data-strobe="medium"><strong style="font-size:1.2rem">MEDIUM</strong></button><button class="choice" data-strobe="hard"><strong style="font-size:1.2rem">HARD</strong></button></div></div>
+<div class="box"><div class="box-title">Level</div><div class="levelBig" id="level">1</div><div class="sub">Targets <span id="targetCount">1</span></div><div class="sub">Streak <span id="streak">0</span>/3</div></div>
+</aside>
+</main>
+<section class="hud">
+<button class="hudbtn" id="practice">Practice<span>Free</span></button><button class="hudbtn" id="compete">Compete<span>Subscribed</span></button><button class="start" id="start">Start Round</button><button class="hudbtn" id="sound">Sound<span>Off</span></button><button class="hudbtn" id="fullscreen">Fullscreen<span>Toggle</span></button><button class="hudbtn" id="menu">Menu<span>Home</span></button>
+</section>
+<footer class="bottom"><div>Train Free.</div><div>Expand The Grid.</div><div>Compete To Be Seen.</div></footer>
+</div>
+<div class="notice" id="notice">Located</div>
+<script>
+(function(){
+const court=document.getElementById('court'),start=document.getElementById('start'),notice=document.getElementById('notice'),levelEl=document.getElementById('level'),targetCountEl=document.getElementById('targetCount'),streakEl=document.getElementById('streak');
+let duration=7,bpm=90,strobe='medium',level=1,streak=0,playing=false,targets=[],found=[],strobeTimer=null,roundTimeout=null,cells=[];
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function show(msg){notice.textContent=msg;notice.classList.add('show');setTimeout(()=>notice.classList.remove('show'),850)}
+function build(){court.innerHTML='';cells=[];for(let n=1;n<=50;n++){const c=document.createElement('div');c.className='cell';c.textContent=n;c.dataset.num=n;c.onclick=()=>tap(c);court.appendChild(c);cells.push(c)}}
+function pickTargets(){targets=shuffle(Array.from({length:50},(_,i)=>i+1)).slice(0,level);found=[]}
+function update(){levelEl.textContent=level;targetCountEl.textContent=level;streakEl.textContent=streak}
+function setActive(group,btn){document.querySelectorAll(group).forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+document.querySelectorAll('[data-clock]').forEach(btn=>btn.onclick=()=>{if(playing)return;duration=Number(btn.dataset.clock);setActive('[data-clock]',btn)});
+document.querySelectorAll('[data-bpm]').forEach(btn=>btn.onclick=()=>{bpm=Number(btn.dataset.bpm);setActive('[data-bpm]',btn);if(playing)startStrobe()});
+document.querySelectorAll('[data-strobe]').forEach(btn=>btn.onclick=()=>{strobe=btn.dataset.strobe;setActive('[data-strobe]',btn);if(playing)startStrobe()});
+function stopStrobe(){if(strobeTimer)clearInterval(strobeTimer);strobeTimer=null;court.classList.remove('strobe-soft','strobe-medium','strobe-hard')}
+function startStrobe(){stopStrobe();if(strobe==='off')return;const cls=strobe==='soft'?'strobe-soft':strobe==='medium'?'strobe-medium':'strobe-hard';const beat=60000/bpm;const flash=Math.max(80,Math.min(170,beat*.25));strobeTimer=setInterval(()=>{court.classList.add(cls);setTimeout(()=>court.classList.remove(cls),flash)},beat)}
+function startRound(){if(playing)return;playing=true;build();pickTargets();start.disabled=true;start.textContent='Find '+level+' Target'+(level>1?'s':'');startStrobe();if(roundTimeout)clearTimeout(roundTimeout);roundTimeout=setTimeout(()=>fail('Time'),duration*1000)}
+function end(){playing=false;start.disabled=false;start.textContent='Start Round';if(roundTimeout)clearTimeout(roundTimeout);roundTimeout=null;stopStrobe();update()}
+function win(){streak++;let leveled=false;if(streak>=3){if(level<10){level++;leveled=true}streak=0}show(leveled?'Level Up!':'Complete');end()}
+function fail(msg){if(!playing)return;streak=0;targets.forEach(t=>{const cell=cells.find(c=>Number(c.dataset.num)===t);if(cell&&!found.includes(t))cell.classList.add('reveal')});show(msg);end()}
+function tap(cell){if(!playing)return;const n=Number(cell.dataset.num);if(found.includes(n))return;if(targets.includes(n)){found.push(n);cell.classList.add('hit');if(found.length===targets.length)win()}else{cell.classList.add('wrong');fail('Wrong Tap')}}
+document.getElementById('fullscreen').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}};
+document.getElementById('menu').onclick=()=>location.href='/';
+start.onclick=startRound;build();update();
+})();
+</script>
+</body>
+</html>
