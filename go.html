@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>REACTIFIC™ | Play Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#040404;--card:#0e0e12;--white:#eaeaea;--muted:#5e5e6a;--muted-light:#9292a0;--line:rgba(255,255,255,.06);--orange:#f28a1f;--orange-dark:#d97a1a;--cyan:#00bbf0;--border:rgba(255,255,255,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{height:100%}
+body{
+  min-height:100%;background:var(--black);color:var(--white);
+  font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px 16px env(safe-area-inset-bottom);
+  padding-top:max(20px,env(safe-area-inset-top));
+}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 50% 40% at 10% 5%,rgba(0,187,240,.03),transparent),radial-gradient(ellipse 40% 35% at 90% 90%,rgba(242,138,31,.025),transparent);pointer-events:none}
+a{text-decoration:none;color:inherit}
+
+.wrap{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1}
+
+.banner{width:92%}
+.banner img{width:100%;height:auto;display:block;border-radius:8px}
+
+/* MAIN GAME */
+.main-link{width:100%}
+.main-link a{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 20px;
+  background:linear-gradient(135deg,var(--orange),var(--orange-dark));
+  border-radius:14px;color:#000;
+  box-shadow:0 0 24px rgba(242,138,31,.2);
+  transition:all .15s;
+}
+.main-link a:active{transform:scale(.98)}
+.main-icon{font-size:1.4rem}
+.main-text{font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.05em}
+
+/* GAME LINKS */
+.games{width:100%;display:flex;flex-direction:column;gap:8px}
+.game-link a{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  transition:all .15s;
+  position:relative;overflow:hidden;
+}
+.game-link a::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--tc)}
+.game-link a:active{transform:scale(.98);border-color:rgba(255,255,255,.15)}
+.game-icon{font-size:1.3rem;flex-shrink:0}
+.game-info{flex:1}
+.game-name{font-family:'Red Hat Display',sans-serif;font-size:.8rem;font-weight:900;letter-spacing:.03em;color:var(--white)}
+.game-tag{font-size:.6rem;color:var(--muted);font-weight:600;letter-spacing:.04em}
+
+/* COMPETE */
+.compete-link{width:100%}
+.compete-link a{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 20px;
+  background:linear-gradient(135deg,var(--cyan),#0099cc);
+  border-radius:14px;color:#000;
+  box-shadow:0 0 20px rgba(0,187,240,.15);
+  transition:all .15s;
+}
+.compete-link a:active{transform:scale(.98)}
+.compete-text{font-family:'Red Hat Display',sans-serif;font-size:.9rem;font-weight:900;letter-spacing:.05em}
+
+/* FOOTER */
+.foot{
+  margin-top:8px;text-align:center;
+  font-size:.45rem;color:var(--muted);letter-spacing:.08em;
+}
+.foot a{color:var(--muted);margin:0 6px}
+
+/* LABEL */
+.section-label{
+  width:100%;text-align:center;
+  font-family:'Red Hat Display',sans-serif;
+  font-size:.6rem;font-weight:900;
+  color:var(--muted);letter-spacing:.12em;
+  text-transform:uppercase;margin-top:4px;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="banner"><img src="/banner.png" alt="Reactific"></div>
+
+  <div class="main-link">
+    <a href="/cog-10.html">
+      <span class="main-icon">⏱️</span>
+      <span class="main-text">PRACTICE REACTIFIC</span>
+    </a>
+  </div>
+
+  <div class="section-label">REACTION TRAINING</div>
+
+  <div class="games">
+    <div class="game-link"><a href="/cogs/cog-01.html" style="--tc:#FF6B35">
+      <span class="game-icon">🔥</span>
+      <div class="game-info"><div class="game-name">Pattern Recognition</div><div class="game-tag">Visual Scanning</div></div>
+    </a></div>
+    <div class="game-link"><a href="/cogs/cog-02.html" style="--tc:#9B59B6">
+      <span class="game-icon">⚡</span>
+      <div class="game-info"><div class="game-name">Reaction Control</div><div class="game-tag">Tap Speed</div></div>
+    </a></div>
+    <div class="game-link"><a href="/cogs/cog-03.html" style="--tc:#00CED1">
+      <span class="game-icon">🧠</span>
+      <div class="game-info"><div class="game-name">Sequence Recall</div><div class="game-tag">Short-Term Memory</div></div>
+    </a></div>
+    <div class="game-link"><a href="/cogs/cog-04.html" style="--tc:#00D9A5">
+      <span class="game-icon">🎯</span>
+      <div class="game-info"><div class="game-name">Focus Control</div><div class="game-tag">Sustained Attention</div></div>
+    </a></div>
+    <div class="game-link"><a href="/cogs/cog-05.html" style="--tc:#9ACD32">
+      <span class="game-icon">👁️</span>
+      <div class="game-info"><div class="game-name">Cognitive Recovery</div><div class="game-tag">Change Detection</div></div>
+    </a></div>
+  </div>
+
+  <div class="compete-link">
+    <a href="/compete/com-01.html">
+      <span class="main-icon">🏆</span>
+      <span class="compete-text">PLAY REACTIFIC</span>
+    </a>
+  </div>
+
+  <div class="foot">
+    © GOSTAR DIGITAL LLC
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+
+</div>
+
+</body>
+</html>
