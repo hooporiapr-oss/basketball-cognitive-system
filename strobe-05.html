@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Sequence Control | REACTIFIC™</title>
+<link rel="icon" type="image/png" href="bpm-basketball.png">
+<style>
+:root{
+  --teal:#00D9A5;
+  --teal-dark:#00B894;
+  --gold:#FFD700;
+  --pink:#FF1493;
+  --orange:#FF6B35;
+  --purple:#9B59B6;
+  --lime:#32CD32;
+  --dark:#0a0a0f;
+  --darker:#050508;
+  --card:#111118;
+  --text:#FFFFFF;
+  --muted:#8892a0;
+  --border:rgba(255,255,255,0.12);
+  --nav-height:64px;
+  --flash-color:#FFD700;
+  --accent:#00D9A5;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 14% 5%,rgba(0,217,165,.22),transparent 28%),
+    radial-gradient(circle at 88% 12%,rgba(255,215,0,.08),transparent 30%),
+    linear-gradient(180deg,#0a0a0f,#050508 72%,#030305);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:manipulation;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
+
+/* NAV */
+.mini-nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding-top:env(safe-area-inset-top);
+  background:rgba(10,10,15,.94);
+  border-bottom:2px solid rgba(0,217,165,.75);
+  box-shadow:0 0 24px rgba(0,217,165,.20);
+  backdrop-filter:blur(12px);
+}
+.nav-row{
+  height:64px;max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;
+}
+.back-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border:2px solid rgba(0,217,165,.6);
+  background:rgba(0,217,165,.1);color:#fff;border-radius:999px;
+  font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  text-decoration:none;text-transform:uppercase;
+}
+.nav-title{
+  color:var(--teal);
+  font-size:clamp(1.15rem,2.4vw,1.8rem);
+  font-weight:900;font-style:italic;letter-spacing:.16em;
+  text-transform:uppercase;text-shadow:0 0 16px rgba(0,217,165,.45);
+}
+.nav-title:after{content:"™";color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-lang{display:flex;gap:8px}
+.nav-lang-btn{
+  border:2px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);color:var(--muted);
+  border-radius:999px;padding:8px 12px;
+  min-width:40px;min-height:36px;font-weight:900;cursor:pointer;
+}
+.nav-lang-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,.08)}
+
+.screen{display:none;width:100%;min-height:100dvh;padding-top:calc(var(--nav-height) + env(safe-area-inset-top))}
+.screen.active{display:block}
+
+/* STANDARD FORMAT */
+.rc-shell{
+  width:min(1280px,96vw);
+  min-height:calc(100dvh - var(--nav-height));
+  margin:0 auto;padding:18px 0 24px;
+  display:grid;grid-template-rows:auto 1fr auto;gap:14px;
+}
+.rc-header{
+  display:grid;grid-template-columns:240px 1fr 240px;
+  align-items:center;gap:16px;
+}
+.rc-title{text-align:center}
+.rc-kicker{
+  color:var(--gold);font-size:.78rem;font-weight:900;
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.rc-main-title{
+  color:#fff;font-size:clamp(2rem,5vw,4.8rem);
+  font-weight:900;line-height:.88;letter-spacing:.08em;
+  font-style:italic;text-transform:uppercase;
+}
+.rc-main-title span{color:var(--teal)}
+.rc-subtitle{
+  margin-top:8px;color:var(--muted);font-weight:800;
+  font-size:clamp(.85rem,1.3vw,1.1rem);
+}
+.rc-wing{
+  min-height:76px;border:2px solid rgba(0,217,165,.45);
+  background:rgba(17,17,24,.75);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  border-radius:18px;padding:12px;color:#fff;
+  font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;
+}
+.rc-wing span{display:block;color:var(--gold);margin-top:4px}
+.rc-body{
+  min-height:0;display:grid;grid-template-columns:220px 1fr 220px;
+  gap:16px;align-items:stretch;
+}
+.rc-rail{display:flex;flex-direction:column;gap:12px}
+.rc-card{
+  border:2px solid rgba(0,217,165,.45);
+  background:linear-gradient(180deg,rgba(17,17,24,.92),rgba(5,5,8,.95));
+  border-radius:18px;padding:16px;
+  box-shadow:0 0 22px rgba(0,217,165,.13),inset 0 0 28px rgba(0,217,165,.045);
+}
+.rc-card-title{
+  color:var(--teal);font-size:.72rem;font-weight:900;
+  letter-spacing:.15em;text-transform:uppercase;text-align:center;margin-bottom:10px;
+}
+.rc-big{text-align:center;color:#fff;font-size:clamp(2rem,3.2vw,3.2rem);font-weight:900;line-height:1}
+.rc-small{
+  text-align:center;color:var(--muted);font-size:.72rem;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase;margin-top:6px;
+}
+.rc-center{min-height:0;display:grid;grid-template-rows:34px 1fr}
+.rc-court-label{
+  justify-self:center;align-self:end;
+  border:2px solid rgba(0,217,165,.55);border-bottom:none;
+  background:rgba(5,5,8,.96);color:var(--gold);
+  padding:8px 36px 5px;font-size:.86rem;font-weight:900;
+  letter-spacing:.18em;text-transform:uppercase;border-radius:14px 14px 0 0;
+}
+.rc-court-stage{
+  min-height:0;display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(0,217,165,.55);
+  background:rgba(17,17,24,.68);
+  border-radius:22px;padding:16px;
+  box-shadow:0 0 42px rgba(0,217,165,.16),inset 0 0 38px rgba(0,217,165,.06);
+}
+
+/* DEMO */
+.demo-badge,.demo-title,.demo-subtitle{display:none}
+.demo-court-wrap{position:relative}
+.demo-label{
+  position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+  background:rgba(5,5,8,.96);color:var(--gold);
+  border:2px solid rgba(255,215,0,.28);
+  padding:7px 16px;border-radius:999px;
+  font-size:.76rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  white-space:nowrap;z-index:5;
+}
+.demo-label.phase-watch{color:var(--gold);border-color:rgba(255,215,0,.45)}
+.demo-label.phase-replay{color:var(--teal);border-color:rgba(0,217,165,.55)}
+.demo-label.phase-success{color:var(--teal);border-color:rgba(0,217,165,.55)}
+.demo-court{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:10px;width:min(64vh,640px);height:min(64vh,640px);
+  max-width:640px;max-height:640px;
+  padding:14px;border-radius:22px;position:relative;
+}
+.demo-court::before{display:none}
+.demo-cell{
+  aspect-ratio:1;border-radius:12px;
+  background:rgba(255,255,255,.065);
+  border:2px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;
+  color:transparent;font-size:clamp(1.2rem,2.5vw,2.5rem);
+  font-weight:900;transition:all .15s;
+}
+.demo-cell.lit{
+  background:var(--flash-color);border-color:var(--flash-color);
+  box-shadow:0 0 24px var(--flash-color);transform:scale(1.06);
+}
+.demo-cell.correct{
+  background:var(--teal);border-color:var(--teal);
+  box-shadow:0 0 16px rgba(0,217,165,.6);color:#fff;
+}
+.demo-court.joy-pulse{animation:joyPulse .5s ease-out}
+@keyframes joyPulse{0%{box-shadow:0 0 0 0 rgba(0,217,165,.7)}50%{box-shadow:0 0 28px 10px rgba(0,217,165,.38)}100%{box-shadow:none}}
+
+.playbook-section{width:100%}
+.playbook-toggle{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:13px 16px;background:rgba(0,217,165,.10);
+  border:2px solid rgba(0,217,165,.36);border-radius:999px;cursor:pointer;
+}
+.playbook-toggle-text{color:var(--teal);font-weight:900;letter-spacing:.15em;font-size:.76rem}
+.playbook-toggle-arrow{color:var(--teal);transition:transform .3s}
+.playbook-toggle.open .playbook-toggle-arrow{transform:rotate(180deg)}
+.playbook-content{max-height:0;overflow:hidden;transition:max-height .45s ease-out}
+.playbook-content.open{max-height:2200px}
+.playbook-inner{padding:12px 0}
+.playbook-card{
+  background:rgba(17,17,24,.92);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:14px;margin-bottom:10px;
+}
+.playbook-card-title{
+  color:var(--teal);font-size:.76rem;font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;
+}
+.playbook-step{display:flex;gap:9px;margin-bottom:9px}
+.playbook-step-num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--teal);color:var(--dark);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.68rem;font-weight:900;flex-shrink:0;
+}
+.playbook-step-text{color:#fff;font-size:.78rem;line-height:1.4}
+.playbook-step-text strong{color:var(--gold)}
+.playbook-tip{
+  background:rgba(0,217,165,.08);border-left:4px solid var(--teal);
+  padding:10px;border-radius:0 10px 10px 0;
+}
+.playbook-tip-title{
+  color:var(--teal);font-size:.6rem;font-weight:900;
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;
+}
+.playbook-tip-text{color:var(--muted);font-size:.72rem}
+.demo-cta{width:100%}
+.play-now-btn,.letsgo-btn,.play-action-btn,.overlay-btn{
+  width:100%;min-height:58px;border:none;border-radius:999px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--dark);font-size:1rem;font-weight:900;
+  letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 0 22px rgba(0,217,165,.42);
+}
+.ritnome-promo{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 12px;border-radius:999px;
+  background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.16);
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulseDot 1s infinite}
+@keyframes pulseDot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.ritnome-promo-text{color:var(--muted);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase}
+.ritnome-promo-text span{color:var(--gold);font-weight:900}
+
+/* Original trophy/play screens restyled into standard format */
+.trophy-container{width:min(900px,94vw)!important;max-width:900px!important;margin:0 auto!important;padding:24px 0 40px!important}
+.trophy-header{text-align:center;margin-bottom:18px}
+.trophy-icon{font-size:2.8rem}
+.trophy-title{
+  font-size:clamp(2rem,4vw,3.7rem)!important;color:var(--gold)!important;
+  font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+}
+.trophy-subtitle{color:var(--muted);font-weight:800}
+.bpm-section{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:12px!important;margin-bottom:18px!important}
+.bpm-section-title{
+  grid-column:1/-1;color:var(--teal)!important;font-size:.8rem!important;font-weight:900;
+  letter-spacing:.16em;text-align:center;text-transform:uppercase;
+}
+.bpm-tier{
+  background:rgba(17,17,24,.92)!important;border:2px solid rgba(255,255,255,.12)!important;
+  border-radius:18px!important;padding:16px!important;cursor:pointer;
+}
+.bpm-tier.active{
+  border-color:var(--teal)!important;background:rgba(0,217,165,.1)!important;
+  box-shadow:0 0 20px rgba(0,217,165,.18)!important;
+}
+.bpm-tier-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.bpm-tier-left{display:flex;align-items:center;gap:10px}
+.bpm-tier-icon{font-size:1.4rem}
+.bpm-tier-name{font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.bpm-tier-bpm{color:var(--muted);font-size:.7rem;font-weight:900}
+.bpm-tier-status{color:var(--teal)!important;font-size:.65rem;font-weight:900}
+.bpm-tier-progress{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.78rem}
+.bpm-level{color:var(--teal)!important;font-weight:900}
+.level-section{
+  background:rgba(17,17,24,.92)!important;border:2px solid rgba(0,217,165,.32)!important;
+  border-radius:18px!important;padding:18px!important;margin-bottom:18px!important;
+}
+.level-section-title{
+  color:var(--teal)!important;text-align:center;font-weight:900;letter-spacing:.16em;
+  text-transform:uppercase;font-size:.78rem;margin-bottom:12px;
+}
+.level-grid{display:grid!important;grid-template-columns:repeat(10,1fr)!important;gap:8px!important}
+.level-btn{
+  aspect-ratio:1;border:2px solid rgba(255,255,255,.12)!important;
+  background:transparent;color:var(--muted);border-radius:10px!important;
+  font-weight:900;cursor:pointer;
+}
+.level-btn.active{border-color:var(--teal)!important;color:#fff!important;background:rgba(0,217,165,.16)!important}
+.level-info{display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+.level-info-label{color:var(--muted);font-size:.8rem}
+.level-info-value{color:var(--teal)!important;font-weight:900}
+
+.play-container{
+  width:min(1280px,96vw)!important;max-width:1280px!important;
+  min-height:calc(100dvh - var(--nav-height))!important;
+  margin:0 auto!important;padding:18px 0 24px!important;
+  display:grid!important;grid-template-rows:auto auto auto 1fr auto auto!important;gap:10px!important;
+}
+.play-stats{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:10px!important;width:100%!important}
+.play-stat{
+  background:rgba(17,17,24,.86)!important;border:2px solid rgba(0,217,165,.30)!important;
+  border-radius:16px!important;padding:11px 10px!important;text-align:center;
+}
+.play-stat-value{color:var(--teal)!important;font-size:clamp(1.7rem,3vw,2.7rem)!important;font-weight:900;line-height:1}
+.play-stat-label{color:var(--muted);font-size:.62rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.play-message{min-height:34px;display:flex;align-items:center;justify-content:center}
+.play-message-text{color:#fff;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.play-message-text.watch{color:var(--gold)!important}
+.play-message-text.go{color:var(--teal)!important}
+.play-message-text.error{color:var(--pink)!important}
+.play-tiers{display:flex;justify-content:center;gap:6px}
+.play-tier-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18)}
+.play-tier-dot.completed{background:var(--teal)!important;box-shadow:0 0 6px var(--teal)}
+.play-tier-dot.current{background:var(--gold)!important;box-shadow:0 0 8px var(--gold);transform:scale(1.25)}
+.play-court-wrap{max-width:min(70vh,720px)!important;width:100%!important;margin:0 auto!important}
+.play-court{
+  display:grid!important;grid-template-columns:repeat(5,1fr)!important;
+  gap:10px!important;padding:14px!important;background:rgba(17,17,24,.85)!important;
+  border:2px solid rgba(0,217,165,.48)!important;
+  border-radius:22px!important;aspect-ratio:1!important;
+  box-shadow:0 0 42px rgba(0,217,165,.16),inset 0 0 38px rgba(0,217,165,.06)!important;
+}
+.play-cell{
+  aspect-ratio:1;border-radius:12px!important;background:rgba(255,255,255,.065)!important;
+  border:2px solid rgba(255,255,255,.14)!important;cursor:pointer;transition:all .12s;
+}
+.play-cell.lit{background:var(--flash-color)!important;border-color:var(--flash-color)!important;box-shadow:0 0 24px var(--flash-color)!important;transform:scale(1.06)}
+.play-cell.correct{background:var(--teal)!important;border-color:var(--teal)!important}
+.play-cell.wrong{background:rgba(255,20,147,.3)!important;border-color:var(--pink)!important}
+.play-cell .cell-num{color:#fff!important;font-size:clamp(1.45rem,3vw,3rem)!important;font-weight:900!important}
+.play-info{display:flex;justify-content:space-between;align-items:center;max-width:720px;width:100%;margin:0 auto}
+.play-info-badge{color:var(--teal)!important;font-weight:900;letter-spacing:.08em}
+.play-info-cells{color:var(--muted)}
+.play-info-score{color:var(--gold);font-weight:900}
+.play-action-btn{max-width:720px;margin:0 auto}
+.play-action-btn:disabled{opacity:.45}
+.emoji-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.burst-emoji{position:absolute;font-size:1.6rem;animation:emojiBurst 1.2s ease-out forwards}
+@keyframes emojiBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(.3)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.8) rotate(var(--rot))}}
+.burst-emoji.big{font-size:2.2rem}.burst-emoji.party{font-size:1.8rem;animation-duration:2s}
+.coach-message{
+  position:fixed;bottom:100px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark))!important;
+  color:var(--dark);padding:11px 22px;border-radius:16px;
+  font-weight:900;opacity:0;transition:.3s;z-index:100;
+}
+.coach-message.show{transform:translateX(-50%) translateY(0);opacity:1}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
+.overlay.show{display:flex}
+.overlay-card{background:rgba(17,17,24,.98)!important;border:2px solid var(--teal)!important;border-radius:18px!important;padding:28px!important;text-align:center;max-width:340px;width:100%}
+.overlay-emoji{font-size:3rem;margin-bottom:10px}
+.overlay-title{color:var(--teal)!important;font-size:1.4rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.overlay-message{color:var(--muted);margin:12px 0 18px}
+.overlay-btn{max-width:220px}
+
+/* MOBILE */
+@media(max-width:900px){
+  :root{--nav-height:58px}
+  .nav-row{height:58px;padding:0 10px}
+  .nav-title{font-size:1rem}
+  .back-btn{padding:8px 10px;font-size:.68rem}
+  .nav-lang-btn{min-width:34px;min-height:32px;padding:6px 8px}
+  .rc-shell{width:min(430px,94vw);min-height:auto;display:block;padding:14px 0 28px}
+  .rc-header{display:block;text-align:center}
+  .rc-wing{display:none}
+  .rc-main-title{font-size:2rem;line-height:.95}
+  .rc-subtitle{font-size:.78rem}
+  .rc-body{display:flex;flex-direction:column;gap:12px}
+  .rc-rail{gap:10px}
+  .rc-card{padding:12px}
+  .rc-center{display:block}
+  .rc-court-label{display:block;text-align:center;margin:12px auto 0;width:max-content;max-width:100%;font-size:.68rem}
+  .rc-court-stage{padding:10px;border-radius:18px}
+  .demo-court{width:min(86vw,340px);height:min(86vw,340px);gap:6px;padding:10px}
+  .demo-cell{border-radius:8px}
+  .bpm-section{grid-template-columns:1fr!important}
+  .level-grid{grid-template-columns:repeat(5,1fr)!important}
+  .play-container{width:min(430px,94vw)!important;min-height:calc(100dvh - var(--nav-height))!important;padding:12px 0 28px!important;display:flex!important;flex-direction:column!important}
+  .play-stats{gap:7px!important}
+  .play-stat{padding:8px 6px!important}
+  .play-stat-value{font-size:1.45rem!important}
+  .play-court-wrap{max-width:min(88vw,360px)!important}
+  .play-court{gap:6px!important;padding:9px!important;border-radius:16px!important}
+  .play-cell{border-radius:7px!important}
+  .play-info,.play-action-btn{max-width:360px!important}
+}
+@media(max-width:360px){
+  .demo-court{width:300px;height:300px}
+  .play-court-wrap{max-width:300px!important}
+  .play-court{gap:4px!important;padding:7px!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="mini-nav">
+  <div class="nav-row">
+    <a href="https://reactificgaming.com" class="back-btn" id="backBtn">← Back</a>
+    <div class="nav-title">Reactific</div>
+    <div class="nav-right">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" id="langEN">EN</button>
+        <button class="nav-lang-btn active" id="langES">ES</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="screen active" id="screen-demo">
+  <div class="rc-shell">
+    <header class="rc-header">
+      <div class="rc-wing">Sequence<br><span>Training</span></div>
+      <div class="rc-title">
+        <div class="rc-kicker" id="demoBadge">Reaction Training</div>
+        <div class="rc-main-title">Sequence <span>Control</span></div>
+        <div class="rc-subtitle" id="demoSubtitle">Sequential Brake Execution</div>
+      </div>
+      <div class="rc-wing">Teal Court<br><span>Replay Order</span></div>
+    </header>
+
+    <main class="rc-body">
+      <aside class="rc-rail">
+        <div class="rc-card">
+          <div class="rc-card-title">Mission</div>
+          <div class="rc-small">Watch the order. Hold the rhythm. Replay the sequence.</div>
+        </div>
+
+        <div class="playbook-section">
+          <div class="playbook-toggle" id="playbookToggle">
+            <span class="playbook-toggle-icon">📖</span>
+            <span class="playbook-toggle-text" id="playbookToggleText">HOW TO TRAIN</span>
+            <span class="playbook-toggle-arrow">▼</span>
+          </div>
+          <div class="playbook-content" id="playbookContent">
+            <div class="playbook-inner">
+              <div class="playbook-card">
+                <div class="playbook-card-title">🎯 <span id="objectiveTitle">OBJECTIVE</span></div>
+                <div class="playbook-step"><div class="playbook-step-num">1</div><div class="playbook-step-text" id="step1"><strong>Watch</strong> cells light up one by one</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">2</div><div class="playbook-step-text" id="step2"><strong>Remember</strong> the sequence order</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">3</div><div class="playbook-step-text" id="step3"><strong>Replay</strong> by tapping in the same order</div></div>
+              </div>
+
+              <div class="playbook-card">
+                <div class="playbook-card-title">⭐ <span id="progressionTitle">PROGRESSION</span></div>
+                <div class="playbook-step"><div class="playbook-step-num">→</div><div class="playbook-step-text" id="prog1">Complete <strong>3 rounds</strong> to earn a GoStar</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">→</div><div class="playbook-step-text" id="prog2">Earn <strong>10 GoStars</strong> to master a level</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">→</div><div class="playbook-step-text" id="prog3">Higher levels = <strong>longer sequences</strong></div></div>
+              </div>
+
+              <div class="playbook-card">
+                <div class="playbook-card-title">⚡ <span id="speedsTitle">BPM SPEEDS</span></div>
+                <div class="playbook-step"><div class="playbook-step-num">🏋️</div><div class="playbook-step-text" id="speed1"><strong>Training (60 BPM)</strong> — Slower flashes</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">🎯</div><div class="playbook-step-text" id="speed2"><strong>Tempo (90 BPM)</strong> — Medium speed</div></div>
+                <div class="playbook-step"><div class="playbook-step-num">⚡</div><div class="playbook-step-text" id="speed3"><strong>Elite (120 BPM)</strong> — Fast flashes!</div></div>
+                <div class="playbook-tip">
+                  <div class="playbook-tip-title">💡 <span id="tipTitle">TIP</span></div>
+                  <div class="playbook-tip-text" id="tipText">Focus on the rhythm of the flashes — your muscle memory will kick in!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="rc-center">
+        <div class="rc-court-label">Live Demo Court</div>
+        <div class="rc-court-stage">
+          <div class="demo-court-wrap">
+            <div class="demo-label" id="demoLabel">👀 WATCH...</div>
+            <div class="demo-court" id="demoCourt"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rc-rail">
+        <div class="rc-card">
+          <div class="rc-card-title">Sequence Rule</div>
+          <div class="rc-big">1 → N</div>
+          <div class="rc-small">replay the exact order</div>
+        </div>
+        <div class="rc-card">
+          <div class="rc-card-title">Start</div>
+          <div class="demo-cta">
+            <button class="play-now-btn" id="playNowBtn">▶ TRAIN NOW</button>
+          </div>
+        </div>
+        <div class="ritnome-promo">
+          <div class="pulse-dot"></div>
+          <div class="ritnome-promo-text"><span id="poweredBy">Powered by</span> <span>Gostar Digital™</span></div>
+        </div>
+      </aside>
+    </main>
+  </div>
+</div>
+<div class="screen" id="screen-trophy">
+<div class="trophy-container">
+<div class="trophy-header">
+<div class="trophy-icon">🏆</div>
+<h1 class="trophy-title" id="trophyTitle">YOUR TROPHY ROOM</h1>
+<p class="trophy-subtitle" id="trophySubtitle">Sequence Control Progress</p>
+</div>
+<div class="bpm-section">
+<div class="bpm-section-title" id="selectSpeedTitle">SELECT BPM SPEED</div>
+<div class="bpm-tier active" id="tierSlow" data-speed="slow">
+<div class="bpm-tier-header">
+<div class="bpm-tier-left"><span class="bpm-tier-icon">🏋️</span><div class="bpm-tier-info"><div class="bpm-tier-name">TRAINING</div><div class="bpm-tier-bpm">60 BPM</div></div></div>
+<span class="bpm-tier-status unlocked" id="tierSlowStatus">✓ FREE</span>
+</div>
+<div class="bpm-tier-progress"><span class="bpm-gostars" id="starsSlow">⭐☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelSlowDisplay">L1</span></div>
+</div>
+<div class="bpm-tier" id="tierMed" data-speed="med">
+<div class="bpm-tier-header">
+<div class="bpm-tier-left"><span class="bpm-tier-icon">🎯</span><div class="bpm-tier-info"><div class="bpm-tier-name">TEMPO</div><div class="bpm-tier-bpm">90 BPM</div></div></div>
+<span class="bpm-tier-status unlocked" id="tierMedStatus">✓ FREE</span>
+</div>
+<div class="bpm-tier-progress"><span class="bpm-gostars" id="starsMed">☆☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelMedDisplay">L1</span></div>
+</div>
+<div class="bpm-tier" id="tierFast" data-speed="fast">
+<div class="bpm-tier-header">
+<div class="bpm-tier-left"><span class="bpm-tier-icon">⚡</span><div class="bpm-tier-info"><div class="bpm-tier-name">ELITE</div><div class="bpm-tier-bpm">120 BPM</div></div></div>
+<span class="bpm-tier-status unlocked" id="tierFastStatus">✓ FREE</span>
+</div>
+<div class="bpm-tier-progress"><span class="bpm-gostars" id="starsFast">☆☆☆☆☆☆☆☆☆☆</span><span class="bpm-level" id="levelFastDisplay">L1</span></div>
+</div>
+</div>
+<div class="level-section">
+<div class="level-section-title" id="selectLevelTitle">SELECT LEVEL</div>
+<div class="level-grid" id="levelGrid">
+<button class="level-btn active" data-level="1">1</button>
+<button class="level-btn" data-level="2">2</button>
+<button class="level-btn" data-level="3">3</button>
+<button class="level-btn" data-level="4">4</button>
+<button class="level-btn" data-level="5">5</button>
+<button class="level-btn" data-level="6">6</button>
+<button class="level-btn" data-level="7">7</button>
+<button class="level-btn" data-level="8">8</button>
+<button class="level-btn" data-level="9">9</button>
+<button class="level-btn" data-level="10">10</button>
+</div>
+<div class="level-info">
+<span class="level-info-label" id="seqLabel">Sequence length:</span>
+<span class="level-info-value" id="seqDisplay">5</span>
+</div>
+</div>
+<button class="letsgo-btn" id="letsGoBtn">LET'S GO!</button>
+</div>
+</div>
+
+<div class="screen" id="screen-play">
+<div class="play-container">
+<div class="play-stats">
+<div class="play-stat"><div class="play-stat-value" id="playTier">1</div><div class="play-stat-label">GoStars</div></div>
+<div class="play-stat"><div class="play-stat-value" id="playRound">0/3</div><div class="play-stat-label" id="playRoundLabel">Round</div></div>
+<div class="play-stat"><div class="play-stat-value" id="playStreak">0</div><div class="play-stat-label">🔥</div></div>
+<div class="play-stat"><div class="play-stat-value" id="playScore">0</div><div class="play-stat-label" id="playScoreLabel">Score</div></div>
+</div>
+<div class="play-message"><span class="play-message-text" id="playMessage">TAP TO START!</span></div>
+<div class="play-tiers" id="playTierDots"></div>
+<div class="play-court-wrap"><div class="play-court" id="playCourt"></div></div>
+<div class="play-info">
+<div class="play-info-badge" id="playBadge">L1 TRAINING</div>
+<div class="play-info-cells" id="playSeq">SEQ: 5</div>
+<div class="play-info-score" id="playTotal">0</div>
+</div>
+<button class="play-action-btn" id="playActionBtn">LET'S GO</button>
+</div>
+</div>
+
+<div class="overlay" id="tierupOverlay">
+<div class="overlay-card">
+<div class="overlay-emoji">⭐</div>
+<h2 class="overlay-title" id="tierupTitle">GOSTAR EARNED!</h2>
+<p class="overlay-message" id="tierupMessage"></p>
+<button class="overlay-btn" id="tierupBtn">LET'S GO!</button>
+</div>
+</div>
+
+<div class="emoji-container" id="emojiContainer"></div>
+<div class="coach-message" id="coachMessage"></div>
