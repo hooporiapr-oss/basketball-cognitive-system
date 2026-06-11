@@ -592,3 +592,550 @@ body:before{
 
 <div class="emoji-container" id="emojiContainer"></div>
 <div class="coach-message" id="coachMessage"></div>
+
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)},$$=function(sel){return document.querySelectorAll(sel)};
+var screenDemo=$('screen-demo'),screenTrophy=$('screen-trophy'),screenPlay=$('screen-play'),currentScreen='demo';
+var currentLang='en';
+
+var translations = {
+  en: {
+    demoBadge: 'Reaction Training',
+    demoSubtitle: 'Sequential Brake Execution',
+    demoLabelWatch: '👀 WATCH...',
+    demoLabelSeq: 'WATCH THE SEQUENCE...',
+    demoLabelReplay: 'REPLAY IT!',
+    demoLabelPerfect: '✅ PERFECT!',
+    playbookToggle: 'HOW TO TRAIN',
+    objectiveTitle: 'OBJECTIVE',
+    step1: '<strong>Watch</strong> cells light up one by one',
+    step2: '<strong>Remember</strong> the sequence order',
+    step3: '<strong>Replay</strong> by tapping in the same order',
+    progressionTitle: 'PROGRESSION',
+    prog1: 'Complete <strong>3 rounds</strong> to earn a GoStar',
+    prog2: 'Earn <strong>10 GoStars</strong> to master a level',
+    prog3: 'Higher levels = <strong>longer sequences</strong>',
+    speedsTitle: 'BPM SPEEDS',
+    speed1: '<strong>Training (60 BPM)</strong> — Slower flashes',
+    speed2: '<strong>Tempo (90 BPM)</strong> — Medium speed',
+    speed3: '<strong>Elite (120 BPM)</strong> — Fast flashes!',
+    tipTitle: 'TIP',
+    tipText: 'Focus on the rhythm of the flashes — your muscle memory will kick in!',
+    playNow: '▶ TRAIN NOW',
+    poweredBy: 'Powered by',
+    trophyTitle: 'YOUR TROPHY ROOM',
+    trophySubtitle: 'Sequence Control Progress',
+    selectSpeed: 'SELECT BPM SPEED',
+    tierFree: '✓ FREE',
+    selectLevel: 'SELECT LEVEL',
+    seqLabel: 'Sequence length:',
+    letsGo: "LET'S GO!",
+    roundLabel: 'Round',
+    scoreLabel: 'Score',
+    tapToStart: 'TAP TO START!',
+    tapLetsGo: "TAP LET'S GO!",
+    watch: 'WATCH...',
+    yourTurn: 'YOUR TURN!',
+    wrong: 'WRONG!',
+    tierupTitle: 'GOSTAR EARNED!',
+    tierupMsg: 'You earned GoStar {tier}!',
+    tierupLvl: ' Now Level {level} ({seq} steps)',
+    masterMsg: '🏆 10 GOSTARS - MASTER! 🏆'
+  },
+  es: {
+    demoBadge: 'Reaction Training',
+    demoSubtitle: 'Ejecución Secuencial del Freno',
+    demoLabelWatch: '👀 MIRA...',
+    demoLabelSeq: 'MIRA LA SECUENCIA...',
+    demoLabelReplay: '¡REPÍTELO!',
+    demoLabelPerfect: '✅ ¡PERFECTO!',
+    playbookToggle: 'COMO ENTRENAR',
+    objectiveTitle: 'OBJETIVO',
+    step1: '<strong>Observa</strong> las celdas iluminarse una por una',
+    step2: '<strong>Recuerda</strong> el orden de la secuencia',
+    step3: '<strong>Repite</strong> tocando en el mismo orden',
+    progressionTitle: 'PROGRESIÓN',
+    prog1: 'Completa <strong>3 rondas</strong> para ganar un GoStar',
+    prog2: 'Gana <strong>10 GoStars</strong> para dominar un nivel',
+    prog3: 'Niveles más altos = <strong>secuencias más largas</strong>',
+    speedsTitle: 'VELOCIDADES BPM',
+    speed1: '<strong>Entrenamiento (60 BPM)</strong> — Destellos lentos',
+    speed2: '<strong>Tempo (90 BPM)</strong> — Velocidad media',
+    speed3: '<strong>Elite (120 BPM)</strong> — ¡Destellos rápidos!',
+    tipTitle: 'CONSEJO',
+    tipText: 'Concéntrate en el ritmo de los destellos — ¡tu memoria muscular te ayudará!',
+    playNow: '▶ ENTRENAR AHORA',
+    poweredBy: 'Impulsado por',
+    trophyTitle: 'TU VITRINA',
+    trophySubtitle: 'Progreso de Sequence Control',
+    selectSpeed: 'SELECCIONA VELOCIDAD BPM',
+    tierFree: '✓ GRATIS',
+    selectLevel: 'SELECCIONA NIVEL',
+    seqLabel: 'Longitud:',
+    letsGo: "¡PA'LANTE!",
+    roundLabel: 'Ronda',
+    scoreLabel: 'Puntos',
+    tapToStart: '¡TOCA PARA COMENZAR!',
+    tapLetsGo: "¡TOCA PA'LANTE!",
+    watch: 'MIRA...',
+    yourTurn: '¡TU TURNO!',
+    wrong: '¡ERROR!',
+    tierupTitle: '¡GOSTAR GANADO!',
+    tierupMsg: '¡Ganaste GoStar {tier}!',
+    tierupLvl: ' Ahora Nivel {level} ({seq} pasos)',
+    masterMsg: '🏆 10 GOSTARS - ¡MAESTRO! 🏆'
+  }
+};
+
+function t(key) {
+  return translations[currentLang][key] || translations['en'][key] || key;
+}
+
+function updateUILanguage() {
+  $('demoBadge').textContent = t('demoBadge');
+  $('demoSubtitle').textContent = t('demoSubtitle');
+  $('playbookToggleText').textContent = t('playbookToggle');
+  $('objectiveTitle').textContent = t('objectiveTitle');
+  $('step1').innerHTML = t('step1');
+  $('step2').innerHTML = t('step2');
+  $('step3').innerHTML = t('step3');
+  $('progressionTitle').textContent = t('progressionTitle');
+  $('prog1').innerHTML = t('prog1');
+  $('prog2').innerHTML = t('prog2');
+  $('prog3').innerHTML = t('prog3');
+  $('speedsTitle').textContent = t('speedsTitle');
+  $('speed1').innerHTML = t('speed1');
+  $('speed2').innerHTML = t('speed2');
+  $('speed3').innerHTML = t('speed3');
+  $('tipTitle').textContent = t('tipTitle');
+  $('tipText').textContent = t('tipText');
+  $('playNowBtn').textContent = t('playNow');
+  $('poweredBy').textContent = t('poweredBy');
+  
+  $('trophyTitle').textContent = t('trophyTitle');
+  $('trophySubtitle').textContent = t('trophySubtitle');
+  $('selectSpeedTitle').textContent = t('selectSpeed');
+  $('tierSlowStatus').textContent = t('tierFree');
+  $('tierMedStatus').textContent = t('tierFree');
+  $('tierFastStatus').textContent = t('tierFree');
+  $('selectLevelTitle').textContent = t('selectLevel');
+  $('seqLabel').textContent = t('seqLabel');
+  $('letsGoBtn').textContent = t('letsGo');
+  
+  $('playRoundLabel').textContent = t('roundLabel');
+  $('playScoreLabel').textContent = t('scoreLabel');
+  $('playActionBtn').textContent = t('letsGo');
+  $('tierupTitle').textContent = t('tierupTitle');
+  $('tierupBtn').textContent = t('letsGo');
+  
+  $('langEN').classList.toggle('active', currentLang === 'en');
+  $('langES').classList.toggle('active', currentLang === 'es');
+}
+
+function setLang(l) {
+  currentLang = l;
+  localStorage.setItem('lc-lang', l);
+  updateUILanguage();
+}
+
+$('langEN').onclick = function() { setLang('en'); };
+$('langES').onclick = function() { setLang('es'); };
+
+var savedLang = localStorage.getItem('lc-lang');
+if (savedLang) currentLang = savedLang;
+
+function showScreen(name){
+  screenDemo.classList.remove('active');
+  screenTrophy.classList.remove('active');
+  screenPlay.classList.remove('active');
+  currentScreen=name;document.querySelector('.nav-lang').style.display=name==='play'?'none':'flex';
+  if(name==='demo')screenDemo.classList.add('active');
+  else if(name==='trophy')screenTrophy.classList.add('active');
+  else if(name==='play')screenPlay.classList.add('active');
+}
+
+var demoCourt=$('demoCourt'),demoLabel=$('demoLabel'),demoCells=[],demoEpoch=0,demoTimeouts=[];
+var FLASH_COLORS=['#FFD700','#00D9A5','#FF6B35','#FF1493'],colorIndex=0;
+
+function initDemoCourt(){demoCourt.innerHTML='';demoCells=[];for(var i=0;i<25;i++){var c=document.createElement('div');c.className='demo-cell';demoCourt.appendChild(c);demoCells.push(c)}}
+function setDemoTimeout(fn,delay){var id=setTimeout(function(){var idx=demoTimeouts.indexOf(id);if(idx>-1)demoTimeouts.splice(idx,1);fn()},delay);demoTimeouts.push(id);return id}
+function clearDemoTimeouts(){demoTimeouts.forEach(function(id){clearTimeout(id)});demoTimeouts=[]}
+function randomSequence(count){var arr=[];for(var i=0;i<25;i++)arr.push(i);for(var j=arr.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var tmp=arr[j];arr[j]=arr[k];arr[k]=tmp}return arr.slice(0,count)}
+
+function runDemoRound(epoch){
+  if(epoch!==demoEpoch||currentScreen!=='demo')return;
+  var sequence=randomSequence(5);
+  var color=FLASH_COLORS[colorIndex];
+  colorIndex=(colorIndex+1)%FLASH_COLORS.length;
+  document.documentElement.style.setProperty('--flash-color',color);
+  demoCells.forEach(function(c){c.className='demo-cell';c.textContent=''});
+  setDemoTimeout(function(){
+    if(epoch!==demoEpoch)return;
+    demoLabel.textContent=t('demoLabelSeq');
+    demoLabel.className='demo-label phase-watch';
+    sequence.forEach(function(idx,i){
+      setDemoTimeout(function(){
+        if(epoch!==demoEpoch)return;
+        demoCells.forEach(function(c){c.classList.remove('lit')});
+        demoCells[idx].classList.add('lit');
+      },i*600);
+    });
+  },500);
+  setDemoTimeout(function(){
+    if(epoch!==demoEpoch)return;
+    demoCells.forEach(function(c){c.classList.remove('lit')});
+    demoLabel.textContent=t('demoLabelReplay');
+    demoLabel.className='demo-label phase-replay';
+  },500+(5*600)+300);
+  sequence.forEach(function(idx,i){
+    setDemoTimeout(function(){
+      if(epoch!==demoEpoch)return;
+      demoCells[idx].classList.add('correct');
+      demoCells[idx].textContent='✓';
+    },500+(5*600)+800+(i*400));
+  });
+  setDemoTimeout(function(){
+    if(epoch!==demoEpoch)return;
+    demoLabel.textContent=t('demoLabelPerfect');
+    demoLabel.className='demo-label phase-success';
+    demoCourt.classList.add('joy-pulse');
+    setTimeout(function(){demoCourt.classList.remove('joy-pulse')},500);
+  },500+(5*600)+800+(5*400)+200);
+  setDemoTimeout(function(){
+    if(epoch!==demoEpoch)return;
+    demoCells.forEach(function(c){c.className='demo-cell';c.textContent=''});
+    demoLabel.textContent=t('demoLabelWatch');
+    demoLabel.className='demo-label';
+    runDemoRound(epoch);
+  },500+(5*600)+800+(5*400)+1500);
+}
+
+function startDemo(){demoEpoch++;clearDemoTimeouts();runDemoRound(demoEpoch)}
+function stopDemo(){demoEpoch++;clearDemoTimeouts()}
+
+var playbookToggle=$('playbookToggle'),playbookContent=$('playbookContent');
+playbookToggle.onclick=function(){playbookToggle.classList.toggle('open');playbookContent.classList.toggle('open')};
+
+$('playNowBtn').onclick=function(){stopDemo();showScreen('trophy')};
+
+var gameState={speed:'slow',level:1,tier:1,roundsCompleted:0,score:0,streak:0};
+var LEVEL_BASE={1:5,2:6,3:7,4:8,5:9,6:10,7:11,8:12,9:13,10:14};
+
+function getSpeedKey(speed,key){return'lc-seq-'+speed+'-'+key}
+function loadSpeedState(speed){return{level:parseInt(localStorage.getItem(getSpeedKey(speed,'level')))||1,tier:parseInt(localStorage.getItem(getSpeedKey(speed,'tier')))||1,roundsCompleted:parseInt(localStorage.getItem(getSpeedKey(speed,'rounds')))||0,score:parseInt(localStorage.getItem(getSpeedKey(speed,'score')))||0,streak:parseInt(localStorage.getItem(getSpeedKey(speed,'streak')))||0}}
+function saveSpeedState(){localStorage.setItem(getSpeedKey(gameState.speed,'level'),gameState.level);localStorage.setItem(getSpeedKey(gameState.speed,'tier'),gameState.tier);localStorage.setItem(getSpeedKey(gameState.speed,'rounds'),gameState.roundsCompleted);localStorage.setItem(getSpeedKey(gameState.speed,'score'),gameState.score);localStorage.setItem(getSpeedKey(gameState.speed,'streak'),gameState.streak);if(typeof syncCognitiveScore==='function')syncCognitiveScore(gameState.speed,gameState.level,gameState.score,gameState.streak,gameState.tier)}
+function getSeqLen(){var base=LEVEL_BASE[gameState.level]||5,tierBonus=gameState.tier-1;return Math.min(base+tierBonus,25)}
+function renderStars(tier){var s='';for(var i=0;i<10;i++)s+=i<tier?'⭐':'☆';return s}
+
+function updateTrophyUI(){
+  var slowData=loadSpeedState('slow'),medData=loadSpeedState('med'),fastData=loadSpeedState('fast');
+  $('starsSlow').textContent=renderStars(slowData.tier);
+  $('starsMed').textContent=renderStars(medData.tier);
+  $('starsFast').textContent=renderStars(fastData.tier);
+  $('levelSlowDisplay').textContent='L'+slowData.level;
+  $('levelMedDisplay').textContent='L'+medData.level;
+  $('levelFastDisplay').textContent='L'+fastData.level;
+  $$('.bpm-tier').forEach(function(t){t.classList.remove('active')});
+  if(gameState.speed==='slow')$('tierSlow').classList.add('active');
+  else if(gameState.speed==='med')$('tierMed').classList.add('active');
+  else $('tierFast').classList.add('active');
+  $$('.level-btn').forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.level)===gameState.level)});
+  $('seqDisplay').textContent=getSeqLen();
+}
+
+$$('.bpm-tier').forEach(function(tier){
+  tier.onclick=function(){
+    var spd=tier.dataset.speed;
+    gameState.speed=spd;
+    var data=loadSpeedState(spd);
+    gameState.level=data.level;
+    gameState.tier=data.tier;
+    gameState.roundsCompleted=data.roundsCompleted;
+    gameState.score=data.score;
+    gameState.streak=data.streak;
+    updateTrophyUI();
+  };
+});
+
+$$('.level-btn').forEach(function(btn){
+  btn.onclick=function(){
+    gameState.level=parseInt(btn.dataset.level);
+    gameState.tier=1;
+    gameState.roundsCompleted=0;
+    saveSpeedState();
+    updateTrophyUI();
+  };
+});
+
+$('letsGoBtn').onclick=function(){showScreen('play');initGame()};
+
+var playCourt=$('playCourt'),playCells=[],playTimeouts=[];
+var SPEED_CFG={slow:{show:800,gap:300},med:{show:500,gap:200},fast:{show:300,gap:150}};
+var ROUNDS_PER_TIER=3,TOTAL_TIERS=10,sequence=[],playerIndex=0,isPlaying=false,canTap=false;
+var LAUGH_EMOJIS=['😂','😆','🤣','😄','😁','🥳','😊','🏀'],PARTY_EMOJIS=['🥳','🎉','😂','🤣','✨','💫','🏀','🏆'],audioCtx=null,playColorIndex=0;
+
+function setPlayTimeout(fn,delay){var id=setTimeout(function(){var idx=playTimeouts.indexOf(id);if(idx>-1)playTimeouts.splice(idx,1);fn()},delay);playTimeouts.push(id);return id}
+function clearPlayTimeouts(){playTimeouts.forEach(function(id){clearTimeout(id)});playTimeouts=[]}
+
+function initPlayCourt(){
+  playCourt.innerHTML='';playCells=[];
+  for(var i=0;i<25;i++){
+    var c=document.createElement('div');
+    c.className='play-cell';
+    c.dataset.index=i;
+    c.innerHTML='<span class="cell-num"></span>';
+    c.onclick=function(){handleTap(parseInt(this.dataset.index))};
+    playCourt.appendChild(c);
+    playCells.push(c);
+  }
+}
+
+function renderPlayTierDots(){
+  var c=$('playTierDots');c.innerHTML='';
+  for(var i=1;i<=TOTAL_TIERS;i++){
+    var d=document.createElement('div');
+    d.className='play-tier-dot'+(i<gameState.tier?' completed':'')+(i===gameState.tier?' current':'');
+    c.appendChild(d);
+  }
+}
+
+function updatePlayUI(){
+  $('playTier').textContent=gameState.tier;
+  $('playRound').textContent=gameState.roundsCompleted+'/'+ROUNDS_PER_TIER;
+  $('playStreak').textContent=gameState.streak;
+  $('playScore').textContent=gameState.score;
+  $('playTotal').textContent=gameState.score;
+  var spName=gameState.speed==='slow'?'TRAINING':gameState.speed==='med'?'TEMPO':'ELITE';
+  $('playBadge').textContent='L'+gameState.level+' '+spName;
+  $('playSeq').textContent='SEQ: '+getSeqLen();
+  renderPlayTierDots();
+}
+
+function initGame(){
+  initPlayCourt();
+  var data=loadSpeedState(gameState.speed);
+  gameState.level=data.level;
+  gameState.tier=data.tier;
+  gameState.roundsCompleted=data.roundsCompleted;
+  gameState.score=data.score;
+  gameState.streak=data.streak;
+  isPlaying=false;
+  canTap=false;
+  updatePlayUI();
+  $('playMessage').textContent=t('tapLetsGo');
+  $('playActionBtn').disabled=false;
+}
+
+function generateSequence(){
+  var len=getSeqLen(),arr=[];
+  for(var i=0;i<25;i++)arr.push(i);
+  for(var j=arr.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1)),tmp=arr[j];arr[j]=arr[k];arr[k]=tmp}
+  return arr.slice(0,len);
+}
+
+var NOTES=[262,277,294,311,330,349,370,392,415,440,466,494,523,554,587,622,659,698,740,784,831,880,932,988,1047];
+function playTone(freq,dur){
+  if(!audioCtx)try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}
+  try{
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    var osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type='sine';osc.frequency.value=freq;
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    gain.gain.setValueAtTime(0.3,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+dur);
+    osc.start();osc.stop(audioCtx.currentTime+dur+0.05);
+  }catch(e){}
+}
+function playNote(idx){playTone(NOTES[idx%25],0.2)}
+function playSuccess(){[523,659,784].forEach(function(f,i){setTimeout(function(){playTone(f,0.12)},i*80)})}
+function playError(){playTone(200,0.3)}
+
+function getCourtCenter(){var r=playCourt.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
+function createBurstEmoji(emoji,x,y,type){
+  var el=document.createElement('div');
+  el.className='burst-emoji'+(type?' '+type:'');
+  el.textContent=emoji;
+  var angle=Math.random()*Math.PI*2,dist=50+Math.random()*80;
+  el.style.cssText='left:'+x+'px;top:'+y+'px;--tx:'+Math.cos(angle)*dist+'px;--ty:'+Math.sin(angle)*dist+'px;--rot:'+(Math.random()-0.5)*720+'deg';
+  $('emojiContainer').appendChild(el);
+  setTimeout(function(){if(el.parentNode)el.remove()},2000);
+}
+function laughCelebration(intensity){
+  var center=getCourtCenter(),count=intensity==='party'?8:intensity==='big'?5:intensity==='medium'?3:2;
+  var emojis=intensity==='party'?PARTY_EMOJIS:LAUGH_EMOJIS;
+  var type=intensity==='party'?'party':intensity==='big'?'big':'';
+  for(var i=0;i<count;i++){
+    (function(idx){setTimeout(function(){createBurstEmoji(emojis[Math.floor(Math.random()*emojis.length)],center.x+(Math.random()-0.5)*20,center.y+(Math.random()-0.5)*20,type)},idx*35)})(i);
+  }
+  playCourt.classList.add('joy-pulse');
+  setTimeout(function(){playCourt.classList.remove('joy-pulse')},500);
+}
+function showCoach(msg){$('coachMessage').textContent=msg;$('coachMessage').classList.add('show');setTimeout(function(){$('coachMessage').classList.remove('show')},2000)}
+
+function playSequence(cb){
+  var cfg=SPEED_CFG[gameState.speed]||SPEED_CFG.slow,i=0;
+  function next(){
+    if(!isPlaying)return;
+    if(i>0)playCells[sequence[i-1]].classList.remove('lit');
+    if(i<sequence.length){
+      var cell=playCells[sequence[i]];
+      cell.classList.add('lit');
+      playNote(sequence[i]);
+      i++;
+      setPlayTimeout(next,cfg.show+cfg.gap);
+    } else {
+      setPlayTimeout(cb,300);
+    }
+  }
+  next();
+}
+
+function startRound(){
+  if(isPlaying)return;
+  clearPlayTimeouts();
+  var color=FLASH_COLORS[playColorIndex];
+  playColorIndex=(playColorIndex+1)%FLASH_COLORS.length;
+  document.documentElement.style.setProperty('--flash-color',color);
+  isPlaying=true;canTap=false;playerIndex=0;
+  $('playActionBtn').disabled=true;
+  playCells.forEach(function(c){c.className='play-cell';c.querySelector('.cell-num').textContent=''});
+  sequence=generateSequence();
+  $('playMessage').textContent=t('watch');
+  $('playMessage').className='play-message-text watch';
+  setPlayTimeout(function(){
+    if(!isPlaying)return;
+    playSequence(function(){
+      if(!isPlaying)return;
+      $('playMessage').textContent=t('yourTurn');
+      $('playMessage').className='play-message-text go';
+      canTap=true;
+    });
+  },500);
+}
+
+function handleTap(idx){
+  if(!canTap||!isPlaying)return;
+  var cell=playCells[idx];
+  cell.classList.add('player-tap');
+  playNote(idx);
+  setPlayTimeout(function(){cell.classList.remove('player-tap')},200);
+  if(idx===sequence[playerIndex]){
+    cell.classList.add('correct','show-num');
+    cell.querySelector('.cell-num').textContent=playerIndex+1;
+    playerIndex++;
+    if(playerIndex>2)laughCelebration('small');
+    if(playerIndex>=sequence.length){
+      canTap=false;
+      roundComplete(true);
+    }
+  } else {
+    cell.classList.add('wrong');
+    playError();
+    canTap=false;
+    setPlayTimeout(function(){
+      sequence.forEach(function(i,num){
+        playCells[i].classList.add('correct','show-num');
+        playCells[i].querySelector('.cell-num').textContent=num+1;
+      });
+    },400);
+    setPlayTimeout(function(){roundComplete(false)},1500);
+  }
+}
+
+function roundComplete(success){
+  isPlaying=false;canTap=false;
+  if(success){
+    var pts=sequence.length*10*gameState.level*(gameState.speed==='fast'?3:gameState.speed==='med'?2:1);
+    gameState.score+=pts;
+    gameState.streak++;
+    gameState.roundsCompleted++;
+    saveSpeedState();
+    var intensity=gameState.streak>=5?'party':gameState.streak>=3?'big':'medium';
+    var msgs=gameState.streak>=5?['🏆 LEGEND!','🏆 WOW!']:gameState.streak>=3?['🔥 FIRE!','🤣 AMAZING!']:['😄 NICE!','😊 GREAT!'];
+    playSuccess();
+    laughCelebration(intensity);
+    showCoach(msgs[Math.floor(Math.random()*msgs.length)]);
+    updatePlayUI();
+    if(gameState.roundsCompleted>=ROUNDS_PER_TIER){
+      setPlayTimeout(function(){gameState.tier<TOTAL_TIERS?tierUp():maxTier()},800);
+    } else {
+      setPlayTimeout(resetRound,1000);
+    }
+  } else {
+    gameState.streak=0;
+    saveSpeedState();
+    updatePlayUI();
+    $('playMessage').textContent=t('wrong');
+    $('playMessage').className='play-message-text error';
+    setPlayTimeout(resetRound,1500);
+  }
+}
+
+function tierUp(){
+  gameState.tier++;
+  gameState.roundsCompleted=0;
+  var oldLevel=gameState.level;
+  if(gameState.level<10)gameState.level++;
+  saveSpeedState();
+  laughCelebration('party');
+  var msg=t('tierupMsg').replace('{tier}',gameState.tier);
+  if(gameState.level>oldLevel){
+    msg+=t('tierupLvl').replace('{level}',gameState.level).replace('{seq}',getSeqLen());
+  }
+  $('tierupMessage').innerHTML=msg;
+  $('tierupOverlay').classList.add('show');
+  updatePlayUI();
+}
+
+function maxTier(){
+  gameState.roundsCompleted=0;
+  if(gameState.level<10)gameState.level=10;
+  saveSpeedState();
+  $('tierupMessage').innerHTML=t('masterMsg');
+  document.querySelector('#tierupOverlay .overlay-emoji').textContent='👑';
+  $('tierupOverlay').classList.add('show');
+  updatePlayUI();
+}
+
+$('tierupBtn').onclick=function(){
+  $('tierupOverlay').classList.remove('show');
+  document.querySelector('#tierupOverlay .overlay-emoji').textContent='⭐';
+  resetRound();
+};
+
+function resetRound(){
+  clearPlayTimeouts();
+  isPlaying=false;canTap=false;playerIndex=0;sequence=[];
+  playCells.forEach(function(c){c.className='play-cell';c.querySelector('.cell-num').textContent=''});
+  $('playMessage').textContent=(gameState.roundsCompleted+1)+'/'+ROUNDS_PER_TIER+' - '+t('tapLetsGo');
+  $('playMessage').className='play-message-text';
+  $('playActionBtn').disabled=false;
+  updatePlayUI();
+}
+
+$('playActionBtn').onclick=startRound;
+
+initDemoCourt();
+updateUILanguage();
+startDemo();
+updateTrophyUI();
+})();
+</script>
+<script>window.COGNITIVE_TEST_NAME='replay';</script>
+<script src="/cognitive-sync.js"></script>
+
+<script>
+window.addEventListener('load', function(){
+  try{
+    var demo = document.getElementById('demoCourt');
+    if(demo && demo.children.length === 0 && typeof initDemoCourt === 'function'){
+      initDemoCourt();
+      if(typeof startDemo === 'function') startDemo();
+    }
+  }catch(e){}
+});
+</script>
+
+</body>
+</html>
