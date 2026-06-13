@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>REACTIFIC™ 5x10 STROBE™ Challenge</title>
+<style>
+:root{
+  --bg:#02050a;--blue:#008cff;--blue2:#00b7ff;--orange:#ff6b00;--orange2:#ff9b22;
+  --white:#f4f4f4;--muted:#a7adba;--red:#ff3030;--green:#39FF14;--gold:#ffd35a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body{background:radial-gradient(circle at 16% 5%,rgba(0,140,255,.24),transparent 25%),radial-gradient(circle at 88% 8%,rgba(255,107,0,.20),transparent 28%),radial-gradient(circle at 50% 100%,rgba(0,140,255,.14),transparent 42%),linear-gradient(180deg,#030814,#010306 68%,#02050a)}
+.app{width:100vw;height:100vh;display:grid;grid-template-rows:86px 92px 1fr 84px 38px;gap:8px;padding:12px 22px 10px}
+.header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px}
+.brand{text-align:center}
+.brand-main{font-size:clamp(1.7rem,4.6vw,4.4rem);line-height:.9;font-weight:900;font-style:italic;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 0 18px rgba(0,140,255,.38)}
+.brand-main span{color:var(--orange)}
+.brand-sub{margin-top:5px;color:var(--orange);font-size:clamp(.78rem,1.6vw,1.3rem);font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.header-left,.header-right{border:2px solid var(--blue);background:rgba(0,0,0,.28);padding:12px 16px;min-height:64px;display:flex;align-items:center;justify-content:center;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
+.header-left{color:var(--orange);clip-path:polygon(0 0,92% 0,100% 100%,0 100%)}
+.header-right{clip-path:polygon(8% 0,100% 0,100% 100%,0 100%)}
+.header-right span{color:var(--orange);display:block}
+.hudtop{display:grid;grid-template-columns:170px 1fr 170px;gap:12px;align-items:stretch}
+.findbox,.clockbox,.scorebox{border:2px solid var(--blue);background:linear-gradient(180deg,rgba(6,16,28,.96),rgba(2,5,10,.96));box-shadow:0 0 20px rgba(0,140,255,.34),inset 0 0 22px rgba(0,140,255,.08);border-radius:14px}
+.findbox{display:flex;align-items:center;justify-content:center;gap:22px;border-color:var(--orange);box-shadow:0 0 22px rgba(255,107,0,.42),inset 0 0 22px rgba(255,107,0,.1)}
+.find-label{color:var(--gold);font-size:clamp(.8rem,1.4vw,1.2rem);font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.find-number{color:var(--green);font-size:clamp(2.4rem,5vw,5.2rem);font-weight:900;line-height:1;min-width:120px;text-align:center;text-shadow:0 0 24px rgba(57,255,20,.6)}
+.clockbox,.scorebox{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.small-label{color:var(--orange);font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.clock-num{color:#fff;font-size:2.85rem;font-weight:900;line-height:1}
+.score-num{color:var(--green);font-size:2.2rem;font-weight:900;line-height:1}
+.main{min-height:0;display:grid;grid-template-columns:170px 1fr 170px;gap:14px}
+.rail{display:flex;flex-direction:column;gap:10px;min-height:0}
+.box{border:2px solid var(--blue);background:linear-gradient(180deg,rgba(6,16,28,.96),rgba(2,5,10,.96));box-shadow:0 0 18px rgba(0,140,255,.35),inset 0 0 24px rgba(0,140,255,.08);border-radius:12px;padding:10px}
+.box-title{color:var(--orange);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;margin-bottom:8px;text-align:center}
+.stack{display:grid;gap:7px}
+.choice{border:1px solid rgba(0,140,255,.72);background:rgba(0,0,0,.35);color:var(--white);border-radius:8px;padding:8px 6px;text-align:center;font-weight:900;cursor:pointer;text-transform:uppercase}
+.choice strong{display:block;font-size:1.45rem;line-height:1;color:#e8e8e8}
+.choice small{font-size:.6rem;color:#e9e9e9}
+.choice.active{border-color:var(--orange);box-shadow:0 0 15px rgba(255,107,0,.75),inset 0 0 16px rgba(255,107,0,.16);color:var(--orange)}
+.choice.active strong{color:#fff}
+.center{min-height:0;display:grid;grid-template-rows:34px 1fr}
+.grid-title{justify-self:center;align-self:end;color:var(--orange);font-weight:900;letter-spacing:.16em;text-transform:uppercase;font-size:clamp(.78rem,1.4vw,1.1rem);border:2px solid var(--blue);border-bottom:none;background:rgba(5,10,18,.96);padding:7px 34px 5px;clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
+.grid-wrap{border:2px solid var(--blue);border-radius:18px;padding:14px;background:rgba(3,8,15,.92);box-shadow:0 0 30px rgba(0,140,255,.45),inset 0 0 38px rgba(0,140,255,.12);min-height:0;display:flex;align-items:center;justify-content:center}
+.court{height:100%;max-height:100%;aspect-ratio:2/1;max-width:100%;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:6px;transition:filter .06s linear,opacity .06s linear}
+.court.strobe-soft{filter:brightness(.62) contrast(1.08)}
+.court.strobe-medium{filter:brightness(.42) contrast(1.15)}
+.court.strobe-hard{opacity:.18}
+.cell{border:2px solid rgba(0,170,255,.85);background:radial-gradient(circle at 50% 25%,rgba(0,140,255,.13),rgba(0,0,0,.55));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.4rem,3vw,3rem);font-weight:900;color:#ddd;text-shadow:0 1px 0 #000,0 0 10px rgba(255,255,255,.22);cursor:pointer}
+.cell.hit{background:var(--orange);border-color:var(--orange2);color:#fff;box-shadow:0 0 20px rgba(255,107,0,.8)}
+.cell.reveal{background:var(--green);border-color:var(--green);color:#001400}
+.cell.wrong{background:var(--red);border-color:var(--red)}
+.levelBig{color:#fff;font-size:3.05rem;line-height:1;font-weight:900;text-align:center}
+.sub{text-align:center;color:#fff;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem}
+.controls{display:grid;grid-template-columns:165px 165px 1fr 165px 165px;gap:10px;align-items:center}
+.hudbtn,.start{border:2px solid var(--blue);background:rgba(0,0,0,.42);color:#fff;border-radius:10px;height:64px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 12px rgba(0,140,255,.3)}
+.hudbtn span{display:block;color:var(--orange);font-size:.72rem}
+.start{border-color:var(--orange);background:linear-gradient(180deg,var(--orange2),var(--orange));font-size:1.45rem;letter-spacing:.1em;box-shadow:0 0 24px rgba(255,107,0,.75)}
+.start:disabled{opacity:.72}
+.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--blue);box-shadow:0 0 18px rgba(0,140,255,.35)}
+.bottom div{display:flex;align-items:center;justify-content:center;color:#ddd;font-weight:900;font-style:italic;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem}
+.bottom div:nth-child(2){color:var(--orange)}
+.notice{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);opacity:0;z-index:99;background:var(--orange);color:white;padding:18px 32px;border-radius:16px;font-size:1.4rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 30px rgba(255,107,0,.8);transition:.22s}
+.notice.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+@media(max-width:1000px){html,body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-rows:auto auto auto auto auto;padding:10px}.header{grid-template-columns:1fr}.header-left,.header-right{display:none}.brand-main{font-size:2.4rem}.hudtop{grid-template-columns:1fr}.findbox{min-height:82px}.main{grid-template-columns:1fr}.rail{display:grid;grid-template-columns:1fr 1fr}.grid-wrap{height:40vh}.controls{grid-template-columns:1fr 1fr}.start{grid-column:1/-1}.bottom{grid-template-columns:1fr}}
+@media(max-width:520px){.rail{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.grid-wrap{height:35vh;padding:9px}.court{gap:4px}.cell{font-size:1.1rem;border-radius:6px}.findbox{display:grid;gap:2px}.find-number{min-width:0;font-size:2.5rem}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="header-left">5 × 10 Challenge</div>
+    <div class="brand">
+      <div class="brand-main">REACTIFIC<span>™</span></div>
+      <div class="brand-sub">5 × 10 Challenge™ · STROBE™ Training</div>
+    </div>
+    <div class="header-right"><div>Recognize.<span>React.</span>Advance.</div></div>
+  </header>
+
+  <section class="hudtop">
+    <div class="scorebox"><div class="small-label">Score</div><div class="score-num" id="score">0</div></div>
+    <div class="findbox"><div class="find-label">Find</div><div class="find-number" id="targetDisplay">—</div></div>
+    <div class="clockbox"><div class="small-label">Shot Clock</div><div class="clock-num" id="clockDisplay">7.0</div></div>
+  </section>
+
+  <main class="main">
+    <aside class="rail">
+      <div class="box">
+        <div class="box-title">Shot Clock</div>
+        <div class="stack">
+          <button class="choice active" data-clock="7"><strong>7</strong><small>SEC</small></button>
+          <button class="choice" data-clock="5"><strong>5</strong><small>SEC</small></button>
+          <button class="choice" data-clock="3"><strong>3</strong><small>SEC</small></button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-title">BPM</div>
+        <div class="stack">
+          <button class="choice" data-bpm="60"><strong>60</strong><small>BPM</small></button>
+          <button class="choice active" data-bpm="90"><strong>90</strong><small>BPM</small></button>
+          <button class="choice" data-bpm="120"><strong>120</strong><small>BPM</small></button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="center">
+      <div class="grid-title">5 × 10 Challenge — 50 Cells</div>
+      <div class="grid-wrap">
+        <div class="court" id="court"></div>
+      </div>
+    </section>
+
+    <aside class="rail">
+      <div class="box">
+        <div class="box-title">Strobe™ Intensity</div>
+        <div class="stack">
+          <button class="choice" data-strobe="off"><strong style="font-size:1.1rem">OFF</strong></button>
+          <button class="choice" data-strobe="soft"><strong style="font-size:1.1rem">SOFT</strong></button>
+          <button class="choice active" data-strobe="medium"><strong style="font-size:1.1rem">MEDIUM</strong></button>
+          <button class="choice" data-strobe="hard"><strong style="font-size:1.1rem">HARD</strong></button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-title">Level</div>
+        <div class="levelBig" id="level">1</div>
+        <div class="sub">Targets <span id="targetCount">1</span></div>
+        <div class="sub">Streak <span id="streak">0</span>/3</div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="controls">
+    <button class="hudbtn" id="practice">Practice<span>Free</span></button>
+    <button class="hudbtn" id="compete">Compete<span>Subscribe</span></button>
+    <button class="start" id="start">Start Round</button>
+    <button class="hudbtn" id="fullscreen">Fullscreen<span>Toggle</span></button>
+    <button class="hudbtn" id="menu">Sign-Up | Sign-In<span>Home</span></button>
+  </section>
+
+  <footer class="bottom">
+    <div>Train Free.</div>
+    <div>Build The Reaction.</div>
+    <div>Compete To Be Seen.</div>
+  </footer>
+</div>
+
+<div class="notice" id="notice">Located</div>
+
+<script>
+(function(){
+const GRID_SIZE=50;
+const court=document.getElementById('court'),start=document.getElementById('start'),notice=document.getElementById('notice');
+const levelEl=document.getElementById('level'),targetCountEl=document.getElementById('targetCount'),streakEl=document.getElementById('streak');
+const targetDisplay=document.getElementById('targetDisplay'),clockDisplay=document.getElementById('clockDisplay'),scoreDisplay=document.getElementById('score');
+
+let duration=7,bpm=90,strobe='medium',level=1,streak=0,score=0,playing=false,targets=[],found=[],strobeTimer=null,clockTimer=null,cells=[],timeLeftMs=7000;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function show(msg){notice.textContent=msg;notice.classList.add('show');setTimeout(()=>notice.classList.remove('show'),850)}
+function build(){
+  court.innerHTML='';cells=[];
+  const nums=shuffle(Array.from({length:GRID_SIZE},(_,i)=>i+1));
+  nums.forEach(n=>{
+    const c=document.createElement('div');c.className='cell';c.textContent=n;c.dataset.num=n;
+    c.onclick=()=>tap(c);court.appendChild(c);cells.push(c);
+  });
+}
+function pickTargets(){targets=shuffle(Array.from({length:GRID_SIZE},(_,i)=>i+1)).slice(0,level);found=[];targetDisplay.textContent=targets.join(' • ')}
+function update(){levelEl.textContent=level;targetCountEl.textContent=level;streakEl.textContent=streak;scoreDisplay.textContent=score;clockDisplay.textContent=duration.toFixed(1)}
+function setActive(group,btn){document.querySelectorAll(group).forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+document.querySelectorAll('[data-clock]').forEach(btn=>btn.onclick=()=>{if(playing)return;duration=Number(btn.dataset.clock);clockDisplay.textContent=duration.toFixed(1);setActive('[data-clock]',btn)});
+document.querySelectorAll('[data-bpm]').forEach(btn=>btn.onclick=()=>{bpm=Number(btn.dataset.bpm);setActive('[data-bpm]',btn);if(playing)startStrobe()});
+document.querySelectorAll('[data-strobe]').forEach(btn=>btn.onclick=()=>{strobe=btn.dataset.strobe;setActive('[data-strobe]',btn);if(playing)startStrobe()});
+
+function stopStrobe(){if(strobeTimer)clearInterval(strobeTimer);strobeTimer=null;court.classList.remove('strobe-soft','strobe-medium','strobe-hard')}
+function startStrobe(){stopStrobe();if(strobe==='off')return;const cls=strobe==='soft'?'strobe-soft':strobe==='medium'?'strobe-medium':'strobe-hard';const beat=60000/bpm;const flash=Math.max(80,Math.min(170,beat*.25));strobeTimer=setInterval(()=>{court.classList.add(cls);setTimeout(()=>court.classList.remove(cls),flash)},beat)}
+
+function startClock(){
+  timeLeftMs=duration*1000;clockDisplay.textContent=(timeLeftMs/1000).toFixed(1);
+  if(clockTimer)clearInterval(clockTimer);
+  clockTimer=setInterval(()=>{timeLeftMs-=100;clockDisplay.textContent=Math.max(0,timeLeftMs/1000).toFixed(1);if(timeLeftMs<=0)fail('Time')},100);
+}
+
+function startRound(){
+  if(playing)return;playing=true;build();pickTargets();
+  start.disabled=true;start.textContent='Find '+level+' Target'+(level>1?'s':'');
+  startStrobe();startClock();
+}
+
+function end(){playing=false;start.disabled=false;start.textContent='Start Round';if(clockTimer)clearInterval(clockTimer);clockTimer=null;stopStrobe();update()}
+
+function win(){
+  const bonus=Math.max(0,Math.floor(timeLeftMs/100));
+  score+=(level*10)+bonus;streak++;
+  let leveled=false;
+  if(streak>=3){if(level<10){level++;leveled=true}streak=0}
+  show(leveled?'Level Up!':'Complete');end();
+}
+
+function fail(msg){
+  if(!playing)return;streak=0;
+  targets.forEach(t=>{const cell=cells.find(c=>Number(c.dataset.num)===t);if(cell&&!found.includes(t))cell.classList.add('reveal')});
+  show(msg);end();
+}
+
+function tap(cell){
+  if(!playing)return;const n=Number(cell.dataset.num);if(found.includes(n))return;
+  if(targets.includes(n)){found.push(n);cell.classList.add('hit');if(found.length===targets.length)win()}
+  else{cell.classList.add('wrong');fail('Wrong Tap')}
+}
+
+document.getElementById('fullscreen').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}};
+document.getElementById('menu').onclick=()=>location.href='/';
+document.getElementById('compete').onclick=()=>location.href='https://reactificgaming.com/compete/com-01.html';
+
+start.onclick=startRound;build();update();
+})();
+</script>
+</body>
+</html>
