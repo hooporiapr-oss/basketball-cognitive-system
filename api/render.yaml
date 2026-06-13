@@ -1,27 +1,97 @@
 services:
+
   - type: web
+
     name: reactific-api
+
     runtime: node
-    buildCommand: npm install
-    startCommand: node server.js
+
     plan: starter
+
+    rootDir: api
+
+    buildCommand: npm ci
+
+    startCommand: node server.js
+
+    healthCheckPath: /api/health
+
+    autoDeploy: true
+
     envVars:
+
+      # ─────────────────────────────
+      # Security
+      # ─────────────────────────────
+
+      - key: NODE_ENV
+        value: production
+
       - key: JWT_SECRET
         generateValue: true
+
+      # ─────────────────────────────
+      # Database
+      # ─────────────────────────────
+
       - key: DATABASE_URL
         fromDatabase:
           name: reactific-db
           property: connectionString
+
+      # ─────────────────────────────
+      # Stripe
+      # ─────────────────────────────
+
       - key: STRIPE_SECRET_KEY
         sync: false
+
       - key: STRIPE_WEBHOOK_SECRET
         sync: false
+
       - key: STRIPE_PRICE_ID
         sync: false
+
+      # ─────────────────────────────
+      # Frontend
+      # ─────────────────────────────
+
       - key: CLIENT_URL
-        value: https://reactific.co
+        value: https://reactificgaming.com
+
+      - key: COMPETE_URL
+        value: https://reactificgaming.com/compete/strobe-01-compete.html
+
+      - key: STRIPE_CANCEL_URL
+        value: https://reactificgaming.com/compete/com-01.html
+
+      # Multiple origins if needed later
+      - key: ALLOWED_ORIGINS
+        value: >
+          https://reactificgaming.com,
+          https://www.reactificgaming.com
+
+      # ─────────────────────────────
+      # Competition Controls
+      # ─────────────────────────────
+
+      - key: COMPETE_ENABLED
+        value: "true"
+
+      - key: LEADERBOARD_ENABLED
+        value: "true"
+
+      # Optional future event switches
+      - key: DAILY_CHALLENGE_ENABLED
+        value: "true"
+
+      - key: SCHOOL_COMPETITION_ENABLED
+        value: "true"
 
 databases:
+
   - name: reactific-db
+
     plan: starter
+
     postgresMajorVersion: 16
