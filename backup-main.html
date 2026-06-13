@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>REACTIFIC™ Kiosk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--black:#040404;--card:#0e0e12;--white:#eaeaea;--muted:#5e5e6a;--muted-light:#9292a0;--line:rgba(255,255,255,.06);--orange:#f28a1f;--orange-dark:#d97a1a;--cyan:#00bbf0;--border:rgba(255,255,255,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;overflow-x:hidden;overflow-y:auto;font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);-webkit-user-select:none;user-select:none;cursor:default}
+body{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+padding:24px;
+padding-bottom:140px;
+gap:20px
+}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 50% 40% at 10% 5%,rgba(0,187,240,.03),transparent),radial-gradient(ellipse 40% 35% at 90% 90%,rgba(242,138,31,.025),transparent);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.015) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+
+.banner{width:min(600px,80%);position:relative;z-index:1}
+.banner img{width:100%;height:auto;display:block}
+
+.main-game{position:relative;z-index:1;width:min(500px,85%)}
+.main-game a{display:flex;align-items:center;justify-content:center;gap:16px;padding:22px 32px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));border-radius:20px;text-decoration:none;color:#000;box-shadow:0 0 40px rgba(242,138,31,.2);transition:all .2s}
+.main-game a:active{transform:scale(.98)}
+.main-game-icon{font-size:2.2rem}
+.main-game-text{text-align:left}
+.main-game-title{font-family:'Red Hat Display',sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:.06em}
+.main-game-sub{font-size:.7rem;font-weight:600;opacity:.7}
+
+.games-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;width:min(700px,90%)}
+.game-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px 10px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-decoration:none;color:var(--white);transition:all .2s;position:relative;overflow:hidden}
+.game-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tc);opacity:.6}
+.game-tile:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04);transform:translateY(-2px)}
+.game-tile:active{transform:scale(.97)}
+.game-tile-icon{font-size:2rem}
+.game-tile-name{font-family:'Red Hat Display',sans-serif;font-size:.7rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;text-align:center;line-height:1.3}
+.game-tile-tag{font-size:.5rem;color:var(--muted);font-weight:600;letter-spacing:.06em}
+
+.compete-row{position:relative;z-index:1;width:min(500px,85%)}
+.compete-row a{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 28px;background:linear-gradient(135deg,var(--cyan),#0099cc);border-radius:16px;text-decoration:none;color:#000;box-shadow:0 0 30px rgba(0,187,240,.15);transition:all .2s}
+.compete-row a:active{transform:scale(.98)}
+.compete-title{font-family:'Red Hat Display',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:.06em}
+.compete-sub{font-size:.6rem;font-weight:600;opacity:.7}
+
+.fullscreen-btn{position:fixed;bottom:16px;right:16px;z-index:10;padding:8px 14px;border:1px solid var(--border);background:rgba(0,0,0,.6);color:var(--muted);border-radius:8px;font-size:.6rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.fullscreen-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.footer{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;font-size:.5rem;color:var(--muted-light);letter-spacing:.1em;font-weight:600}
+
+/* LARGE SCREENS (55"+) */
+@media(min-width:1200px){
+  .banner{width:min(700px,60%)}
+  .main-game{width:min(600px,70%)}
+  .main-game a{padding:28px 40px;border-radius:24px}
+  .main-game-icon{font-size:2.8rem}
+  .main-game-title{font-size:2rem}
+  .main-game-sub{font-size:.85rem}
+  .games-grid{width:min(900px,80%);gap:16px}
+  .game-tile{padding:24px 14px;border-radius:20px;gap:10px}
+  .game-tile-icon{font-size:2.6rem}
+  .game-tile-name{font-size:.85rem}
+  .game-tile-tag{font-size:.6rem}
+  .compete-row{width:min(600px,70%)}
+  .compete-row a{padding:22px 36px;border-radius:20px}
+  .compete-title{font-size:1.4rem}
+}
+
+/* TABLETS */
+@media(max-width:768px){
+  body{padding:16px;gap:14px}
+  .banner{width:min(400px,80%)}
+  .main-game{width:92%}
+  .main-game a{padding:18px 24px}
+  .main-game-title{font-size:1.3rem}
+  .games-grid{width:95%;gap:8px}
+  .game-tile{padding:14px 8px;gap:6px}
+  .game-tile-icon{font-size:1.6rem}
+  .game-tile-name{font-size:.65rem}
+  .compete-row{width:92%}
+}
+
+/* PHONES */
+@media(max-width:480px){
+  body{padding:10px 12px;gap:8px;overflow-y:auto;justify-content:flex-start;padding-top:16px;padding-bottom:40px}
+  .banner{width:88%;margin:0 auto}
+  .banner img{border-radius:8px}
+  .main-game{width:100%}
+  .main-game a{padding:14px 16px;border-radius:12px;gap:10px}
+  .main-game-icon{font-size:1.6rem}
+  .main-game-title{font-size:1.05rem;letter-spacing:.04em}
+  .main-game-sub{font-size:.6rem}
+  .games-grid{width:100%;grid-template-columns:repeat(3,1fr);gap:6px}
+  .game-tile{padding:10px 6px;gap:4px;border-radius:10px}
+  .game-tile::before{height:2px}
+  .game-tile-icon{font-size:1.2rem;margin-bottom:0}
+  .game-tile-name{font-size:.52rem;letter-spacing:.02em;line-height:1.2}
+  .game-tile-tag{font-size:.42rem}
+  .compete-row{width:100%}
+  .compete-row a{padding:12px 16px;border-radius:12px;gap:8px}
+  .compete-title{font-size:.9rem;letter-spacing:.04em}
+  .compete-sub{font-size:.55rem}
+  .fullscreen-btn{display:none}
+  .footer{font-size:.45rem;bottom:8px}
+  .footer div{gap:10px}
+  .footer a{font-size:.45rem}
+}
+
+/* SMALL PHONES */
+@media(max-width:375px){
+  body{padding:8px 10px;gap:6px}
+  .banner{width:92%}
+  .main-game a{padding:12px 14px}
+  .main-game-icon{font-size:1.4rem}
+  .main-game-title{font-size:.95rem}
+  .games-grid{gap:4px}
+  .game-tile{padding:8px 4px;gap:3px;border-radius:8px}
+  .game-tile-icon{font-size:1rem}
+  .game-tile-name{font-size:.48rem}
+  .game-tile-tag{display:none}
+  .compete-row a{padding:10px 14px}
+  .compete-title{font-size:.82rem}
+}
+
+/* VERY SMALL / SE */
+@media(max-width:340px){
+  body{padding:6px 8px;gap:5px}
+  .banner{width:95%}
+  .main-game a{padding:10px 12px}
+  .main-game-title{font-size:.88rem}
+  .main-game-sub{font-size:.5rem}
+  .games-grid{gap:3px}
+  .game-tile{padding:7px 3px;gap:2px}
+  .game-tile-icon{font-size:.9rem}
+  .game-tile-name{font-size:.45rem}
+  .compete-title{font-size:.75rem}
+  .compete-sub{font-size:.48rem}
+}
+
+/* SHORT PHONES (landscape or short viewport) */
+@media(max-height:600px){
+  body{justify-content:flex-start;overflow-y:auto;padding-top:12px}
+  .banner{width:min(280px,70%)}
+  .main-game a{padding:10px 16px}
+  .game-tile{padding:8px 4px}
+  .game-tile-icon{font-size:1rem}
+}
+
+/* COMPETE DROPDOWN */
+.compete-dropdown{width:min(500px,85%);position:relative;z-index:1}
+.compete-toggle{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px;background:linear-gradient(135deg,var(--cyan),#0099cc);border-radius:16px;border:none;color:#000;cursor:pointer;box-shadow:0 0 30px rgba(0,187,240,.15);transition:all .2s}
+.compete-toggle:active{transform:scale(.98)}
+.compete-toggle-text{text-align:center}
+.compete-toggle .compete-title{font-family:'Red Hat Display',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:.06em}
+.compete-toggle .compete-sub{font-size:.6rem;font-weight:600;opacity:.7}
+.compete-arrow{font-size:.7rem;transition:transform .3s;opacity:.7}
+.compete-toggle.open .compete-arrow{transform:rotate(180deg)}
+.compete-panel{max-height:0;overflow:hidden;transition:max-height .4s ease-out;width:100%}
+.compete-panel.open{max-height:800px}
+.compete-inner{padding:10px 0 0}
+.compete-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px;margin-bottom:8px}
+.compete-lang{display:flex;justify-content:center;gap:4px;margin-bottom:10px}
+.compete-lang button{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:999px;padding:4px 10px;font-family:'DM Sans',sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .2s}
+.compete-lang button.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
+.compete-features{list-style:none}
+.compete-features li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.78rem;color:var(--white)}
+.compete-features li:last-child{border-bottom:none}
+.compete-features .cf-icon{font-size:1.1rem;flex-shrink:0}
+.compete-features .cf-text{flex:1}
+.compete-features .cf-text strong{color:var(--orange);font-weight:700}
+.compete-features .cf-desc{display:block;font-size:.65rem;color:var(--muted);margin-top:2px}
+.compete-cta{margin-top:12px}
+.compete-cta a{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#000;border-radius:12px;font-family:'Red Hat Display',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.06em;text-align:center;text-decoration:none;box-shadow:0 0 16px rgba(242,138,31,.2);transition:all .2s}
+.compete-cta a:active{transform:scale(.98)}
+.cl-block{display:none}
+.compete-card.cl-en .cl-en{display:block}
+.compete-card.cl-es .cl-es{display:block}
+@media(max-width:480px){
+  .compete-dropdown{width:100%}
+  .compete-toggle{padding:12px 16px;border-radius:12px}
+  .compete-toggle .compete-title{font-size:.9rem}
+  .compete-toggle .compete-sub{font-size:.55rem}
+  .compete-card{padding:14px 12px}
+  .compete-features li{font-size:.72rem;padding:6px 0}
+  .compete-features .cf-icon{font-size:.95rem}
+  .compete-features .cf-desc{font-size:.58rem}
+}
+@media(max-width:375px){
+  .compete-toggle .compete-title{font-size:.82rem}
+  .compete-features li{font-size:.65rem}
+}
+@media(max-width:340px){
+  .compete-toggle .compete-title{font-size:.75rem}
+  .compete-toggle .compete-sub{font-size:.48rem}
+}
+@media(min-width:1200px){
+  .compete-dropdown{width:min(600px,70%)}
+  .compete-toggle{padding:22px 36px;border-radius:20px}
+  .compete-toggle .compete-title{font-size:1.4rem}
+  .compete-features li{font-size:.88rem;padding:10px 0}
+  .compete-features .cf-icon{font-size:1.3rem}
+}
+
+/* LEADERBOARD DROPDOWN */
+.lb-dropdown{width:min(500px,85%);position:relative;z-index:1}
+.lb-toggle{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;background:var(--card);border:1px solid var(--border);border-radius:14px;color:var(--white);cursor:pointer;transition:all .2s}
+.lb-toggle:active{transform:scale(.98)}
+.lb-toggle:hover{border-color:var(--orange-border)}
+.lb-toggle-text{font-family:'Red Hat Display',sans-serif;font-size:.95rem;font-weight:900;letter-spacing:.05em}
+.lb-arrow{font-size:.7rem;color:var(--muted);transition:transform .3s}
+.lb-toggle.open .lb-arrow{transform:rotate(180deg)}
+.lb-panel{max-height:0;overflow:hidden;transition:max-height .4s ease-out;width:100%}
+.lb-panel.open{max-height:1000px}
+.lb-inner{padding:10px 0 0}
+.lb-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;overflow:hidden}
+.lb-filters{display:flex;gap:4px;margin-bottom:8px}
+.lb-filter{flex:1;padding:6px;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:6px;font-family:'Red Hat Display',sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.03em;cursor:pointer;transition:all .2s;text-align:center}
+.lb-filter.active{background:var(--orange);color:#000;border-color:var(--orange)}
+.lb-periods{display:flex;gap:4px;margin-bottom:10px}
+.lb-period{flex:1;padding:5px;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:6px;font-family:'Red Hat Display',sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.03em;cursor:pointer;transition:all .2s;text-align:center}
+.lb-period.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
+.lb-list{list-style:none}
+.lb-row{display:flex;align-items:center;gap:8px;padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.04)}
+.lb-row:last-child{border-bottom:none}
+.lb-pos{font-family:'Red Hat Display',sans-serif;font-size:.85rem;font-weight:900;color:var(--muted);min-width:24px;text-align:center}
+.lb-row:nth-child(1) .lb-pos{color:var(--gold)}
+.lb-row:nth-child(2) .lb-pos{color:#c0c0c0}
+.lb-row:nth-child(3) .lb-pos{color:#cd7f32}
+.lb-user{flex:1;font-size:.75rem;font-weight:600;color:var(--white)}
+.lb-pts{font-family:'Red Hat Display',sans-serif;font-size:.8rem;font-weight:900;color:var(--cyan)}
+.lb-lvl{font-size:.55rem;color:var(--muted);font-weight:600}
+.lb-empty{text-align:center;padding:20px;color:var(--muted);font-size:.75rem}
+.lb-loading{text-align:center;padding:20px;color:var(--muted);font-size:.7rem}
+.lb-cta{text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.lb-cta a{color:var(--orange);font-size:.65rem;font-weight:700;letter-spacing:.04em;text-decoration:none}
+.lb-cta a:hover{text-decoration:underline}
+@media(max-width:480px){
+  .lb-dropdown{width:100%}
+  .lb-toggle{padding:10px 16px;border-radius:12px}
+  .lb-toggle-text{font-size:.82rem}
+  .lb-card{padding:10px}
+  .lb-row{padding:6px 2px}
+  .lb-pos{font-size:.75rem;min-width:20px}
+  .lb-user{font-size:.68rem}
+  .lb-pts{font-size:.72rem}
+}
+@media(max-width:375px){
+  .lb-toggle-text{font-size:.75rem}
+  .lb-filter{font-size:.48rem;padding:5px}
+  .lb-period{font-size:.45rem;padding:4px}
+}
+@media(min-width:1200px){
+  .lb-dropdown{width:min(600px,70%)}
+  .lb-toggle{padding:18px 32px;border-radius:18px}
+  .lb-toggle-text{font-size:1.2rem}
+  .lb-row{padding:10px 6px}
+  .lb-user{font-size:.85rem}
+  .lb-pts{font-size:.9rem}
+}
+</style>
+</head>
+<body>
+
+<div class="banner"><img src="/banner.png" alt="Reactific — The Home of Reaction Gaming"></div>
+
+<div class="main-game">
+  <a href="/strobe-01.html">
+    <div class="main-game-icon">⏱️</div>
+    <div class="main-game-text">
+      <div class="main-game-title">PRACTICE REACTIFIC</div>
+      <div class="main-game-sub">The Open Court — Free Practice</div>
+    </div>
+  </a>
+</div>
+
+<div class="games-grid">
+  <a href="/strobe-02.html" class="game-tile" style="--tc:#FF6B35">
+    <div class="game-tile-icon">🔥</div>
+    <div class="game-tile-name">Pattern Recognition</div>
+    <div class="game-tile-tag">Visual Scanning</div>
+  </a>
+  <a href="/strobe-03.html" class="game-tile" style="--tc:#9B59B6">
+    <div class="game-tile-icon">⚡</div>
+    <div class="game-tile-name">Reaction Control</div>
+    <div class="game-tile-tag">Tap Speed</div>
+  </a>
+  <a href="/strobe-04.html" class="game-tile" style="--tc:#00CED1">
+    <div class="game-tile-icon">🧠</div>
+    <div class="game-tile-name">Flash Recall</div>
+    <div class="game-tile-tag">Short-Term Memory</div>
+  </a>
+  <a href="/strobe-05.html" class="game-tile" style="--tc:#00D9A5">
+    <div class="game-tile-icon">🎯</div>
+    <div class="game-tile-name">Sequence Control</div>
+    <div class="game-tile-tag">Sustained Attention</div>
+  </a>
+  <a href="/strobe-06.html" class="game-tile" style="--tc:#9ACD32">
+    <div class="game-tile-icon">👁️</div>
+    <div class="game-tile-name">Echo Recall</div>
+    <div class="game-tile-tag">Change Detection</div>
+  </a>
+</div>
+
+<div class="compete-dropdown">
+  <button class="compete-toggle" id="competeToggle" onclick="toggleCompete()">
+    <div class="compete-toggle-text">
+      <div class="compete-title">🏆 PLAY REACTIFIC</div>
+      <div class="compete-sub">Leaderboards · Rankings · Compete</div>
+    </div>
+    <span class="compete-arrow">▼</span>
+  </button>
+  <div class="compete-panel" id="competePanel">
+    <div class="compete-inner">
+      <div class="compete-card cl-en" id="competeCard">
+        <div class="compete-lang">
+          <button class="active" id="clEN" onclick="setCompeteLang('en')">English</button>
+          <button id="clES" onclick="setCompeteLang('es')">Español</button>
+        </div>
+        <ul class="compete-features">
+          <li>
+            <span class="cf-icon">🏆</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Leaderboards</strong><span class="cf-desc">See where you rank against every player. Daily, weekly, all-time.</span></div>
+              <div class="cl-block cl-es"><strong>Rankings</strong><span class="cf-desc">Mira dónde estás contra todos los jugadores. Diario, semanal, histórico.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">⚡</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Shot Clock Challenges</strong><span class="cf-desc">Official timed events. Beat the clock or go home.</span></div>
+              <div class="cl-block cl-es"><strong>Retos Shot Clock</strong><span class="cf-desc">Eventos oficiales cronometrados. Vence el reloj o vete.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">🔥</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Daily Challenges</strong><span class="cf-desc">New rounds every day. New pressure. New chance to climb.</span></div>
+              <div class="cl-block cl-es"><strong>Retos Diarios</strong><span class="cf-desc">Nuevas rondas cada día. Nueva presión. Nueva oportunidad.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">🥇</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Ranked Competition</strong><span class="cf-desc">Every round counts. Every score posts. Every rank earned.</span></div>
+              <div class="cl-block cl-es"><strong>Competencia Clasificatoria</strong><span class="cf-desc">Cada ronda cuenta. Cada puntuación se publica. Cada rango se gana.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">👥</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Team Competition</strong><span class="cf-desc">Compete together. Schools vs schools. Squad vs squad.</span></div>
+              <div class="cl-block cl-es"><strong>Competencia en Equipo</strong><span class="cf-desc">Compite en equipo. Escuela vs escuela. Equipo vs equipo.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">📈</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Score History</strong><span class="cf-desc">Track every session. See your improvement over time.</span></div>
+              <div class="cl-block cl-es"><strong>Historial de Puntos</strong><span class="cf-desc">Rastrea cada sesión. Ve tu mejora con el tiempo.</span></div>
+            </div>
+          </li>
+          <li>
+            <span class="cf-icon">🏅</span>
+            <div class="cf-text">
+              <div class="cl-block cl-en"><strong>Recognition</strong><span class="cf-desc">Earn your place. Top players get seen.</span></div>
+              <div class="cl-block cl-es"><strong>Reconocimiento</strong><span class="cf-desc">Gana tu lugar. Los mejores jugadores se destacan.</span></div>
+            </div>
+          </li>
+        </ul>
+        <div class="compete-cta">
+          <a href="/compete/com-01.html">
+            <span class="cl-block cl-en">ENTER THE COMPETITIVE COURT</span>
+            <span class="cl-block cl-es">ENTRA A LA CANCHA COMPETITIVA</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="lb-dropdown">
+  <button class="lb-toggle" id="lbToggle" onclick="toggleLB()">
+    <span class="lb-toggle-text">📊 LEADERBOARD</span>
+    <span class="lb-arrow">▼</span>
+  </button>
+  <div class="lb-panel" id="lbPanel">
+    <div class="lb-inner">
+      <div class="lb-card">
+        <div class="lb-filters">
+          <button class="lb-filter active" data-speed="slow" onclick="lbSpeed('slow')">:05 CLOCK</button>
+          <button class="lb-filter" data-speed="med" onclick="lbSpeed('med')">:03 CLOCK</button>
+          <button class="lb-filter" data-speed="fast" onclick="lbSpeed('fast')">:02 CLOCK</button>
+        </div>
+        <div class="lb-periods">
+          <button class="lb-period active" data-period="daily" onclick="lbPeriod('daily')">DAILY</button>
+          <button class="lb-period" data-period="weekly" onclick="lbPeriod('weekly')">WEEKLY</button>
+          <button class="lb-period" data-period="alltime" onclick="lbPeriod('alltime')">ALL-TIME</button>
+        </div>
+        <div id="lbList"><div class="lb-loading">Loading...</div></div>
+        <div class="lb-cta"><a href="/compete/com-01.html">Want your name here? Enter The Competitive Court →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="fullscreen-btn" onclick="goFull()">⛶ FULLSCREEN</button>
+
+<div class="footer">
+  © GOSTAR DIGITAL LLC
+  <div style="margin-top:5px;display:flex;justify-content:center;gap:14px">
+    <a href="/privacy.html" style="color:#9292a0;text-decoration:none;font-size:.5rem;font-weight:600;letter-spacing:.08em">Privacy</a>
+    <a href="/terms.html" style="color:#9292a0;text-decoration:none;font-size:.5rem;font-weight:600;letter-spacing:.08em">Terms</a>
+  </div>
+</div>
+
+<script>
+function goFull(){
+  var el=document.documentElement;
+  if(el.requestFullscreen)el.requestFullscreen();
+  else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+  else if(el.msRequestFullscreen)el.msRequestFullscreen();
+}
+
+// Auto-hide cursor after 3 seconds of no movement
+var cursorTimer;
+document.addEventListener('mousemove',function(){
+  document.body.style.cursor='default';
+  clearTimeout(cursorTimer);
+  cursorTimer=setTimeout(function(){document.body.style.cursor='none'},3000);
+});
+
+// Prevent right-click context menu on kiosk
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+
+function toggleCompete(){
+  document.getElementById('competeToggle').classList.toggle('open');
+  document.getElementById('competePanel').classList.toggle('open');
+}
+function setCompeteLang(lang){
+  var card=document.getElementById('competeCard');
+  card.classList.remove('cl-en','cl-es');
+  card.classList.add('cl-'+lang);
+  document.getElementById('clEN').classList.toggle('active',lang==='en');
+  document.getElementById('clES').classList.toggle('active',lang==='es');
+}
+
+var currentLBSpeed='slow',currentLBPeriod='daily';
+function toggleLB(){
+  var t=document.getElementById('lbToggle');
+  var p=document.getElementById('lbPanel');
+  t.classList.toggle('open');
+  p.classList.toggle('open');
+  if(p.classList.contains('open'))fetchLB();
+}
+function lbSpeed(s){
+  currentLBSpeed=s;
+  document.querySelectorAll('.lb-filter').forEach(function(b){b.classList.toggle('active',b.dataset.speed===s)});
+  fetchLB();
+}
+function lbPeriod(p){
+  currentLBPeriod=p;
+  document.querySelectorAll('.lb-period').forEach(function(b){b.classList.toggle('active',b.dataset.period===p)});
+  fetchLB();
+}
+function fetchLB(){
+  var list=document.getElementById('lbList');
+  list.innerHTML='<div class="lb-loading">Loading...</div>';
+  fetch('https://api.reactificgaming.com/api/leaderboard/'+currentLBPeriod+'?speed='+currentLBSpeed+'&limit=10')
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(!data.entries||data.entries.length===0){
+        list.innerHTML='<div class="lb-empty">No scores yet. Be the first!</div>';
+        return;
+      }
+      var html='<div class="lb-list">';
+      data.entries.forEach(function(e){
+        html+='<div class="lb-row">';
+        html+='<div class="lb-pos">#'+e.rank+'</div>';
+        html+='<div class="lb-user">'+e.username+'</div>';
+        html+='<div class="lb-pts">'+e.score+'</div>';
+        html+='<div class="lb-lvl">L'+e.level+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+      list.innerHTML=html;
+    })
+    .catch(function(){
+      list.innerHTML='<div class="lb-empty">Could not load leaderboard</div>';
+    });
+}
+</script>
+</body>
+</html>
