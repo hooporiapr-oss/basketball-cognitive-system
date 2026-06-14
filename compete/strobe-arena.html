@@ -7,12 +7,10 @@
 
 <style>
 :root{
-  --blue:#008cff;
   --cyan:#00d9ff;
   --orange:#ff6b00;
   --gold:#d4af37;
   --dark:#02050a;
-  --card:#07111f;
   --text:#ffffff;
   --muted:#9aa7b8;
 }
@@ -114,7 +112,9 @@ h1{
   font-style:italic;
 }
 
-h1 span{color:var(--orange)}
+h1 span{
+  color:var(--orange);
+}
 
 .sub{
   max-width:760px;
@@ -223,21 +223,10 @@ h1 span{color:var(--orange)}
 }
 
 @media(max-width:760px){
-  .top{
-    flex-direction:column;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  h1{
-    font-size:3rem;
-  }
-
-  .court{
-    gap:4px;
-  }
+  .top{flex-direction:column}
+  .grid{grid-template-columns:1fr}
+  h1{font-size:3rem}
+  .court{gap:4px}
 }
 </style>
 </head>
@@ -248,7 +237,6 @@ h1 span{color:var(--orange)}
   <div class="top">
     <div class="brand">
       <div class="logo">Reactific™</div>
-
       <div class="lang-wrap">
         <button id="langEN" class="lang active">EN</button>
         <button id="langES" class="lang">ES</button>
@@ -264,8 +252,7 @@ h1 span{color:var(--orange)}
     <h1>Reactific<br><span>Strobe Arena</span></h1>
 
     <p class="sub" id="sub">
-      The official 5×10 Reactific competition court. Enter the arena, beat the shot clock,
-      handle the strobe, rise through challenges, and compete for leaderboard position.
+      The official 5×10 Reactific competition court. Enter the arena, beat the shot clock, handle the strobe, and climb the leaderboard.
     </p>
 
     <div class="ctas">
@@ -282,12 +269,12 @@ h1 span{color:var(--orange)}
 
     <div class="card">
       <h3 id="c2">Strobe Pressure</h3>
-      <p id="p2">Train reaction under visual disruption with controlled strobe intensity and BPM rhythm.</p>
+      <p id="p2">Compete under strobe intensity, BPM rhythm, and shot-clock pressure.</p>
     </div>
 
     <div class="card">
-      <h3 id="c3">Leaderboard Ready</h3>
-      <p id="p3">Subscribers compete, post scores, and climb the Reactific Arena rankings.</p>
+      <h3 id="c3">Auto Leaderboard</h3>
+      <p id="p3">Scores automatically load to the Reactific Arena leaderboard.</p>
     </div>
   </section>
 
@@ -311,28 +298,28 @@ h1 span{color:var(--orange)}
 const T={
   en:{
     kicker:"Competition Mode",
-    sub:"The official 5×10 Reactific competition court. Enter the arena, beat the shot clock, handle the strobe, rise through challenges, and compete for leaderboard position.",
+    sub:"The official 5×10 Reactific competition court. Enter the arena, beat the shot clock, handle the strobe, and climb the leaderboard.",
     enter:"Enter Arena",
     practice:"Practice 5×5",
     c1:"5×10 Arena",
     p1:"More space. More scanning. More pressure. Built for desktop, tablet, and Promethean screens.",
     c2:"Strobe Pressure",
-    p2:"Train reaction under visual disruption with controlled strobe intensity and BPM rhythm.",
-    c3:"Leaderboard Ready",
-    p3:"Subscribers compete, post scores, and climb the Reactific Arena rankings.",
+    p2:"Compete under strobe intensity, BPM rhythm, and shot-clock pressure.",
+    c3:"Auto Leaderboard",
+    p3:"Scores automatically load to the Reactific Arena leaderboard.",
     footer:"Practice builds skill. The Reactific Strobe Arena™ tests it."
   },
   es:{
     kicker:"Modo Competencia",
-    sub:"La cancha oficial Reactific 5×10. Entra a la arena, vence el shot clock, controla el strobe, supera desafíos y compite por posición en el leaderboard.",
+    sub:"La cancha oficial Reactific 5×10. Entra a la arena, vence el shot clock, controla el strobe y sube en el leaderboard.",
     enter:"Entrar Arena",
     practice:"Practicar 5×5",
     c1:"Arena 5×10",
     p1:"Más espacio. Más escaneo visual. Más presión. Diseñada para desktop, tablet y pantallas Promethean.",
     c2:"Presión Strobe",
-    p2:"Entrena reacción bajo interrupción visual con intensidad strobe controlada y ritmo BPM.",
-    c3:"Lista Para Leaderboard",
-    p3:"Los suscriptores compiten, publican puntuaciones y suben en el ranking de Reactific Arena.",
+    p2:"Compite bajo intensidad strobe, ritmo BPM y presión de shot clock.",
+    c3:"Leaderboard Automático",
+    p3:"Las puntuaciones se cargan automáticamente al leaderboard de Reactific Arena.",
     footer:"La práctica construye la habilidad. Reactific Strobe Arena™ la pone a prueba."
   }
 };
